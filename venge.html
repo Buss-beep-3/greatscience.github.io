@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Page</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
+    button {
+      background-color: white;
+      color: black;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="downloadFile()">Download File</button>
+
+  <script>
+    function downloadFile() {
+      // Replace 'your-file-path' with the actual path or URL of the file you want to download
+      const fileUrl = 'mlb/';
+      
+      // Creating a temporary link element
+      const link = document.createElement('a');
+      link.href = fileUrl;
+
+      // Specify the filename for the download
+      link.download = 'venge.io.html';
+
+      // Triggering the click event on the link
+      document.body.appendChild(link);
+      link.click();
+
+      // Removing the link from the DOM
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
