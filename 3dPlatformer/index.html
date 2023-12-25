@@ -1,0 +1,960 @@
+<!DOCTYPE html><html><head><title>3D Platformer</title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui=1"><meta charset="UTF-8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="description" content=""><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon64.png"><link rel="apple-touch-icon" sizes="180x180" href="icon180.png"><link rel="icon" type="image/png" sizes="32x32" href="icon32.png"><link rel="icon" type="image/png" sizes="16x16" href="icon16.png"><style>html,body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow:hidden;
+  font-family: Verdana;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#canvaswrapper {
+  text-align: center ;
+}
+</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><style>@font-face { font-family: "PixelOperator" ; src: url("fonts/PixelOperator.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell","PixelOperator"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"icon.png","version":7,"size":6379,"properties":{"frames":1,"fps":5}},{"file":"poster.png","version":1,"size":30457,"properties":{"frames":1,"fps":5}},{"file":"sprite.png","version":37,"size":132,"properties":{"frames":1,"fps":5}}],"assets":[],"maps":{},"sounds":[],"music":[]};
+var graphics = "M1";
+
+</script><script type="text/javascript">var orientation = 'any' ;
+var aspect = '2x1' ;
+var ms_libs = [] ;
+window.skip_service_worker = true;
+window.exported_project = true;
+window.ms_use_server = false ;
+</script><script src="parser.js"></script><script src="program.js"></script><script src="token.js"></script><script src="tokenizer.js"></script><script src="jstranspiler.js"></script><script src="runner_v1_t.js"></script><script src="microengine.js"></script></body><script type="text/javascript">//
+//
+// The game is started with the code below.
+// Once you have received the "started" signal (see below),
+// you can do the following:
+// 1) Inject functions or objects into the global context of the microStudio engine, example:
+//
+//   window.player.setGlobal("special_callback",function(x) { console.info(x) }) ;
+//   // Your microScript code can now call the "special_callback" function
+//
+// 2) Call microScript global functions from your JavaScript code, example:
+//
+//   window.player.call("call_me_from_javascript",[10,1000]) ;
+//   // arguments to the function call are provided as an array
+//
+// 3) Run a microScript code snippet from your JavaScript code, example:
+//
+//   window.player.exec("player.position_x = 50",function(result) { console.log(result) ; }) ;
+//
+
+window.addEventListener("load",function() {
+  window.player = new Player(function(event) {
+    if (event.name == "started") {
+      // signal that the game is started
+    }
+    else if (event.name == "log") {
+      // console.info(event.data) ;
+    }
+  }) ;
+  document.body.focus() ;
+}) ;
+
+</script><script id="code" type="text/x-microscript">
+
+// Normal levels
+addcubes=function()
+  cubepx=[] // Clear lists
+  cubepy=[]
+  cubepz=[]
+  cubeR=[]
+  cubeG=[]
+  cubeB=[]
+  cubewidth=[]
+  cubeheight=[]
+  cubedepth=[]
+  hitboxtype=[]
+  distances=[]
+  order=[]
+  iscommunity=0
+  if level==1 then
+    addcube(0,-100,0,200,50,200,0,0,255,0) // Add different cubes depending on level
+    addcube(0,-100,760,200,50,200,0,0,255,0)
+    addcube(0,-100,1160,200,50,200,0,255,0,1)
+  elsif level==2 then
+    addcube(0,-100,0,200,50,200,0,0,255,0)
+    addcube(150,-100,550,100,50,100,0,0,255,0)
+    addcube(-150,-100,900,100,50,100,0,0,255,0)
+    addcube(150,-100,1250,100,50,100,0,0,255,0)
+    addcube(-150,-100,1600,100,50,100,0,255,0,1)
+  elsif level==3 then
+    addcube(0,-100,0,200,50,200,0,0,255,0)
+    addcube(0,-100,300,200,50,100,255,0,0,2)
+    addcube(0,-100,500,200,50,100,0,0,255,0)
+    addcube(0,-100,700,200,50,100,255,0,0,2)
+    addcube(0,-100,900,200,50,100,0,0,255,0)
+    addcube(0,-100,1100,200,50,100,255,0,0,2)
+    addcube(0,-100,1300,200,50,100,0,255,0,1)
+  elsif level==4 then
+    addcube(0,-100,170,200,50,200,0,0,255,0)
+    addcube(0,-100,570,200,50,200,0,0,255,0)
+    addcube(0,-100,970,200,50,200,0,0,255,0)
+    addcube(0,-100,1370,200,50,200,0,0,255,0)
+    addcube(0,0,400,200,50,20,255,0,0,2)
+    addcube(0,0,800,200,50,20,255,0,0,2)
+    addcube(0,0,1200,200,50,20,255,0,0,2)
+    addcube(0,0,1600,200,50,20,255,0,0,2)
+    addcube(0,-100,1770,200,50,200,0,255,0,1)
+  elsif level==5 then
+    addcube(0,-100,100,200,50,200,0,0,255,0)
+    addcube(0,200*sin(globaltime*2)-100,320,200,100,20,255,0,0,2)
+    addcube(0,-100,540,200,50,200,0,0,255,0)
+    addcube(0,200*sin((globaltime+1)*2)-100,760,200,100,20,255,0,0,2)
+    addcube(0,-100,980,200,50,200,0,0,255,0)
+    addcube(0,200*sin(globaltime*2)-100,1200,200,100,20,255,0,0,2)
+    addcube(0,-100,1420,200,50,200,0,0,255,0)
+    addcube(0,50,1600,50,50,50,0,255,0,1)
+  elsif level==6 then
+    addcube(0,-100,200,500,50,400,0,0,255,0)
+    addcube(0,300,650,500,350,50,0,0,255,0)
+    addcube(0,-50,500,100,10,100,255,0,255,3)
+    addcube(300,350,500,200,10,100,0,0,255,0)
+    addcube(-300,350,500,200,10,100,0,0,255,0)
+    addcube(0,500,500,300,10,100,0,0,255,0)
+    addcube(0,550,500,50,50,50,0,255,0,1)
+  elsif level==7 then
+    addcube(0,-100,0,300,50,50,0,0,255,0)
+    addcube(0,150,350,300,450,300,0,0,255,0)
+    addcube(350,0,350,50,50,300,0,0,255,0)
+    addcube(0,100,700,300,50,50,0,0,255,0)
+    addcube(-350,200,350,50,50,300,0,0,255,0)
+    addcube(0,300,0,300,50,50,0,0,255,0)
+    addcube(0,650,350,50,50,50,0,255,0,1)
+  elsif level==8 then
+    addcube(0,-100,50,200,50,200,0,0,255,0)
+    addcube(0,-100,375,40,50,125,0,0,255,0)
+    addcube(0,100,510,40,150,10,0,0,255,0)
+    addcube(0,-100,645,40,50,125,0,0,255,0)
+    addcube(0,100,780,40,150,10,0,0,255,0)
+    addcube(0,-100,915,40,50,125,0,0,255,0)
+    addcube(0,100,1050,40,150,10,0,0,255,0)
+    addcube(0,-100,1185,40,50,125,0,0,255,0)
+    addcube(0,100,1320,40,150,10,0,0,255,0)
+    addcube(0,-100,1455,40,50,125,0,0,255,0)
+    addcube(0,-100,1630,40,50,50,255,0,255,3)
+    addcube(0,320,800,40,50,700,0,0,255,0)
+    addcube(0,320,50,40,50,50,0,255,0,1)
+  elsif level==9 then
+    addcube(0,-100,50,200,50,200,0,0,255,0)
+    addcube(0,-100,375,30,50,125,0,0,255,0)
+    addcube(0,100,510,30,150,10,255,0,0,2)
+    addcube(0,-100,645,30,50,125,0,0,255,0)
+    addcube(0,100,780,30,150,10,255,0,0,2)
+    addcube(0,-100,915,30,50,125,0,0,255,0)
+    addcube(0,100,1050,30,150,10,255,0,0,2)
+    addcube(-155,-100,1030,125,50,30,0,0,255,0)
+    addcube(-310,-100,1125,30,50,125,0,0,255,0)
+    addcube(-310,-100,1300,50,50,50,0,255,0,1)
+  elsif level==10 then
+    addcube(0,-100,0,400,50,400,0,0,255,0)
+    addcube(0,1900-globaltime*120,0,400,50,400,0,255,0,1)
+    addcube(0,1700-globaltime*120,0,300,50,400,255,0,0,2)
+    addcube(200,1300-globaltime*120,0,200,50,400,255,0,0,2)
+    addcube(0,900-globaltime*120,-200,400,50,200,255,0,0,2)
+    addcube(-200,500-globaltime*120,0,200,50,400,255,0,0,2)
+  elsif level==11 then
+    addcube(0,-100,0,200,50,200,0,0,255,0)
+    addcube(-150,-100,500,20,50,200,0,0,255,0)
+    addcube(-150,0,280,20,150,20,0,0,255,0)
+    addcube(-150,0,720,20,150,20,0,0,255,0)
+    addcube(150,-100,1000,20,50,200,0,0,255,0)
+    addcube(150,0,780,20,150,20,0,0,255,0)
+    addcube(150,0,1220,20,150,20,0,0,255,0)
+    addcube(-150,-100,1500,20,50,200,0,0,255,0)
+    addcube(-150,0,1280,20,150,20,0,0,255,0)
+    addcube(-150,0,1720,20,150,20,0,0,255,0)
+    addcube(150,-100,2000,20,50,200,0,0,255,0)
+    addcube(150,0,1780,20,150,20,0,0,255,0)
+    addcube(150,0,2220,20,150,20,0,0,255,0)
+    addcube(-150,-100,2200,100,50,100,0,255,0,1)
+  elsif level==12 then
+    addcube(0,-100,0,200,50,200,0,0,255,0)
+    addcube(200,-200,550,50,50,50,0,0,255,0)
+    addcube(50,-50,700,50,50,50,0,0,255,0)
+    addcube(250,-50,1100,50,50,50,0,0,255,0)
+    addcube(-150,0,1200,50,50,50,0,0,255,0)
+    addcube(-450,0,1000,50,50,50,0,0,255,0)
+    addcube(-750,0,1200,50,50,50,255,0,255,3)
+    addcube(-500,0,1550,50,50,50,255,0,255,3)
+    addcube(-550,300,1800,140,50,80,0,0,255,0)
+    addcube(-350,350,1400,50,50,50,0,0,255,0)
+    addcube(-150,450,1000,50,50,50,0,255,0,1)
+  elsif level==13 then
+    timing=0
+    level=1
+    mode="end"
+  end
+end
+
+//Community levels, same thing but with different levels made by the community
+addcommunitylevels=function()
+  cubepx=[] // Clear lists
+  cubepy=[]
+  cubepz=[]
+  cubeR=[]
+  cubeG=[]
+  cubeB=[]
+  cubewidth=[]
+  cubeheight=[]
+  cubedepth=[]
+  hitboxtype=[]
+  distances=[]
+  order=[]
+  if level==1 then
+    addcube(0,-100,170,200,50,200,0,0,255,0)
+    addcube(0,-100,570,200,50,200,0,255,100,2)
+    addcube(0,-100,970,200,50,200,0,255,100,2)
+    addcube(0,-100,1370,200,50,200,0,255,100,0)
+    addcube(0,0,400,200,50,20,255,0,255,0)
+    addcube(0,0,800,200,50,20,255,0,255,0)
+    addcube(0,0,1200,200,50,20,255,0,255,0)
+    addcube(0,0,1600,200,50,20,255,0,255,2)
+    addcube(0,-100,1770,200,50,200,200,0,0,1)
+  elsif level==2 then
+    level=1
+    timing=0
+    mode="end"
+  end
+end
+
+addlevelnames=function()
+  levelnames=[]
+  levelnames.push("The basics")
+  levelnames.push("Zig-zag")
+  levelnames.push("Lava???")
+  levelnames.push("Hurdles")
+  levelnames.push("They can move?")
+  levelnames.push("Bouncy")
+  levelnames.push("Up and around")
+  levelnames.push("Does anyone read this?")
+  levelnames.push("Getting harder")
+  levelnames.push("Look up!")
+  levelnames.push("Zig-zag part 2")
+  levelnames.push("Precision")
+end
+
+addcommunitynames=function()
+  communitylevels=[]
+  communitylevels.push("Confusion - Abr00")
+  iscommunity=1
+end
+
+addcube=function(x,y,z,width,height,depth,r,g,b,cubetype)
+  cubepx.push(x)
+  cubepy.push(y)
+  cubepz.push(z)
+  adddistance(x,y,z)
+  cubewidth.push(width)
+  order.push(order.length)
+  cubeheight.push(height)
+  cubedepth.push(depth)
+  cubeR.push(r)
+  cubeG.push(g)
+  cubeB.push(b)
+  hitboxtype.push(cubetype)
+end
+
+adddistance=function(x,y,z)
+  dist=sqrt((x-camx)^2+(y-camy)^2+(z-camz)^2)
+  distances.push(dist)
+end
+
+sortcubes=function() //generic sorting algorithm
+  i=0
+  while i+0.1<distances.length
+    i2=i+1
+    while i2+0.1<distances.length
+      if i<i2 then
+        if distances[i]<distances[i2] then
+          saveddist=distances[i2]
+          distances[i2]=distances[i]
+          distances[i]=saveddist
+          saveddist=order[i2]
+          order[i2]=order[i]
+          order[i]=saveddist
+        end
+      else
+        if distances[i]>distances[i2] then
+          saveddist=distances[i2]
+          distances[i2]=distances[i]
+          distances[i]=saveddist
+          saveddist=order[i2]
+          order[i2]=order[i]
+          order[i]=saveddist
+        end
+      end
+      i2+=1
+    end
+    i+=1
+  end
+end
+
+
+
+
+
+init = function()
+  mode="start"
+  mousecontrols=0
+  drawstars=1
+  showtimer=1
+  gameinit()
+  levelinit()
+  addlevelnames()
+  addcommunitynames()
+  i=0
+  while i<50
+    starx.push((random.next()-0.5)*1000)
+    stary.push((random.next()-0.5)*1000)
+    starz.push((random.next()-0.5)*1000)
+    i+=1
+  end
+end
+
+levelinit=function()
+  sy=0
+  starx=[]
+  stary=[]
+  starz=[]
+  i=0
+  while i<50
+    starx.push((random.next()-0.5)*1000)
+    stary.push((random.next()-0.5)*1000)
+    starz.push((random.next()-0.5)*1000)
+    i+=1
+  end
+  playersize=25
+  globaltime=0
+  inair=0
+  camx=0
+  camy=0
+  camz=0
+  xrot=90
+  yrot=0
+end
+
+
+update = function()
+  if mode=="play" or mode=="community levels" then
+    globaltime+=1/60
+    // back button
+    2drectcol(mouse.x,mouse.y,-185,80,25,25)
+    if collided==1 and mouse.pressed then
+      mode="start"
+    end
+    specialcollision()
+    if timing==1 then
+      gametime+=1/60
+    end
+    inair+=1
+    if mode=="play" then
+      addcubes()
+    elsif mode=="community levels" then
+      addcommunitylevels()
+    end
+    if keyboard.press.R then
+      levelinit() //restart level
+    end
+    if keyboard.press.N then
+      mode="start" //go to main menu
+    end
+    if keyboard.W then
+      //rotate forward movement by x direction
+      rotate(8,0,xrot)
+      changex(X)
+      changez(Y)
+      timing=1
+    end
+
+    if keyboard.S then
+      rotate(-8,0,xrot)
+      changex(X)
+      changez(Y)
+      timing=1
+    end
+  
+    if keyboard.D then
+      rotate(0,8,xrot)
+      changex(X)
+      changez(Y)
+      timing=1
+    end
+  
+    if keyboard.A then
+      rotate(0,-8,xrot)
+      changex(X)
+      changez(Y)
+      timing=1
+    end
+    if mousecontrols==1 then
+      xrot=mouse.x+90
+      yrot=mouse.y
+    else
+      if keyboard.ARROW_UP then
+        yrot=yrot+4
+      end
+    
+      if keyboard.ARROW_DOWN then
+        yrot=yrot-4
+      end
+  
+      if keyboard.ARROW_RIGHT then
+        xrot=xrot+4
+      end 
+  
+      if keyboard.ARROW_LEFT then
+        xrot=xrot-4
+      end
+    end
+  
+    if keyboard.SPACE and inair<6 then
+      sy=20
+      timing=1
+    end
+    if abs(yrot)>90 then
+      if yrot<0 then
+        yrot=-90
+      else
+        yrot=90
+      end
+    end
+    sy-=1
+    changey(sy)
+    if camy<-1000 then
+      levelinit()
+      deaths+=1
+    end
+  elsif mode=="start" then
+    2drectcol(mouse.x,mouse.y,0,25,42.5,12.5)
+    if collided==1 and mouse.pressed then
+      mode="play"
+      level=1
+      deaths=0
+      timing=0
+      gametime=0
+      levelinit()
+    end
+    2drectcol(mouse.x,mouse.y,0,-10,65,12.5)
+    if collided==1 and mouse.pressed then
+      mode="controls"
+    end
+    2drectcol(mouse.x,mouse.y,0,-45,65,12.5)
+    if collided==1 and mouse.pressed then
+      mode="settings"
+    end
+    2drectcol(mouse.x,mouse.y,0,-80,125,12.5)
+    if collided==1 and mouse.pressed then
+      mode="community levels"
+      level=1
+      deaths=0
+      timing=0
+      gametime=0
+      levelinit()
+    end
+  elsif mode=="controls" then
+    2drectcol(mouse.x,mouse.y,0,75,150,15)
+    if collided==1 and mouse.pressed then
+      mode="start"
+      levelinit()
+      collided=0
+    end
+  elsif mode=="settings" then
+    2drectcol(mouse.x,mouse.y,0,75,150,15)
+    // Back button
+    if collided==1 and mouse.pressed then
+      mode="start"
+      levelinit()
+      collided=0
+    end
+    // Render stars buttons
+    2drectcol(mouse.x,mouse.y,60,0,20,10)
+    if collided==1 and mouse.pressed then
+      drawstars=1
+    end
+    2drectcol(mouse.x,mouse.y,120,0,20,10)
+    if collided==1 and mouse.pressed then
+      drawstars=0
+    end
+    // Mouse controls button
+    2drectcol(mouse.x,mouse.y,60,40,20,10)
+    if collided==1 and mouse.pressed then
+      mousecontrols=1
+    end
+    2drectcol(mouse.x,mouse.y,120,40,20,10)
+    if collided==1 and mouse.pressed then
+      mousecontrols=0
+    end
+    // Show timer/deaths button
+    2drectcol(mouse.x,mouse.y,60,-40,20,10)
+    if collided==1 and mouse.pressed then
+      showtimer=1
+    end
+    2drectcol(mouse.x,mouse.y,120,-40,20,10)
+    if collided==1 and mouse.pressed then
+      showtimer=0
+    end
+  elsif mode=="end" then
+    2drectcol(mouse.x,mouse.y,0,70,120,20)
+    if collided==1 and mouse.pressed then
+      mode="start"
+      levelinit()
+    end
+  end
+end
+
+changey=function(ychange)
+  camy+=ychange
+  collision()
+  while collided==1 
+    sy=0
+    if ychange<0 then 
+      camy+=1
+      inair=0
+    else
+      camy-=1
+    end
+    collision()
+  end
+end
+
+changex=function(xchange)
+  camx+=xchange
+  collision()
+  while collided==1 
+    if xchange<0 then 
+      camx+=1
+    else
+      camx-=1
+    end
+    collision()
+  end
+end
+
+changez=function(zchange)
+  camz+=zchange
+  collision()
+  while collided==1 
+    if zchange<0 then 
+      camz+=1
+    else
+      camz-=1
+    end
+    collision()
+  end
+end
+
+draw = function()
+  if mode=="play" or mode=="community levels" then
+    screen.clear()
+    if drawstars==1 then // Render stars option
+      renderstars()
+    end
+    sortcubes()
+    rendercubes() // Cubes
+    screen.setFont(BitCell) // Timer, death count, level
+    2drectcol(mouse.x,mouse.y,-185,80,25,25)
+    if collided==1 then
+      screen.setAlpha(1)
+    else
+      screen.setAlpha(0.5)
+    end
+    screen.drawSprite("sprite",-185,80,50,50)
+    screen.setAlpha(1)
+    if showtimer==1 then
+      screen.setDrawAnchor(-1,0)
+      screen.drawText(round(gametime*100)/100,-198,-80,15,"rgb(255,255,255)") // Round gametime to 2 decimal places
+      screen.setDrawAnchor(0,0)
+      screen.drawText("Deaths: "+deaths,135,-80,15,"rgb(255,255,255)")
+    end
+    screen.setDrawAnchor(0,0)
+    //Main menu back button
+    if globaltime>2.5 then
+      screen.setAlpha(1-(timer-2.5)*2) // Gametime resets at level start, so this is a fading level name
+    end
+    if globaltime<3 then
+      if mode=="play" then
+        screen.drawText("level "+level+": "+levelnames[level-1],0,80,18,"rgb(255,255,255)")
+      elsif mode=="community levels" then
+        screen.drawText(communitylevels[level-1],0,80,15,"rgb(255,255,255)")
+      end
+    end
+    screen.setAlpha(0)
+  elsif mode=="start" then
+    renderstars()
+    drawstartscreen()
+  elsif mode=="controls" then
+    screen.clear()
+    drawcontrols()
+  elsif mode=="settings" then
+    drawsettings()
+  elsif mode=="end" then
+    screen.clear()
+    renderstars()
+    drawend()
+    screen.setAlpha(1)
+    yrot+=0.1
+  end
+end
+
+rendercubes=function()
+  i2=0
+  while i2+0.1<cubepx.length
+    i=order[i2]
+    cube(cubepx[i],cubepy[i],cubepz[i],cubewidth[i],cubeheight[i],cubedepth[i],cubeR[i],cubeG[i],cubeB[i])
+    i2+=1
+  end
+end
+
+rectcol=function(px,py,pz,x,y,z,width,height,depth)
+  collided=0
+  if px>x-width and px<x+width then
+    if py>y-height and py<y+height then
+      if pz>z-depth and pz<z+depth then
+        collided=1
+      end
+    end
+  end
+end
+
+collision=function()
+  i=0
+  exit=0
+  while i+0.1<cubepx.length and exit==0
+    rectcol(camx,camy,camz,cubepx[i],cubepy[i],cubepz[i],cubewidth[i]+playersize,cubeheight[i]+playersize,cubedepth[i]+playersize)
+    if collided==1 and hitboxtype[i]==0 then // Hit ground
+      exit=1
+    end
+    i+=1
+  end
+  if exit==1 then
+    collided=1
+  else
+    collided=0
+  end
+end
+
+specialcollision=function()
+  while i+0.1<cubepx.length and exit==0
+    rectcol(camx,camy,camz,cubepx[i],cubepy[i],cubepz[i],cubewidth[i]+playersize,cubeheight[i]+playersize,cubedepth[i]+playersize)
+    if collided==1 then
+      if hitboxtype[i]==1 then
+        levelinit() // Finish level
+        level+=1
+      elsif hitboxtype[i]==2 then
+        levelinit() // Die
+        deaths+=1
+      elsif hitboxtype[i]==3 then
+        sy=32 // Bounce
+      end
+    end
+    i+=1
+  end
+end
+
+cube=function(x,y,z,width,height,depth,r,g,b)
+  screen.setLineWidth(3)
+  //Front face
+  drawline(0-width,height,0-depth,width,height,0-depth,r,g,b,0,0,0,0,0,x,y,z)
+  drawline(0-width,0-height,0-depth,width,0-height,0-depth,r,g,b,0,0,0,0,0,x,y,z)
+  drawline(width,0-height,0-depth,width,height,0-depth,r,g,b,0,0,0,0,0,x,y,z)
+  drawline(0-width,0-height,0-depth,0-width,height,0-depth,r,g,b,0,0,0,0,0,x,y,z)
+  //Back face
+  drawline(0-width,height,depth,width,height,depth,r,g,b,0,0,0,0,0,x,y,z)
+  drawline(0-width,0-height,depth,width,0-height,depth,r,g,b,0,0,0,0,0,x,y,z)
+  drawline(width,0-height,depth,width,height,depth,r,g,b,0,0,0,0,0,x,y,z)
+  drawline(0-width,0-height,depth,0-width,height,depth,r,g,b,0,0,0,0,0,x,y,z)
+  //Connecting lines
+  drawline(width,height,depth,width,height,0-depth,r,g,b,0,0,0,0,0,x,y,z)
+  drawline(0-width,height,depth,0-width,height,0-depth,r,g,b,0,0,0,0,0,x,y,z)
+  drawline(0-width,0-height,depth,0-width,0-height,0-depth,r,g,b,0,0,0,0,0,x,y,z)
+  drawline(width,0-height,depth,width,0-height,0-depth,r,g,b,0,0,0,0,0,x,y,z)
+end
+
+setp1 = function(x1,y1,z1)
+  X1=x1
+  Y1=y1
+  Z1=z1
+end
+
+setp2 = function(x2,y2,z2)
+  X2=x2
+  Y2=y2
+  Z2=z2
+end
+
+setp3 = function(x3,y3,z3)
+  X3=x3
+  Y3=y3
+  Z3=z3
+end
+
+rotate = function(x,y,rot)
+  // formula for rotation of 2d points
+  X=cosd(rot)*x-sind(rot)*y
+  Y=sind(rot)*x+cosd(rot)*y
+end
+
+rotationmatrix = function(x,y,z,xrot,yrot,rottype)
+  //rotation of 3d points by camera rotation, rotates x and z and then y and z
+  if rottype==0 then
+    rotate(z,x,xrot)
+    rotatedx=X
+    rotatedz=Y
+    rotate(y,rotatedz,yrot)
+    rotatedy=X
+    rotatedz=Y
+  else
+    //Rotation of 3d points for an object, rotates y and z then x and z
+    rotate(z,y,yrot)
+    rotatedz=X
+    rotatedy=Y
+    rotate(rotatedz,x,xrot)
+    rotatedz=X
+    rotatedx=Y
+  end
+end
+
+// projection of 3d points onto a 2d screen
+3dto2d = function(x,y,z)
+  X=FOV*x/z
+  Y=FOV*y/z
+end
+
+renderstars=function()
+  i=0
+  while i+0.1<starx.length
+    drawdot(starx[i],stary[i],starz[i],2)
+    i+=1
+  end
+end
+
+drawdot=function(x,y,z,size)
+  rotationmatrix(x,y,z,xrot,yrot,0)
+  3dto2d(rotatedx,rotatedy,rotatedz)
+  screen.fillRound(X,Y,size,size,"rgb(255,255,255)")
+end
+
+// Transform all points of triangle and then render
+drawline = function(x1,y1,z1,x2,y2,z2,r,g,b,rx,ry,rz,rotx,roty,tx,ty,tz)
+  //starting set of points, subtract camera pos and rotate points
+  rotationmatrix(x1-rx,y1-ry,z1-rz,rotx,roty,1)
+  setp1(rotatedx+rx-camx,rotatedy+ry-camy,rotatedz+rz-camz)
+  rotationmatrix(x2-rx,y2-ry,z2-rz,rotx,roty,1)
+  setp2(rotatedx+rx-camx,rotatedy+ry-camy,rotatedz+rz-camz)
+  //Translate
+  setp1(X1+tx,Y1+ty,Z1+tz)
+  setp2(X2+tx,Y2+ty,Z2+tz)
+  //rotation
+  rotationmatrix(X1,Y1,Z1,xrot,yrot,0)
+  setp1(rotatedx,rotatedy,rotatedz)
+  
+  rotationmatrix(X2,Y2,Z2,xrot,yrot,0)
+  setp2(rotatedx,rotatedy,rotatedz)
+  //final projection all points
+  if Z1>nearz or Z2>nearz then // If both points are past our z-clipping distance we don't render the line
+    zclip()
+    3dto2d(X1,Y1,Z1)
+    setp1(X,Y,Z1)
+    3dto2d(X2,Y2,Z2)
+    setp2(X,Y,Z2)
+    screen.drawLine(X1,Y1,X2,Y2,"rgb("+r+","+g+","+b+")")
+  end
+end
+
+zclip=function()
+  percent=(nearplane-Z1)/(Z2-Z1) //Calc how much of the line behind the camera
+  if Z1<nearz then
+    X1=X1+(X2-X1)*percent // Ratio of change in x * percent
+    Y1=Y1+(Y2-Y1)*percent // Same but for y
+    Z1=nearz
+  end
+  if Z2<nearz then //Same process for point 2
+    X2=X1+(X2-X1)*percent
+    Y2=Y1+(Y2-Y1)*percent
+    Z2=nearz
+  end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+drawstartscreen=function()
+  screen.clear()
+  renderstars()
+  screen.setFont( "PixelOperator" )
+  screen.drawText("3D platformer",0,60,20,"rgb(255,255,255)")
+  2drectcol(mouse.x,mouse.y,0,25,42.5,12.5)
+  if collided==1 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(0,25,85,25,"rgb(150,150,150)")
+  screen.drawText("Start",0,25,12,"rgb(255,255,255)")
+  2drectcol(mouse.x,mouse.y,0,-10,65,12.5)
+  if collided==1 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(0,-10,130,25,"rgb(150,150,150)")
+  screen.drawText("Controls",0,-10,12,"rgb(255,255,255)")
+  2drectcol(mouse.x,mouse.y,0,-45,65,12.5)
+  if collided==1 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(0,-45,130,25,"rgb(150,150,150)")
+  screen.drawText("Settings",0,-45,12,"rgb(255,255,255)")
+  2drectcol(mouse.x,mouse.y,0,-80,125,12.5)
+  if collided==1 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(0,-80,250,25,"rgb(150,150,150)")
+  screen.drawText("Community Levels",0,-80,12,"rgb(255,255,255)")
+  xrot+=0.1
+end
+
+drawcontrols=function()
+  screen.drawText("WASD - MOVE",0,40,15,"rgb(255,255,255)")
+  if mousecontrols==0 then
+    screen.drawText("ARROWS - LOOK AROUND",0,10,15,"rgb(255,255,255)")
+  else
+    screen.drawText("MOUSE - LOOK AROUND",0,10,15,"rgb(255,255,255)")
+  end
+  screen.drawText("SPACE - JUMP",0,-20,15,"rgb(255,255,255)")
+  screen.drawText("R - RESTART LEVEL",0,-50,15,"rgb(255,255,255)")
+  screen.drawText("N - MAIN MENU",0,-80,15,"rgb(255,255,255)")
+  2drectcol(mouse.x,mouse.y,0,75,150,15)
+  if collided==1 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(0,75,300,30,"rgb(150,150,150)")
+  screen.drawText("BACK",0,75,15,"rgb(255,255,255)")
+end
+
+drawsettings=function()
+  screen.clear()
+  screen.drawText("Mouse Controls",-80,40,12,"rgb(255,255,255)")
+  screen.drawText("Render Stars",-80,0,12,"rgb(255,255,255)")
+  screen.drawText("Show timer/deaths",-80,-40,10,"rgb(255,255,255)")
+  // Mouse controls option
+  if mousecontrols==1 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(60,40,40,20,"rgb(150,150,150)")
+  screen.drawText("On",60,40,10,"rgb(255,255,255)")
+  if mousecontrols==0 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(120,40,40,20,"rgb(150,150,150)")
+  screen.drawText("Off",120,40,10,"rgb(255,255,255)")
+  // Render stars option
+  if drawstars==1 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(60,0,40,20,"rgb(150,150,150)")
+  screen.drawText("On",60,0,10,"rgb(255,255,255)")
+  if drawstars==0 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(120,0,40,20,"rgb(150,150,150)")
+  screen.drawText("Off",120,0,10,"rgb(255,255,255)")
+  // Timer/death count buttons
+  if showtimer==1 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(60,-40,40,20,"rgb(150,150,150)")
+  screen.drawText("On",60,-40,10,"rgb(255,255,255)")
+  if showtimer==0 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(120,-40,40,20,"rgb(150,150,150)")
+  screen.drawText("Off",120,-40,10,"rgb(255,255,255)")
+  // Back button
+  2drectcol(mouse.x,mouse.y,0,75,150,15)
+  if collided==1 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(0,80,300,30,"rgb(150,150,150)")
+  screen.drawText("BACK",0,80,15,"rgb(255,255,255)")
+end
+
+drawend=function()
+  screen.setFont( "PixelOperator" )
+  screen.drawText("Congratulations!",0,20,20,"rgb(255,255,255)")
+  screen.drawText("You finished with a time of:",0,-40,10,"rgb(255,255,255)")
+  screen.drawText(round(gametime*100)/100+" seconds",0,-60,10,"rgb(255,255,255)")
+  2drectcol(mouse.x,mouse.y,0,70,120,20)
+  if collided==1 then
+    screen.setAlpha(1)
+  else
+    screen.setAlpha(0.5)
+  end
+  screen.fillRect(0,70,240,40,"rgb(150,150,150)")
+  screen.drawText("Main menu",0,70,20,"rgb(255,255,255)")
+end
+
+gameinit=function()
+  lightx=0
+  lightz=0
+  lighty=500 //light pos
+  FOV=150
+  nearz=4 //Z-clip distance
+  level=1
+  addlevelnames()
+  gametime=0
+  timing=0
+  deaths=0
+end
+
+2drectcol=function(px,py,x,y,w,h)
+  if px>x-w and px<x+w then
+    if py>y-h and py<y+h then
+      collided=1
+    else
+      collided=0
+    end
+  else
+    collided=0
+  end
+end
+
+
+
+</script></html>
