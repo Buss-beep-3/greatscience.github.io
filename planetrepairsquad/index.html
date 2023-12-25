@@ -1,0 +1,1694 @@
+<!DOCTYPE html><html><head><title>Planet Repair Squad</title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui=1"><meta charset="UTF-8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="description" content=""><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon64.png"><link rel="apple-touch-icon" sizes="180x180" href="icon180.png"><link rel="icon" type="image/png" sizes="32x32" href="icon32.png"><link rel="icon" type="image/png" sizes="16x16" href="icon16.png"><style>html,body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow:hidden;
+  font-family: Verdana;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#canvaswrapper {
+  text-align: center ;
+}
+</style><style>@font-face { font-family: "Awesome" ; src: url("fonts/Awesome.ttf") format("truetype"); }</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><script>window.fonts = ["Awesome","BitCell"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"arrowdown.png","version":1,"size":142,"properties":{}},{"file":"arrowleft.png","version":14,"size":155,"properties":{}},{"file":"arrowright.png","version":1,"size":144,"properties":{}},{"file":"arrowup.png","version":1,"size":155,"properties":{}},{"file":"bush1.png","version":44,"size":569,"properties":{}},{"file":"cloud.png","version":12,"size":739,"properties":{}},{"file":"co21.png","version":1,"size":156,"properties":{}},{"file":"cow_eat1.png","version":8,"size":217,"properties":{}},{"file":"cow_eat2.png","version":34,"size":210,"properties":{}},{"file":"cow_eat3.png","version":38,"size":214,"properties":{}},{"file":"cow_eat4.png","version":16,"size":223,"properties":{}},{"file":"cow_eat5.png","version":11,"size":229,"properties":{}},{"file":"cow_eat6.png","version":4,"size":202,"properties":{}},{"file":"cow_eat7.png","version":4,"size":205,"properties":{}},{"file":"cow_eat8.png","version":27,"size":203,"properties":{}},{"file":"cow_eat9.png","version":4,"size":205,"properties":{}},{"file":"cow_walk1.png","version":62,"size":201,"properties":{}},{"file":"cow_walk2.png","version":32,"size":202,"properties":{}},{"file":"cow_walk3.png","version":42,"size":200,"properties":{}},{"file":"factory1.png","version":183,"size":750,"properties":{}},{"file":"factory2.png","version":75,"size":972,"properties":{}},{"file":"factory2_bk.png","version":1,"size":331,"properties":{}},{"file":"fastforward.png","version":2,"size":163,"properties":{}},{"file":"fish.png","version":1,"size":116,"properties":{}},{"file":"fish1.png","version":1,"size":144,"properties":{}},{"file":"fish2.png","version":1,"size":145,"properties":{}},{"file":"human_ass1.png","version":16,"size":180,"properties":{}},{"file":"human_ass2.png","version":5,"size":182,"properties":{}},{"file":"human_ass3.png","version":10,"size":196,"properties":{}},{"file":"human_ass4.png","version":4,"size":184,"properties":{}},{"file":"human_ass5.png","version":11,"size":182,"properties":{}},{"file":"human_walk1.png","version":79,"size":255,"properties":{}},{"file":"human_walk2.png","version":13,"size":240,"properties":{}},{"file":"icon.png","version":52,"size":5999,"properties":{}},{"file":"icon2.png","version":128,"size":5998,"properties":{}},{"file":"info.png","version":13,"size":134,"properties":{}},{"file":"poster.png","version":1,"size":99599,"properties":{"frames":1,"fps":5}},{"file":"ship.png","version":235,"size":1484,"properties":{}},{"file":"skull.png","version":17,"size":137,"properties":{}},{"file":"spaceship1.png","version":1,"size":173,"properties":{}},{"file":"spaceship2.png","version":10,"size":175,"properties":{}},{"file":"spaceship3.png","version":17,"size":184,"properties":{}},{"file":"spaceship4.png","version":7,"size":185,"properties":{}},{"file":"spaceship5.png","version":8,"size":180,"properties":{}},{"file":"spaceship_title.png","version":88,"size":1931,"properties":{}},{"file":"spaceship_title2.png","version":22,"size":2028,"properties":{}},{"file":"test.png","version":1,"size":204,"properties":{}},{"file":"title_sprite.png","version":163,"size":8429,"properties":{}},{"file":"title_sprite2.png","version":413,"size":9606,"properties":{}},{"file":"tree1.png","version":40,"size":222,"properties":{}},{"file":"tree2.png","version":10,"size":236,"properties":{}},{"file":"warning.png","version":18,"size":129,"properties":{}}],"assets":[],"maps":{},"sounds":[],"music":[]};
+var graphics = "M1";
+
+</script><script type="text/javascript">var orientation = 'landscape' ;
+var aspect = 'free' ;
+var ms_libs = [] ;
+window.skip_service_worker = true;
+window.exported_project = true;
+window.ms_use_server = false ;
+</script><script src="parser.js"></script><script src="program.js"></script><script src="token.js"></script><script src="tokenizer.js"></script><script src="runner_v1_i.js"></script><script src="microengine.js"></script></body><script type="text/javascript">//
+//
+// The game is started with the code below.
+// Once you have received the "started" signal (see below),
+// you can do the following:
+// 1) Inject functions or objects into the global context of the microStudio engine, example:
+//
+//   window.player.setGlobal("special_callback",function(x) { console.info(x) }) ;
+//   // Your microScript code can now call the "special_callback" function
+//
+// 2) Call microScript global functions from your JavaScript code, example:
+//
+//   window.player.call("call_me_from_javascript",[10,1000]) ;
+//   // arguments to the function call are provided as an array
+//
+// 3) Run a microScript code snippet from your JavaScript code, example:
+//
+//   window.player.exec("player.position_x = 50",function(result) { console.log(result) ; }) ;
+//
+
+window.addEventListener("load",function() {
+  window.player = new Player(function(event) {
+    if (event.name == "started") {
+      // signal that the game is started
+    }
+    else if (event.name == "log") {
+      // console.info(event.data) ;
+    }
+  }) ;
+  document.body.focus() ;
+}) ;
+
+</script><script id="code" type="text/x-microscript">
+
+ship_expelling_sound = function()
+  audio.beep("square tempo 20000 volume 50 span 100 F4 to F6")
+end
+
+lostSound = function()
+  audio.beep("saw tempo 10000 volume 100 span 50 C2 to C4 to C2 to C4")
+end
+
+gamestart_sound = function()
+  audio.beep("square tempo 960 volume 100 span 50 F5 C6")
+end
+
+splash_sound = function()
+  audio.beep("noise tempo 480 volume 60 span 100 C4 volume 100 C4 volume 80 C4 volume 60 C4 volume 40 C4 volume 20 tempo 120 C4")
+end
+
+landed_sound = function()
+  audio.beep("saw tempo 5000 volume 100 span 50 C3 to C2")
+end
+
+rockSound = function()
+  audio.beep("noise duration 50 volume 50 span 100 C6")
+  audio.beep("saw duration 100 volume 100 span 100 C2")
+end
+music_menu = function()
+  //weird:
+  //audio.beep("loop 0 tempo 400 C3 B3 B3 A3 C3 D3 C3 end")
+  //audio.beep("loop 0 tempo 200 C4 G B D end")
+  //annoying:
+  //audio.beep("loop 0 tempo 350 A5 D E F volume 20 end")
+  //audio.beep("loop 0 tempo 175 C3 A E C volume 20 end")
+  //ritmic
+  audio.beep("loop 0 tempo 150 saw volume 30 span 30 F2 C3 end")
+  audio.beep("loop 0 tempo 300 square span 30 A5 D A E G B4 A G3 B F B F C G E volume 40 end")
+  audio.beep("loop 0 tempo 75 noise volume 30 span 5 A2 end")
+end
+music_intro = function()
+  // audio.beep("loop 15 tempo 220 A C E G B3 D F volume 50 end")
+  // audio.beep("loop 15 tempo 220 E G B D F G C volume 50 end")
+  audio.beep("loop 15 tempo 220 saw volume 20 A2 C E G square volume 30 B3 D F end")
+  audio.beep("loop 15 tempo 220 sine volume 20 E G B saw volume 30 D3 F G C end")
+  audio.beep("loop 7 tempo 110 square volume 20 A4 C5 E sine volume 30 G5 B D F end")
+end
+ship_moving_sound = function()
+  if tick<last_ship_moving_sound+60 then
+    return
+  end
+  last_ship_moving_sound = tick
+ //audio.beep("noise tempo 380 volume 60 span 100 D4 volume 100 D4 volume 80 span 80 C4 span 60 C4 ")
+ audio.beep("duration 200 saw tempo 600 volume 50 span 30 G4 to C5")
+ audio.beep("duration 200 saw tempo 600 volume 20 span 60 B4 to E5")
+end
+ship_sucking_sound = function()
+  audio.beep("duration 100 saw tempo 1600 volume 50 span 100 C4 to C5")
+  audio.beep("duration 100 square tempo 1600 volume 20 span 70 G4 to G5")
+end
+other_sound = function()
+  audio.beep("saw duration 500 tempo 100 volume 50 span 30 G5")
+  audio.beep("saw duration 500 tempo 100 volume 50 span 30 B5")
+  audio.beep("saw duration 500 tempo 100 volume 50 span 30 D5")
+end
+game_over_sound = function()
+  audio.beep("loop 3 square tempo 200 volume 30 span 90 C4 A3 E G E2 volume 40 saw E3 C2 D end")
+  //audio.beep("loop 0 saw tempo 600 volume 20 span 20 C5 to C6 end")
+  audio.beep("loop 2 square tempo 100 volume 15 span 100 E3 C G5 volume 20 sine E6 C5 E end")
+end
+
+clouds = object
+  clouds = []
+  
+  add = function(cloud)
+    clouds.push(cloud)
+    for i=clouds.length-1 to 1 by -1
+      if clouds[i].z>clouds[i-1].z then
+        local swap = clouds[i]
+        clouds[i] = clouds[i-1]
+        clouds[i-1] = swap
+      else
+        break
+      end
+    end
+  end
+  
+  draw = function(zmin,zmax)
+    for c in clouds
+      if c.z>=zmin and c.z<=zmax then
+        local d = abs(c.position-position)
+        if d<1 or d>2*PI-1 then
+          c.draw()
+        end
+      end
+    end
+  
+    screen.setDrawRotation(0)
+    screen.setDrawScale(1,1)
+    screen.setAlpha(1)
+  end
+  
+  update = function()
+    for c in clouds
+      c.position += c.z*.0001
+    end
+  end
+end
+
+createCloud = function(position)
+  object
+    position = position
+    z = random.next()
+    speed = random.next()
+
+    draw = function()
+      local x = cos(-position+global.position+PI/2)
+      local y = sin(-position+global.position+PI/2)
+      local r = 410+30*z
+      x = x*r
+      y = y*r-400
+      screen.setDrawRotation((-position+global.position)/PI*180)
+      screen.setDrawScale(1,1)
+      screen.setAlpha(z*.3+.2)
+      local size = z*.8+.2
+      screen.drawSprite("cloud",x,y,40*size,20*size)
+    end
+  end
+end
+
+
+
+controlhints = object
+  init = function()
+    inputlistener.init()
+    start = tick
+  end
+  
+  update = function()
+    if inputlistener.update() or tick-start>300 then
+      setCurrentStage(gameplay)
+    end
+  end
+  
+  draw = function()
+    drawControlhints()
+  end
+end
+
+drawControlhints = function()
+  screen.fillRect(0,0,1000,1000,"#123")
+  screen.drawSprite("arrowup",0,40,36)
+  screen.drawSprite("arrowdown",0,0,36)
+  screen.drawSprite("arrowleft",-40,0,36)
+  screen.drawSprite("arrowright",40,0,36)
+  
+  screen.fillPolygon(-5,-20,5,-20,15,-80,-15,-80,"rgba(255,255,255,.1)")
+  
+  screen.drawText("EJECT",0,75,10,"#EEE")
+  screen.drawText("LEFT",-85,0,10,"#EEE")
+  screen.drawText("RIGHT",85,0,10,"#EEE")
+  screen.drawText("ABDUCT / DROP",0,-50,10,"#EEE")
+end
+
+
+cows = object
+  cows = []
+  
+  add = function(cow)
+    cows.push(cow)
+    objects.add(cow)
+  end
+  
+  remove = function(cow)
+    for i=0 to cows.length-1
+      if cow == cows[i] then
+        cows.remove(i)
+        objects.remove(cow)
+        break
+      end
+    end
+  end
+end
+
+createCow = function(position)
+  object
+    position = position
+    z = random.next()
+    facing = if random.next()>.5 then 1 else -1 end
+    sprite = "cow_walk1"
+    walking = 1
+    size = .1
+    status = "walking"
+    default = "cow_walk1"
+    abductible = 1
+    group = cows
+
+    draw = function()
+      if abducted then return end
+      local x = cos((-position+global.position)+PI/2)
+      local y = sin((-position+global.position)+PI/2)
+      local r = 360+30*z
+      x = x*r
+      y = y*r-400
+      screen.setDrawRotation((-position+global.position)/PI*180)
+      screen.setDrawScale(facing,1)
+      screen.drawSprite(sprite,x,y,20*size)
+      size += (1-size)*.1
+      if grabber then
+        local x2 = cos((-position+global.position)+PI/2)*420
+        local y2 = sin((-position+global.position)+PI/2)*420-400
+        screen.setLineWidth(5)
+        screen.setDrawRotation(0)
+        screen.setDrawScale(1,1)
+        screen.drawLine(x,y,x2,y2,"#222")
+        screen.fillRound(x,y,2,2,"#AAA")
+        screen.fillRound(x2,y2,2,2)
+      end
+    end
+    
+    update = function()
+      if abducted then return end
+      if random.next()<.02/(cows.cows.length+1) and cows.cows.length<30 and not abducted then
+        cows.add(createCow(position+.1*(random.next()-.5)))
+      end
+      
+      if status == "walking" then
+        walking += 1
+        if walking>3 then walking = 1 end
+        sprite = "cow_walk"+walking
+        position -= .001*facing
+        position = max(0.1,min(PI*1.47,position))
+      end
+      
+      if status == "eating" then
+        walking += 1
+        if walking>7 then walking = 1 end
+        sprite = "cow_eat"+walking
+      end
+      
+      local r = random.next()
+      if r<.2 then
+        r = random.next()
+        if r<.3 then
+          status = "stop"
+        elsif r<.6 then
+          status = "walking"
+        elsif r<.8 then
+          status = "eating"
+        else
+          facing *= -1
+        end
+      end
+    end
+  end
+end
+
+
+
+credits = object
+  init = function()
+    inputlistener.init()
+    start = tick
+  end
+  
+  update = function()
+    if inputlistener.update() then
+      setCurrentStage(titlemenu)
+    end
+  end
+  
+  draw = function()
+    screen.fillRect(0,0,1000,1000,"#123")
+    screen.drawText("PLANET REPAIR SQUAD",0,75,15,"#EEE")
+    textline = 60
+    
+    addTextLine("")
+    addTextLine("CREATED BY:",7,"#CCC")
+    addTextLine("")
+    addTextLine("JUAN PATRICIO DI BACCO")
+    addTextLine("&",7)
+    addTextLine("GILLES POMMEREUIL")
+    addTextLine("")
+    addTextLine("")
+    addTextLine("")
+    addTextLine("GLOBAL GAME JAM 2020")
+    addTextLine("Le Shadok - Strasbourg, France",7)
+    addTextLine("")
+    addTextLine("")
+    addTextLine("built with microStudio",7,"rgb(227,176,76)")
+  end
+  
+  addTextLine = function(text,size=10,color="#EEE")
+    if tick-start<-textline*2+120 then return end
+    if text then screen.drawText(text,0,textline,size,color) end
+    textline -= 10
+  end
+end
+
+drawCreditsscreen = function()
+end
+
+
+
+mountains = []
+
+random.seed(1)
+for i=0 to 99
+  if i%5 ==0 then local r1 = random.next() end
+  local x = cos(i/100*PI*2)
+  local y = sin(i/100*PI*2)
+  local r = 25*(random.next()+r1)+375
+  mountains[i*2] = x*r
+  mountains[i*2+1] = y*r-400
+  mountains_altitude[i] = r
+end
+
+drawPlanet = function()
+  screen.setRadialGradient(0,-200,300,"rgb(227,246,255)","rgb(57,132,170)")
+  screen.fillRound(0,-400,900,900)
+  clouds.draw(0,.5)
+  drawMountains()
+  screen.setRadialGradient(0,-300,300,"rgb(0,0,0)","rgb(79,142,79)")
+  screen.fillRound(0,-400,800,800)
+  screen.fillRound(0,-400,700,700,"rgb(40,9,9)")
+
+  screen.setRadialGradient(0,-400,340,"rgb(255,170,0)","rgb(57,6,6)")
+  screen.fillRound(0,-400,680,680)
+  drawSea()
+  objects.draw()
+  clouds.draw(.5,1)
+end
+
+drawMountains = function()
+  for i=0 to 99
+    local x = cos(i/100*PI*2+position)
+    local y = sin(i/100*PI*2+position)
+    local r = mountains_altitude[i]
+    mountains[i*2] = x*r
+    mountains[i*2+1] = y*r-400
+  end
+    
+  screen.fillPolygon(mountains,"rgb(63,115,142)")
+end
+
+factories = object
+  factories = []
+  
+  add = function(factory)
+    factories.push(factory)
+    objects.add(factory)
+    factory.this = factory
+  end
+  
+  remove = function(factory)
+    for i=0 to factories.length-1
+      if factory == factories[i] then
+        factories.remove(i)
+        break
+      end
+    end
+  end
+  
+  update = function()
+    if tick%63 == 0 then
+      if factories.length<humans.humans.length/4 then
+        local r = random.next()
+        if r<.33 then
+          if cows.cows.length>4 then
+            local cow = cows.cows[floor(cows.cows.length*random.next())]
+            add(createFactory(cow.position,cows.cows,cows,"factory1"))
+            return
+          end
+        elsif r<.67 then
+          if trees.trees.length>4 then
+            local tree = trees.trees[floor(trees.trees.length*random.next())]
+            add(createFactory(tree.position,trees.trees,trees,"factory2"))
+            return
+          end
+        else
+          if fishes.fishes.length>4 then
+            local fish = fishes.fishes[floor(fishes.fishes.length*random.next())]
+            add(createFactory(fish.position,fishes.fishes,fishes,"ship"))
+            return
+          end
+        end
+      end
+    end
+    
+    for i=0 to factories.length-1 by 1
+      factories[i].update()
+    end
+  end
+end
+
+createFactory = function(position,targets,group,sprite)
+  object
+    position = position
+    z = 1
+    status = "building"
+    height = 0
+    targets = targets
+    group = group
+    sprite = sprite
+    
+    draw = function()
+      local x = cos(-position+global.position+PI/2)
+      local y = sin(-position+global.position+PI/2)
+      local r = 360+30*z+20
+      x = x*r
+      y = y*r-400
+      screen.setDrawRotation((-position+global.position)/PI*180)
+      screen.setDrawScale(1,1)
+      if status == "building" then
+        local s = height/48
+        r -= 30*(1-s)
+        x = cos(-position+global.position+PI/2)*r
+        y = sin(-position+global.position+PI/2)*r-400
+        screen.drawSpritePart(sprite,0,0,48,max(1,height),x,y,60,60*s)
+      elsif status == "grabbing" then
+        local a2 = -(grabbed.position+position)*.5+global.position+PI/2
+        local r2 = 420
+        local a3 = -grabbed.position+global.position+PI/2
+        local r3 = 420
+        screen.setLineWidth(5)
+        screen.setDrawRotation(0)
+        screen.setDrawScale(1,1)
+        screen.drawPolygon(x,y,r2*cos(a2),r2*sin(a2)-400,r3*cos(a3),r3*sin(a3)-400,"#222")
+        screen.fillRound(r2*cos(a2),r2*sin(a2)-400,2,2,"#AAA")
+        screen.setDrawRotation((-position+global.position)/PI*180)
+        screen.drawSprite(sprite,x,y,60,60)
+      elsif status == "destroy" then
+        local s = height/48
+        r -= 30*(1-s)
+        x = cos(-position+global.position+PI/2)*r
+        y = sin(-position+global.position+PI/2)*r-400
+        screen.drawSpritePart(sprite,0,0,48,max(1,height),x,y,60,60*s)
+      else
+        screen.drawSprite(sprite,x,y,60,60)
+      end
+    end
+    
+    update = function()
+      if status == "building" then
+        height += .5
+        if height>=48 then
+          status = "on"
+        end
+      elsif status == "on" and random.next()<.01 then // look for target
+        for t in targets
+          if abs(t.position-position)<.2 and not t.abducted then
+            t.grabber = this
+            status = "grabbing"
+            grabbed = t
+            grabbing = 0
+            grab_pos = t.position
+            grab_z = t.z
+            break
+          end
+        end
+        if status != "grabbing" then
+          status = "destroy"
+          height = 48
+        end
+      elsif status == "grabbing" then
+        grabbing += .01
+        grabbed.position = position+(1-grabbing)*(grab_pos-position)
+        grabbed.z = 1+(1-grabbing)*(grab_z-1)
+        if grabbing>=1 then
+          group.remove(grabbed)
+          if random.next()<1 then gaz.add(createGaz(position)) end
+          status = "on"
+        end
+      elsif status == "destroy" then
+        height -= .5
+        if height <= 1 then
+          factories.remove(this)
+        end
+      end
+    end
+  end
+end
+
+
+
+fishes = object
+  fishes = []
+  
+  add = function(fish)
+    fishes.push(fish)
+    objects.add(fish)
+  end
+  
+  remove = function(fish)
+    for i=0 to fishes.length-1
+      if fish == fishes[i] then
+        fishes.remove(i)
+        objects.remove(fish)
+        break
+      end
+    end
+  end
+end
+
+createFish = function(position)
+  object
+    position = position
+    z = random.next()
+    facing = if random.next()>.5 then 1 else -1 end
+    sprite = "fish1"
+    size = .1
+    abductible = 1
+    default = "fish"
+    group = fishes
+
+    draw = function()
+      if abducted then return end
+      local x = cos((-position+global.position)+PI/2)
+      local y = sin((-position+global.position)+PI/2)
+      local r = 360+30*z
+      x = x*r
+      y = y*r-400
+      screen.setDrawRotation((-position+global.position)/PI*180)
+      screen.setDrawScale(facing,1)
+      screen.drawSprite(sprite,x,y,10*size)
+      size += (1-size)*.1
+      if grabber then
+        local x2 = cos((-position+global.position)+PI/2)*420
+        local y2 = sin((-position+global.position)+PI/2)*420-400
+        screen.setLineWidth(5)
+        screen.setDrawRotation(0)
+        screen.setDrawScale(1,1)
+        screen.drawLine(x,y,x2,y2,"#222")
+        screen.fillRound(x,y,2,2,"#AAA")
+        screen.fillRound(x2,y2,2,2)
+      end
+    end
+    
+    update = function()
+      if abducted then return end
+      if random.next()<.02/(fishes.fishes.length+1) and fishes.fishes.length<30 and not abducted then
+        fishes.add(createFish(position+.1*(random.next()-.5)))
+      end
+      
+      if grabber then
+        sprite = "fish"
+      elsif random.next()<.5 then
+        sprite = "fish"+(1+random.nextInt(2))
+      end
+      
+      position -= .001*facing
+      position = max(PI*1.53,min(PI*1.97,position))
+
+      if random.next()<.05 then
+        facing *= -1 
+      end
+    end
+  end
+end
+
+
+
+gameplay = object
+  init = function()
+    initGameplay()
+    gamestart_sound()
+  end
+  
+  update = function()
+    updateGameplay()
+  end
+  
+  draw = function()
+    drawGameplay()
+  end
+end
+
+
+initGameplay = function()
+  cows.cows = []
+  trees.trees = []
+  fishes.fishes = []
+  humans.humans = []
+  clouds.clouds = []
+  objects.objects = []
+  factories.factories = []
+  gaz.gaz = []
+  cargo = 0
+  shipsize = 100
+  
+  position = random.next()*PI*2
+  year = 2000
+  
+  for i=1 to 6 by 1
+    cows.add(createCow(random.next()*PI*1.5))
+  end
+
+  for i=1 to 6 by 1
+    trees.add(createTree(random.next()*PI*1.5))
+  end
+
+  for i=1 to 6 by 1
+    fishes.add(createFish(PI*(1.5+random.next()*.5)))
+  end
+
+  for i=1 to 5 by 1
+    humans.add(createHuman(random.next()*PI*1.5))
+  end
+
+  for i=1 to 20 by 1
+    clouds.add(createCloud(random.next()*PI*2))
+  end
+  
+  stars = []
+  for i=0 to 99 by 1
+    stars.push(object
+      x=(random.next()-.5)*screen.width
+      y=random.next()*100
+      v=random.next()*.2
+    end)
+  end
+end
+
+updateGameplay = function()
+  year += 1/600
+  
+  scanControls()
+  
+  if going_left then
+    target_speed = -.005
+  elsif going_right then
+    target_speed = .005
+  else
+    target_speed = 0
+  end
+  
+  if abducting and not previous_abducting then
+    startAbducting()
+  end
+  
+  previous_abducting = abducting
+  
+  if expelling and not previous_expelling then
+    startExpelling()
+  end
+  
+  previous_expelling = expelling
+  
+  speed += (target_speed-speed)*.1
+  position += speed
+
+  if position<0 then position+=PI*2 end
+  if position>PI*2 then position -= PI*2 end
+  
+  objects.update()
+  clouds.update()
+  factories.update()
+  
+  if fishes.fishes.length == 0 then
+    gameOver("Fish went extinct")
+  elsif trees.trees.length == 0 then
+    gameOver("Trees went extinct")
+  elsif cows.cows.length == 0 then
+    gameOver("Animals went extinct")
+  elsif humans.humans.length == 0 then
+    gameOver("Humans went extinct")
+  end
+end
+
+drawGameplay = function()
+  screen.fillRect(0,0,screen.width,screen.height,"rgb(28,47,85)")
+  for s in stars
+    screen.fillRect(s.x,s.y,.5,.5,"#FFF")
+    s.x -= s.v
+    if s.x<-screen.width/2 then
+      s.x += screen.width
+    end
+  end
+  drawPlanet()
+
+  if cargo then
+    if sucking then
+      local shipx = speed*1000
+      local shipy = 70
+      local r = 360+30*cargo.z
+      local ox = cos(-cargo.position+position+PI/2)*r
+      local oy = sin(-cargo.position+position+PI/2)*r-400
+      local p = (sucking-1)/9
+      ox += (shipx-ox)*p
+      oy += (shipy-oy)*p
+      
+      screen.fillPolygon(shipx+2,shipy,ox+10,oy,ox-10,oy,shipx-2,shipy,"rgba(255,255,255,.3)")
+      screen.fillRound(ox,oy,20,10)
+      screen.drawSprite(cargo.default,ox,oy,15+sin(tick/19),15+sin(tick/24.5))
+      
+      sucking *= 1.1
+      if sucking>10 then
+        sucking = 0
+      end
+    else
+      screen.fillRound(-20,80,19+sin(tick/23)*2,19+sin(tick/17)*2,"rgb(0,170,170)")
+      screen.setDrawRotation(sin(tick/31)*5)
+      screen.drawSprite(cargo.default,-20,80,15+sin(tick/19),15+sin(tick/24.5))
+      screen.fillRound(-23,83,3,3,"rgba(255,255,255,.8)")
+    end
+  end
+  
+  if dropping then
+    local p = exp(-dropping/10)
+    local shipx = speed*1000
+    local shipy = 70
+    local r = 360+30*dropped.z
+    local ox = cos(-dropped.position+position+PI/2)*r
+    local oy = sin(-dropped.position+position+PI/2)*r-400
+    ox += (shipx-ox)*p
+    oy += (shipy-oy)*p
+
+    screen.setDrawRotation(sin(tick/11)*90*p)
+    screen.drawSprite(dropped.default,ox,oy,(20+sin(tick/3.5)),(20+sin(tick/4.5)))
+    
+    dropping += 1
+    if dropping >30 then
+      dropped.abducted = 0
+      dropping = 0
+      if dropped.group == fishes and dropped.position<PI*1.5 then
+        dropped.group.remove(dropped)
+      end
+      if dropped.group != fishes and dropped.group != gaz and dropped.position>PI*1.5 then
+        dropped.group.remove(dropped)
+      end
+      
+      if dropped.group != gaz then
+        if dropped.position>PI*1.5 then
+          splash_sound()
+        else
+          landed_sound()
+        end
+      end
+      
+      for i=0 to 19
+        particles.add(dropped.position,dropped.z*30+350,.004*(random.next()-.5),1+random.next(),3)
+      end
+        
+      dropped = 0
+    end
+  end
+  
+  if (abducting or expelling) and not dropping and not cargo and not ejecting then
+    screen.fillPolygon(speed*1000+2,70,10,-30,-10,-30,speed*1000-2,70,"rgba(255,255,255,.3)")
+    screen.fillRound(0,-30,20,10)
+    screen.drawSprite(cargo.default,ox,oy,15+sin(tick/19),15+sin(tick/24.5))
+  end
+  
+  if ejecting then
+    local pos = 1-exp(-ejecting/10)
+    local s = 1-ejecting/31
+    screen.setDrawRotation(sin(tick/11)*90)
+    screen.drawSprite(ejected.default,-20-pos*100,80,s*(15+sin(tick/3.5)),s*(15+sin(tick/4.5)))
+    
+    ejecting += 1
+    if ejecting >30 then
+      ejected.group.remove(ejected)
+      ejecting = 0
+      ejected = 0
+    end
+  end
+
+  screen.setDrawRotation(-speed*1500)
+  shipsize += (40+2*sin(tick/10)-shipsize)*.05
+  screen.drawSprite("spaceship"+(floor(tick/6)%4+1),speed*1000,70,shipsize)
+  screen.setDrawRotation(0)
+  particles.draw()
+  drawHUD()
+end
+
+drawHUD = function()
+  year_size += (10-year_size)*.2
+  if current_year != floor(year) then
+    current_year = floor(year)
+    year_size = 20
+  end
+  
+  screen.drawText(current_year,screen.width/2-25,85,year_size,"#FFF")
+  
+  //screen.fillRoundRect(0,-86,110,30,5,"rgba(0,0,0,.5)")
+  screen.setColor("rgba(255,255,255,.5)")
+  screen.drawSprite("human_walk1",-21,-80,10)
+  screen.drawText(humans.humans.length,-33,-81,10)
+  screen.drawSprite("tree1",-21,-92,10)
+  screen.drawText(trees.trees.length,-33,-93,10)
+
+  screen.drawSprite("cow_walk1",21,-79,11)
+  screen.drawText(cows.cows.length,33,-81,10)
+  screen.drawSprite("fish",21,-92,8)
+  screen.drawText(fishes.fishes.length,33,-93,10)
+  
+  screen.drawSprite("co21",0,-85,20,20)
+  screen.drawText(gaz.gaz.length,0,-85,10)
+
+  if humans.humans.length ==0 then
+    screen.drawSprite("skull",-45,-80,8)
+  elsif humans.humans.length<=3 and tick%30<15 then
+    screen.drawSprite("warning",-45,-80,8)
+  end
+  
+  if trees.trees.length ==0 then
+    screen.drawSprite("skull",-45,-92,8)
+  elsif trees.trees.length<=3 and tick%20<10 then
+    screen.drawSprite("warning",-45,-92,8)
+  end
+  
+  if cows.cows.length ==0 then
+    screen.drawSprite("skull",45,-80,8)
+  elsif cows.cows.length<=3 and tick%30<15 then
+    screen.drawSprite("warning",45,-80,8)
+  end
+  
+  if fishes.fishes.length ==0 then
+    screen.drawSprite("skull",45,-92,8)
+  elsif fishes.fishes.length<=3 and tick%20<10 then
+    screen.drawSprite("warning",45,-92,8)
+  end
+  
+  if gaz.gaz.length >15 and tick%20<10 then
+    screen.drawSprite("warning",0,-94,8)
+  end
+  
+  if system.inputs.touch then
+    screen.setAlpha(.5)
+    screen.drawSprite("arrowleft",-screen.width/2+40,-70,30)
+    screen.drawSprite("arrowright",-screen.width/2+90,-70,30)
+    screen.drawSprite("arrowup",screen.width/2-40,-10,30)
+    screen.drawSprite("arrowdown",screen.width/2-40,-60,30)
+    screen.setAlpha(1)
+  end
+end
+
+gameOver = function(text)
+  lostText = translator.get(text)
+  setCurrentStage(lostscreen)
+end
+
+scanControls = function()
+  local left = 0
+  local right = 0
+  local abd = 0
+  local expell = 0
+  
+  for t in touch.touches
+    if abs(-screen.width/2+40-t.x)<25 and abs(-70-t.y)<25 then
+      left = 1
+    elsif abs(-screen.width/2+90-t.x)<25 and abs(-70-t.y)<25 then
+      right = 1
+    elsif abs(screen.width/2-40-t.x)<25 and abs(-60-t.y)<25 then
+      abd = 1
+    elsif abs(screen.width/2-40-t.x)<25 and abs(-10-t.y)<25 then
+      expell = 1
+    end
+  end
+
+  going_left = 0
+  going_right = 0
+
+  if keyboard.LEFT or gamepad.LEFT or left then
+    going_left = 1
+  elsif keyboard.RIGHT or gamepad.RIGHT or right then
+    going_right = 1
+  end
+  
+  abducting = abd or keyboard.X or keyboard.DOWN or gamepad.DOWN or gamepad.A
+  expelling = expell or keyboard.C or keyboard.UP or gamepad.UP or gamepad.B
+  
+  if going_left and not previous_going_left then
+    ship_moving_sound()
+  end
+  if going_right and not previous_going_right then
+    ship_moving_sound()
+  end
+  previous_going_left = going_left
+  previous_going_right = going_right
+  
+  if abducting and not prev_abducting then
+    if cargo then ship_expelling_sound() else ship_sucking_sound() end
+  end
+  prev_abducting = abducting
+  
+  if expelling and not prev_expelling then
+    if cargo then ship_expelling_sound() else ship_sucking_sound() end
+  end
+  prev_expelling = expelling
+end
+
+startAbducting = function()
+  if cargo then
+    dropCargo()
+  else
+    local best = 0
+    local bestdist = 1000
+    for o in objects.objects
+      local d = abs(o.position-position)
+      if d<.05 and d<bestdist and o.abductible and not o.grabber and not o.abducted then
+         best = o
+         bestdist = d
+      end
+    end
+    if best then
+      best.abducted = 1
+      cargo = best
+      sucking = 1
+      sucking_pos = cargo.position
+      sucking_z = cargo.z
+    end
+  end
+end
+
+dropCargo = function()
+  cargo.position = position
+  dropping = 1
+  if dropped then
+    dropped.abducting = 0
+  end
+  dropped = cargo
+  cargo = 0
+end
+
+startExpelling = function()
+  if cargo then
+    if ejected then
+      ejected.group.remove(ejected)
+    end
+    
+    ejecting = 1
+    ejected = cargo
+    cargo = 0
+  else
+    startAbducting()
+  end
+end
+  
+  
+  
+  
+  
+  
+
+gaz = object
+  gaz = []
+  
+  add = function(g)
+    gaz.push(g)
+    objects.add(g)
+  end
+  
+  remove = function(g)
+    for i=0 to gaz.length-1
+      if g == gaz[i] then
+        gaz.remove(i)
+        objects.remove(g)
+        break
+      end
+    end
+  end
+end
+
+createGaz = function(position)
+  object
+    position = position
+    z = 2.8
+    size = .1
+    abductible = 1
+    default = "co21"
+    group = gaz
+    speed = (random.next()-.5)*.001
+
+    draw = function()
+      if abducted then return end
+      local x = cos(-position+global.position+PI/2)
+      local y = sin(-position+global.position+PI/2)
+      local r = 360+30*z
+      x = x*r
+      y = y*r-400
+      screen.setDrawRotation((-position+global.position)/PI*180)
+      screen.setDrawScale(1,1)
+      screen.drawSprite("co21",x,y,10*size+sin(tick/17),10*size+sin(tick/19))
+      size += (1-size)*.1
+      position += speed
+      if position<0 then position += 2*PI end
+      if position>=2*PI then position -= 2*PI end
+    end
+    
+    update = function()
+    end
+  end
+end
+
+
+
+humans = object
+  humans = []
+  
+  add = function(human)
+    humans.push(human)
+    objects.add(human)
+    human.this = human
+  end
+  
+  remove = function(human)
+    for i=0 to humans.length-1
+      if human == humans[i] then
+        humans.remove(i)
+        objects.remove(human)
+        break
+      end
+    end
+  end
+end
+
+createHuman = function(position)
+  object
+    position = position
+    z = random.next()
+    facing = if random.next()>.5 then 1 else -1 end
+    default = "human_walk1"
+    abductible = 1
+    group = humans
+
+    draw = function()
+      if abducted then return end
+      local x = cos(-position+global.position+PI/2)
+      local y = sin(-position+global.position+PI/2)
+      local r = 360+30*z
+      x = x*r
+      y = y*r-400
+      screen.setDrawRotation((-position+global.position)/PI*180)
+      screen.setDrawScale(facing,1)
+      screen.drawSprite(if tick%30<15 then "human_walk1" else "human_walk2" end,x,y,20,20)
+    end
+    
+    update = function()
+      if abducted then return end
+      local repro_proba = .01/(humans.humans.length+1)*max(1,20-gaz.gaz.length)/10
+      local death_proba = .01/(humans.humans.length+1)*max(1,gaz.gaz.length)/10
+      if random.next()<repro_proba and not abducted then
+        humans.add(createHuman(position+.1*(random.next()-.5)))
+      end
+      if random.next()<death_proba and not abducted then
+        humans.remove(this)
+      end
+    end
+  end
+end
+
+
+
+initGame = function()
+end
+
+inputlistener = object
+  init = function()
+    start = tick
+    previous_touching = 0
+    previous_key = 0
+    previous_pad = 0
+  end
+  
+  update = function()
+    if tick>start+60 then
+      local keydown = 0
+      
+      for key in keyboard.release
+        if keyboard.release[key] then
+          return 1
+        end
+      end
+      
+      if touch.release then
+        return 1
+      end
+      
+      for b in gamepad.release
+        if gamepad.release[b] then
+          return 1
+        end
+      end
+      
+      return 0
+    end
+  end
+end
+
+introduction = object
+  init = function()
+    initIntroduction()
+    music_intro()
+  end
+  
+  update = function()
+    updateIntroduction()
+  end
+  
+  draw = function()
+    drawIntroduction()
+  end
+end
+
+initIntroduction = function()
+  print("initializing intro")
+  inputlistener.init()
+  print(inputlistener.start)
+  start_tick = tick
+end
+
+DialogOne = ["WE LOST THREE","MORE INTELLIGENT", "CIVILIZATIONS THIS", "WEEK"]
+DialogTwo = ["I HEARD THAT!" , "SIRIUS WAS SUCKED", "INTO THEIR OWN", "FUSION REACTOR LOL"]
+DialogThree = ["YEAH AND ON", "ORION-B3 THEY BLEW UP", "THEIR ENTIRE SYSTEM" "INTO A SUPERNOVA" ]
+DialogFour = ["MALAKA !"]
+DialogFive = ["AND NOW EARTH," "EXHAUSTING THEIR", "RESOURCES . . .", "GAME OVER SOON . . ."]
+DialogSix = ["WE CAN FIX IT!", "SEND THEM OUR", "" , "PLANET REPAIR SQUAD"]
+updateIntroduction = function()
+  if inputlistener.update() then
+    start_tick -= 240
+    if myStage>26 then
+      setCurrentStage(titlemenu)
+    end
+  end
+  // accelerating start
+  if (tick-start_tick)<600 then
+    start_tick -= 1
+  end
+  myStage = floor((tick-start_tick)/60)
+  myFasterStage = floor((tick-start_tick)/25)
+end
+drawIntroduction = function()
+  screen.drawText("AAA",0,0,20)// just to ensure loading of the font asap
+  drawBackground(myFasterStage*10)
+  outSide = -180
+  if myStage>1 then
+    myLocalStage = myFasterStage * 10
+    //print(myLocalStage)
+    if myLocalStage > 180 then 
+       myLocalStage = 0
+       outSide = 0
+    end
+    drawAlien(-90 + outSide + myLocalStage,-50)
+    drawAlien(90 - outSide - myLocalStage,-50)
+  end
+  if myStage>8 then
+    drawDialog(90, 40)
+    drawDialog(-90,40)
+  end
+  if myStage>9 then
+    drawTextArray(15, DialogOne, -90, 70, 1.8)
+  end
+  if myStage>12 then
+    drawTextArray(15, DialogTwo, 90, 70, 2.5)
+  end
+  if myStage>16 then
+    drawDialog(90, 40)
+    drawDialog(-90,40)
+    drawTextArray(14, DialogThree, -90, 70, 1.8)
+  end
+   if myStage>19 then
+    drawTextArray(30, DialogFour, 90, 50, 1.8)
+   end
+   if myStage>23 then
+    drawDialog(90, 40)
+    drawDialog(-90,40)
+    drawTextArray(14, DialogFive, -90, 70, 1.8)
+   end
+   if myStage>26 then
+   drawTextArray(14, DialogSix, 90, 70, 1.8)
+   end
+   screen.drawSprite("fastforward",screen.width/2-40,-70,25)
+end
+
+drawAlien = function(x, y)
+  screen.fillRound(x -5,y - 30,50,60,"rgb(57,170,0)")
+  screen.drawRound(x -5,y - 30,50,60,"rgb(9,28,0)")
+  screen.fillRoundRect( x, y, 80, 40, 13,"rgb(47,142,0)")
+  screen.drawRoundRect( x, y, 80, 40, 13,"rgb(38,113,0)")
+  screen.fillRound(x + 38, y,20,20,"#FFF")
+  screen.fillRound(x - 40, y,20,20,"#FFF")
+  screen.drawRound(x + 38, y ,20, 20, "#000")
+  screen.drawRound(x -  40, y ,20, 20, "#000")
+  screen.fillRound(x + 38, y ,10, 10, "#000")
+  screen.fillRound(x -  40, y ,10, 10, "#000")
+  //screen.fillRoundRect(130, 30, 120, 100,"rgb(255,255,142)")
+  
+end
+drawDialog = function(x, y)
+  screen.fillPolygon(x -10, -30, x - 10, y -10, x+10, y "rgb(255,255,142)" )
+  screen.drawPolygon(x -10, -30, x - 10, y -10, x+10, y "#000" )
+  screen.drawPolygon(x -10, -30, x + 10, y -10, x+10, y "#000" )
+  screen.fillRoundRect(x,y,150,100, 15, "rgb(255,255,142)")
+  screen.drawRoundRect(x,y,150,100, 15, "#000")
+end
+drawTextArray = function(fontsize, array, x, y)
+  for i=1 to array.length
+    screen.drawText(array[i-1], x, y -i*14, fontsize, "#000")
+  end
+end
+drawBackground = function(rotateWin)
+  screen.fillRect(0,0,screen.width,screen.height,"rgb(142,217,255)")
+  screen.fillRect(0,30,screen.width,screen.height/3,"rgb(85,142,255)")
+  screen.drawRect(0,30,screen.width,screen.height/3,"rgb(0,38,57)")
+  screen.fillRound(-150,30,40, 40,"rgb(255,0,85)")
+  screen.drawRound(-150,30,40, 40,"rgb(0,0,0)")
+  screen.fillRound(-65,30,40, 40,"rgb(255,0,85)")
+  screen.drawRound(-65,30,40, 40,"rgb(0,0,0)")
+  screen.fillRound(25,30,40, 40,"rgb(255,0,85)")
+  screen.drawRound(25,30,40, 40,"rgb(0,0,0)")
+  screen.fillRound(115,30,40, 40,"rgb(255,0,85)")
+  screen.drawRound(115,30,40, 40,"rgb(0,0,0)")
+  screen.fillRound(185,30,40, 40,"rgb(255,0,85)")
+  screen.drawRound(185,30,40, 40,"rgb(0,0,0)")
+end
+
+
+
+
+
+
+lostscreen = object
+  init = function()
+    start = tick
+    previous_touching = 0
+    previous_key = 0
+    previous_pad = 0
+    game_over_sound()
+    hint = gameHints[floor(random.next()*gameHints.length)]
+  end
+  
+  update = function()
+    if tick>start+120 then
+      local keydown = 0
+      
+      for key in keyboard
+        if keyboard[key] then
+          keydown = 1
+        end
+      end
+
+      local pad = gamepad.A or gamepad.B or gamepad.UP or gamepad.DOWN or gamepad.LEFT or gamepad.RIGHT
+    
+      if previous_touching and not touch.touching then
+        setCurrentStage(titlemenu)
+      end
+      
+      if previous_key and not keydown then
+        setCurrentStage(titlemenu)
+      end
+      
+      if previous_pad and not pad then
+        setCurrentStage(titlemenu)
+      end
+      
+      previous_touching = touch.touching
+      previous_key = keydown
+      previous_pad = pad
+    end
+  end
+  
+  draw = function()
+    drawLostscreen(hint)
+  end
+end
+
+gameOverMessages = [
+  "BUMMER!"
+  "NICE REPAIR JOB"
+  "GOOD REPAIR JOB"
+  "AMAZING REPAIR JOB!"
+  "FANTASTIC REPAIR JOB!"
+  "OUTSTANDING REPAIR JOB!"
+  "UNPRECEDENTED REPAIR JOB!"
+  "CRAZY REPAIR JOB!"
+  ]
+  
+gameHints = [
+  "Pollution kills humans"
+  "Move the living away from factories"
+  "The more humans, the more factories"
+  "Separate animals when grouped together"
+  ]
+
+drawLostscreen = function(hint)
+  gameplay.draw()
+  local msg = gameOverMessages[min(gameOverMessages.length-1,floor(current_year/10-200))]
+  screen.fillRect(0,0,screen.width,screen.height,"rgba(0,0,0,.7)")
+  screen.drawText("GAME OVER",0,50,15,"#EEE")
+  screen.drawText(msg,0,0,25,"#EEE")
+  screen.drawText(lostText,0,-35,15,"#EEE")
+  screen.drawText("You sustained Earth until "+floor(year),0,-55,15,"#EEE")
+  screen.drawText("tip:  "+hint,0,-75,8,"#EEE")
+end
+
+init = function()
+  screen.setFont("Awesome")
+  setCurrentStage(introduction)
+end
+
+update = function()
+  tick+=1
+  
+  currentstage.update()
+end
+
+draw = function()
+  currentstage.draw()
+end
+
+setCurrentStage = function(stage)
+  audio.cancelBeeps()
+  currentstage = stage
+  currentstage.init()
+end
+
+objects = object
+  objects = []
+  
+  add = function(o)
+    objects.push(o)
+    for i=objects.length-1 to 1 by -1
+      if objects[i].z>objects[i-1].z then
+        local swap = objects[i]
+        objects[i] = objects[i-1]
+        objects[i-1] = swap
+      else
+        break
+      end
+    end
+  end
+
+  remove = function(o)
+    for i=0 to objects.length-1 by 1
+      if o == objects[i] then
+        objects.remove(i)
+        break
+      end
+    end
+  end
+  
+  draw = function()
+    for o in objects
+      local d = abs(o.position-position)
+      if d<1 or d>2*PI-1 then
+        o.draw()
+      end
+    end
+  
+    screen.setDrawRotation(0)
+    screen.setDrawScale(1,1)
+  end
+  
+  update = function()
+    for i=tick%10 to objects.length-1 by 10
+      objects[i].update()
+    end
+  end
+end
+
+particles = object
+  particles = []
+  index = 0
+  
+  add = function(x,z,vx,vz,size)
+    local p = particles[index]
+    p.x = x
+    p.z = z
+    p.vx = vx
+    p.vz = vz
+    p.size = size
+    p.time = 0
+    index = (index+1)%particles.length
+  end
+  
+  draw = function()
+    screen.setColor("rgba(255,255,255,.5)")
+    for p in particles
+      if p.time<30 then
+        local x = p.z*cos(position-p.x+PI/2)
+        local y = p.z*sin(position-p.x+PI/2)-400
+        screen.fillRect(x,y,p.size,p.size)
+        p.x += p.vx
+        p.z += p.vz
+        p.vz *= .96
+        p.vz *= .96
+        p.vz -= .1
+        p.time += 1
+      end
+    end
+  end
+end
+
+for i=0 to 19
+  particles.particles.push(object
+    x=0
+    y=0
+    vx=0
+    vy=0
+    size=0
+    time=30
+    end)
+end
+
+
+sea_points = []
+
+drawSea = function()
+  for i=0 to 49 by 1
+    local angle = position+i/49*PI/2+PI/2
+    local r = 400
+    sea_points[i*2] = r*cos(angle)
+    sea_points[i*2+1] = r*sin(angle)-400
+  end
+
+  for i=0 to 49 by 1
+    local angle = position+(49-i)/49*PI/2+PI/2
+    local r = 350
+    sea_points[100+i*2] = r*cos(angle)
+    sea_points[100+i*2+1] = r*sin(angle)-400
+  end
+    
+  screen.fillPolygon(sea_points,"rgb(19,69,170)")
+  
+  drawSeabed()
+end
+
+seabed = []
+
+drawSeabed = function()
+  for i=0 to 49 by 1
+    local angle = position+i/49*PI/2+PI/2
+    local r = 350
+    seabed[i*2] = r*cos(angle)
+    seabed[i*2+1] = r*sin(angle)-400
+  end
+
+  for i=0 to 49 by 1
+    local angle = position+(49-i)/49*PI/2+PI/2
+    local r = 350
+    r -= sin(i/49*PI)*20
+    seabed[100+i*2] = r*cos(angle)
+    seabed[100+i*2+1] = r*sin(angle)-400
+  end
+    
+  screen.fillPolygon(seabed,"rgb(76,126,227)")
+end
+
+
+titlemenu = object
+
+
+init = function()
+    initMenu()
+    makeStars()
+    music_menu()
+end
+  
+update = function()
+    if keyboard.I or (touch.touching and abs(touch.x+screen.width/2-30)<15 and abs(touch.y+75)<15) then
+      setCurrentStage(credits)
+      return
+    end
+    updateMenu()
+end
+  
+draw = function()
+  screen.fillRect(0,0,screen.width,screen.height,"#123")
+   drawStars(0,0)
+   drawTitlemenu()
+   drawSpaceShip()
+   drawAction()
+   screen.drawSprite("info",-screen.width/2+30,-75,25)
+end
+initMenu = function()
+  start_tick = tick
+  inputlistener.init()
+end
+updateMenu = function()
+ myStage = floor((tick-start_tick)/60)
+ myFasterStage = floor((tick-start_tick)/10)
+ if inputlistener.update() then
+   if system.inputs.touch or hints_shown then
+     setCurrentStage(gameplay)
+   else
+     setCurrentStage(controlhints)
+     hints_shown = 1
+    end
+  end
+end
+drawTitlemenu = function()
+  screen.setRadialGradient(0,-100,100,"rgb(227,246,255)","rgb(57,132,170)")
+  screen.fillRound(100,-500,900,900)
+  //screen.drawSprite("title_sprite",-100,70,180, 40)
+  //screen.drawSprite("title_sprite2", 90,70, 180, 45)
+  screen.drawText("PLANET",-78,70,48,"rgb(0,170,255)")
+  screen.drawText("PLANET",-78,69,47,"rgb(104,255,28)")
+  screen.drawText("PLANET",-78,69,46,"rgb(255,170,0)")
+  screen.drawText("REPAIR",78,69,48,"rgb(0,255,255)")
+  screen.drawText("REPAIR",78,68,47,"rgb(198,236,255)")
+  screen.drawText("REPAIR",78,68,46,"rgb(255,255,28)")
+  screen.drawText("SQUAD",85,15,50,"rgb(255,255,0)")
+  screen.drawText("SQUAD",85,14,49,"rgb(25,227,25)")
+  screen.drawText("SQUAD",85,14,48,"rgb(28,255,28)")
+end
+makeStars = function()
+  stars = []
+  objects.objects = []
+  for i=0 to 99 by 1
+    stars.push(object
+      x=(random.next()-.5)*screen.width
+      y=random.next()*200-100
+      v=random.next()*.2 end)
+  end
+end
+drawStars = function(x, y)
+  for s in stars
+    screen.fillRect(s.x,s.y,.5,.5,"#FFF")
+    s.x -= s.v
+    if s.x<-screen.width/2 then
+      s.x += screen.width
+    end
+  end
+end
+end
+drawSpaceShip = function()
+  drawit = if tick%30<15 then 1 else 0 end
+  if drawit==1 then
+  screen.drawSprite("spaceship_title",-60,0,100)
+  end
+  if drawit==0 then
+  screen.drawSprite("spaceship_title2",-60,0,100)
+  end
+end
+drawAction = function()
+  sizeIt = if tick%40<15 then 1 else 0 end
+  local text = "PRESS ANY KEY TO START"
+  if not system.inputs.keyboard then
+    text = "TAP TO START"
+  end
+  if sizeIt==1 then
+  screen.drawText(text,0,-75,20,"rgb(255,255,0)")
+  end
+  if sizeIt==0 then
+  screen.drawText(text,0,-75,20.5,"rgb(255,255,0)")
+  end
+end
+
+translator = object
+  get = function(text)
+    if dict[text] then
+      dict[text]
+    else
+      text
+    end
+  end
+end
+
+if system.language == "fr" then
+  translator.dict[""] = ""
+end
+
+trees = object
+  trees = []
+  
+  add = function(tree)
+    trees.push(tree)
+    objects.add(tree)
+  end
+  
+  remove = function(tree)
+    for i=0 to trees.length-1
+      if tree == trees[i] then
+        trees.remove(i)
+        objects.remove(tree)
+        break
+      end
+    end
+  end
+end
+
+createTree = function(position)
+  object
+    position = position
+    z = random.next()
+    size = .1
+    abductible = 1
+    default = "tree1"
+    group = trees
+
+    draw = function()
+      if abducted then return end
+      local x = cos(-position+global.position+PI/2)
+      local y = sin(-position+global.position+PI/2)
+      local r = 360+30*z
+      x = x*r
+      y = y*r-400
+      screen.setDrawRotation((-position+global.position)/PI*180)
+      screen.setDrawScale(1,1)
+      screen.drawSprite("tree1",x,y,20*size)
+      size += (1-size)*.1
+      if grabber then
+        local x2 = cos((-position+global.position)+PI/2)*420
+        local y2 = sin((-position+global.position)+PI/2)*420-400
+        screen.setLineWidth(5)
+        screen.setDrawRotation(0)
+        screen.setDrawScale(1,1)
+        screen.drawLine(x,y,x2,y2,"#222")
+        screen.fillRound(x,y,2,2,"#AAA")
+        screen.fillRound(x2,y2,2,2)
+      end
+    end
+    
+    update = function()
+      if abducted then return end
+      if random.next()<.02/(trees.trees.length+1) and trees.trees.length<30 and not abducted then
+        trees.add(createTree(position+.1*(random.next()-.5)))
+      end
+    end
+  end
+end
+
+
+
+
+
+fmod = function(x,y)
+  x-y*floor(x/y)
+end
+
+angleDist = function(a1,a2)
+  local d = abs(a1-a2)
+  min(d,2*PI-d)
+end
+
+</script></html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html><html><head><title>it rains enemies</title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui=1"><meta charset="UTF-8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="description" content=""><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon64.png"><link rel="apple-touch-icon" sizes="180x180" href="icon180.png"><link rel="icon" type="image/png" sizes="32x32" href="icon32.png"><link rel="icon" type="image/png" sizes="16x16" href="icon16.png"><style>html,body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow:hidden;
+  font-family: Verdana;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#canvaswrapper {
+  text-align: center ;
+}
+</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"icon.png","version":11,"size":247,"properties":{"frames":1,"fps":5}},{"file":"poster.png","version":1,"size":19358,"properties":{"frames":1,"fps":5}}],"assets":[],"maps":{},"sounds":[],"music":[]};
+var graphics = "M1";
+
+</script><script type="text/javascript">var orientation = 'any' ;
+var aspect = 'free' ;
+var ms_libs = [] ;
+window.skip_service_worker = true;
+window.exported_project = true;
+window.ms_use_server = false ;
+</script><script src="compiler.js"></script><script src="parser.js"></script><script src="processor.js"></script><script src="program.js"></script><script src="routine.js"></script><script src="runner.js"></script><script src="token.js"></script><script src="tokenizer.js"></script><script src="transpiler.js"></script><script src="microengine.js"></script></body><script type="text/javascript">//
+//
+// The game is started with the code below.
+// Once you have received the "started" signal (see below),
+// you can do the following:
+// 1) Inject functions or objects into the global context of the microStudio engine, example:
+//
+//   window.player.setGlobal("special_callback",function(x) { console.info(x) }) ;
+//   // Your microScript code can now call the "special_callback" function
+//
+// 2) Call microScript global functions from your JavaScript code, example:
+//
+//   window.player.call("call_me_from_javascript",[10,1000]) ;
+//   // arguments to the function call are provided as an array
+//
+// 3) Run a microScript code snippet from your JavaScript code, example:
+//
+//   window.player.exec("player.position_x = 50",function(result) { console.log(result) ; }) ;
+//
+
+window.addEventListener("load",function() {
+  window.player = new Player(function(event) {
+    if (event.name == "started") {
+      // signal that the game is started
+    }
+    else if (event.name == "log") {
+      // console.info(event.data) ;
+    }
+  }) ;
+  document.body.focus() ;
+}) ;
+
+</script><script id="code" type="text/x-microscript">
+
+
+function()
+ball_launched = class
+  constructor = function(x, y, vector)
+    this.x=x
+    this.y=y-10
+    this.ax=vector.x
+    this.ay=vector.y
+    this.delete = false
+    
+    after 3 second do
+      this.delete = true
+    end
+  end
+  
+  update = function()
+    this.x += ax
+    this.y += ay
+    this.ay -= global.gravity
+    
+    for en in enemy_list
+      distance=sqrt( (x-en.x)^2 + (y-en.y)^2 )
+      if distance < 10+en.radius/2 then
+        en.delete=true
+      end
+    end
+  end
+  
+  draw = function()
+      screen.setRadialGradient(this.x, this.y, 29, "blue", "white")
+      screen.fillRound(this.x, this.y, 20, 20)
+  end
+end
+end()
+
+
+
+function()
+ball = object
+  prepared = 1
+  
+  cooldown = 1
+  
+  h = -10
+  
+  launch = function()
+    prepared = 0
+    ball_list.push( new ball_launched(sling.forcex/2, sling.forcey/2, object x=-sling.forcex/5 y=-sling.forcey/5 end) )
+    after cooldown seconds do
+      this.prepared = 1
+    end
+  end
+  
+  draw = function()
+    if prepared then
+      screen.setRadialGradient(sling.forcex/2, h+sling.forcey/2 , 29, "blue", "white")
+      screen.fillRound(sling.forcex/2, h+sling.forcey/2 , 20, 20)
+    end
+  end
+end
+end()
+
+
+
+function()
+ball_traj = class
+  constructor = function(x, y, vector, timer)
+    this.x=x
+    this.y=y-10
+    this.delete=false
+    this.ax=vector.x
+    this.ay=vector.y
+    
+    after timer seconds do
+      this.delete=true
+    end
+  end
+  
+  update = function()
+    this.x += ax
+    this.y += ay
+    this.ay -= global.gravity
+  end
+  
+  draw = function()
+    screen.fillRound(this.x, this.y, 5, 5, "white")
+  end
+end
+end()
+
+
+
+function()
+enemy = class
+  constructor = function()
+    this.x = (screen.width-20) * random.next() + 10 - screen.width/2
+    this.y = screen.height / 2
+    
+    this.vy = 0.5 * random.next() + 0.5
+    
+    this.radius = 20 * random.next() + 15
+    
+    this.delete = false
+  end
+  
+  update = function()
+    this.y -= this.vy
+    if this.y-radius/2 < -80+25 then
+      game_state.game_over=true
+      after 2 second do
+        game_state.game_over=false
+        game_state.main=true
+        stop_enemy()
+        init()
+      end
+    end
+  end
+  
+  draw = function()
+    screen.setRadialGradient(this.x, this.y, radius + 9, "red", "white")
+    screen.fillRound(this.x, this.y, radius, radius)
+  end
+  
+end
+end()
+
+
+
+function()
+game_state = object
+  game_over = false
+  main = true
+  game = false
+  score = 0
+  
+  update = function()
+    if touch.press and touch.x>0-50 and touch.x<0+50
+    and touch.y>-30-25 and touch.y<-30+25 then
+      main=false
+      game=true
+      start_enemy()
+    end
+  end
+  
+  draw = function()
+    if main then
+      screen.setRadialGradient(0, -30, 80, "blue", "white")
+      screen.fillRect(0, -30, 100, 50)
+      screen.drawText("play", 0, -30, 20, "white")
+      h=90
+      x=0
+      h1=-70
+      x1=20
+      screen.fillRoundRect(x, h-43, 5, 50, 5, "brown")
+      screen.setLineWidth(5)
+      screen.drawArc(x, h, 20, 0, 180, 0, "brown")
+      screen.setLineWidth(3)
+      screen.drawQuadCurve(x-20, h, x+40, h-70, x+20, h, "white")
+      screen.drawText("throw the ball by dragging the slingshot",x,h-60,10,"white")
+      screen.fillRound( x+40/2, h-70/2, 20,20, "blue")
+      
+      screen.drawText("Don't let enemies( ",x1-50,h1,10,"white")
+      screen.fillRound(x1-10,h1-0.5,8,8,"red")
+      screen.drawText(" ) touch green",x1+22,h1,10,"white")
+    elsif game_over then
+      screen.setAlpha(0.3)
+      screen.fillRect(0,0,screen.width,screen.height,"black")
+      screen.setAlpha(1)
+      screen.drawText("GAME OVER",0,0,30,"white")
+      screen.drawTextOutline("GAME OVER",0,0,30,"red")
+    end
+  end
+end
+end()
+
+
+
+function()
+init = function()
+  gravity = 1
+  mouse.x=0
+  mouse.y=0
+  ball_list = []
+  traj_list = []
+  enemy_list = []
+  enemy_timer = 4
+end
+
+update = function()
+  
+  if game_state.main then
+    game_state.update()
+  
+  elsif not game_state.game_over then
+  
+  sling.update()
+  
+  for el in enemy_list
+    el.update()
+    if el.delete then
+      enemy_list.removeElement(el)
+    end
+  end
+  
+  for el in ball_list
+    el.update()
+    if el.delete then
+      ball_list.removeElement(el)
+    end
+  end
+  
+  for el in traj_list
+    el.update()
+    if el.delete then
+      traj_list.removeElement(el)
+    end
+  end
+  
+  end
+end
+
+draw = function()
+
+  screen.clear()
+  
+  game_state.draw()
+  
+  if not game_state.game_over and not game_state.main then
+  
+  screen.setLinearGradient(0, -100, 0, -50, "green", "chartreuse")
+  screen.fillRect(0, -80, screen.width, 50)
+
+  sling.draw()
+  
+  ball.draw()
+  
+  for el in enemy_list
+    el.draw()
+  end
+  
+  for el in ball_list
+    el.draw()
+  end
+  
+  for el in traj_list
+    el.draw()
+  end
+  
+  screen.fillRect(0, -200, screen.width, 200, "black")
+ 
+  
+  end
+  
+end
+end()
+
+
+
+function()
+sling = object
+  h=-10
+  update = function()
+    if mouse.press and sqrt( mouse.x^2 + (mouse.y-h)^2 ) < 15 and ball.prepared then
+      grab=1
+    end
+    if mouse.release and grab then
+      grab=0
+      ball.launch()
+    end
+    
+    
+    if grab then
+      forcex = mouse.x
+      forcey = mouse.y - h
+      traj_list.push( new ball_traj( forcex/2, forcey/2, object x = -forcex/5  y = -forcey/5 end, 0.2 ) )
+    else
+      forcex=0
+      forcey=0
+    end
+  end
+  
+  draw = function()
+    screen.fillRoundRect(0, h-43, 5, 50, 5, "brown")
+    screen.setLineWidth(5)
+    screen.drawArc(0, h, 20, 0, 180, 0, "brown")
+    screen.setLineWidth(3)
+    screen.drawQuadCurve(-20, h, forcex, forcey+h, 20, h, "white")
+  end
+end
+end()
+
+
+
+function()
+start_enemy = function()
+  enemy_thread = every enemy_timer seconds do
+    enemy_list.push( new enemy() )
+  end
+  
+  diff = every 10 seconds do
+    enemy_thread.stop()
+    if enemy_timer > 0.5 then
+      enemy_timer-=0.5
+    end
+    if ball.cooldown > 0.2 then
+      ball.cooldown-=0.2
+    end
+    
+    enemy_thread = every enemy_timer seconds do
+      enemy_list.push( new enemy() )
+    end
+  end
+end
+
+stop_enemy = function()
+  diff.stop()
+  enemy_thread.stop()
+end
+end()
+
+
+</script></html>
