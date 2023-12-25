@@ -1,0 +1,1707 @@
+<!DOCTYPE html><html><head><title>Wake Up</title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui=1"><meta charset="UTF-8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="description" content=""><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon64.png"><link rel="apple-touch-icon" sizes="180x180" href="icon180.png"><link rel="icon" type="image/png" sizes="32x32" href="icon32.png"><link rel="icon" type="image/png" sizes="16x16" href="icon16.png"><style>html,body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow:hidden;
+  font-family: Verdana;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#canvaswrapper {
+  text-align: center ;
+}
+</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"alarm_clock.png","version":6,"size":228,"properties":{"frames":2,"fps":5}},{"file":"arrow_down.png","version":2,"size":351,"properties":{"frames":2,"fps":5}},{"file":"arrow_left.png","version":2,"size":463,"properties":{"frames":3,"fps":5}},{"file":"batteries.png","version":1,"size":95,"properties":{}},{"file":"batteries_icon.png","version":1,"size":208,"properties":{}},{"file":"bbq.png","version":15,"size":1112,"properties":{"frames":2,"fps":5}},{"file":"bbq_door_1.png","version":17,"size":490,"properties":{"frames":4,"fps":5}},{"file":"bbq_door_2.png","version":14,"size":517,"properties":{"frames":4,"fps":5}},{"file":"bbq_lid.png","version":41,"size":789,"properties":{"frames":4,"fps":5}},{"file":"bed.png","version":69,"size":2975,"properties":{"frames":3,"fps":5}},{"file":"bedroom.png","version":24,"size":4684,"properties":{"frames":2,"fps":5}},{"file":"big_blue.png","version":1,"size":360,"properties":{}},{"file":"big_blue_slot.png","version":1,"size":355,"properties":{}},{"file":"big_clock.png","version":11,"size":2109,"properties":{"frames":2,"fps":5}},{"file":"big_green.png","version":1,"size":359,"properties":{}},{"file":"big_green_slot.png","version":1,"size":355,"properties":{}},{"file":"big_red.png","version":1,"size":358,"properties":{}},{"file":"big_red_slot.png","version":1,"size":355,"properties":{}},{"file":"blue_glow.png","version":1,"size":348,"properties":{}},{"file":"blue_prism.png","version":3,"size":200,"properties":{"frames":1,"fps":5}},{"file":"bottom_drawer.png","version":10,"size":628,"properties":{"frames":6,"fps":5}},{"file":"branch.png","version":2,"size":877,"properties":{"frames":3,"fps":5}},{"file":"cabinet.png","version":12,"size":621,"properties":{"frames":1,"fps":5}},{"file":"car.png","version":48,"size":4307,"properties":{"frames":3,"fps":5}},{"file":"card.png","version":4,"size":435,"properties":{"frames":2,"fps":5}},{"file":"cartridge.png","version":1,"size":22171,"properties":{}},{"file":"clock_button.png","version":9,"size":275,"properties":{"frames":4,"fps":5}},{"file":"clock_dots.png","version":4,"size":112,"properties":{"frames":1,"fps":5}},{"file":"digit.png","version":4,"size":2379,"properties":{"frames":10,"fps":5}},{"file":"dog_1.png","version":1,"size":453,"properties":{}},{"file":"dog_2.png","version":1,"size":479,"properties":{}},{"file":"door_1.png","version":18,"size":1188,"properties":{"frames":4,"fps":5}},{"file":"door_2.png","version":6,"size":901,"properties":{"frames":3,"fps":5}},{"file":"door_handle.png","version":13,"size":369,"properties":{"frames":4,"fps":5}},{"file":"exit_button.png","version":3,"size":262,"properties":{"frames":2,"fps":5}},{"file":"flash_1.png","version":1,"size":17367,"properties":{}},{"file":"flash_2.png","version":1,"size":21325,"properties":{}},{"file":"flash_3.png","version":1,"size":16775,"properties":{}},{"file":"flower.png","version":6,"size":186,"properties":{"frames":1,"fps":5}},{"file":"flower_icon.png","version":1,"size":153,"properties":{}},{"file":"glass_empty.png","version":5,"size":312,"properties":{"frames":2,"fps":5}},{"file":"glass_full.png","version":1,"size":157,"properties":{}},{"file":"glasses.png","version":16,"size":189,"properties":{"frames":1,"fps":5}},{"file":"green_glow.png","version":1,"size":348,"properties":{}},{"file":"green_prism.png","version":2,"size":200,"properties":{"frames":1,"fps":5}},{"file":"hospital.png","version":1,"size":3464,"properties":{}},{"file":"hospital_bg.png","version":3,"size":1791,"properties":{"frames":1,"fps":5}},{"file":"icon.png","version":7,"size":214,"properties":{"frames":1,"fps":5}},{"file":"inventory.png","version":2,"size":2113,"properties":{"frames":4,"fps":5}},{"file":"jampalette.png","version":1,"size":166,"properties":{}},{"file":"key.png","version":5,"size":213,"properties":{"frames":1,"fps":5}},{"file":"knife.png","version":1,"size":112,"properties":{}},{"file":"lamp_1.png","version":27,"size":1340,"properties":{"frames":6,"fps":5}},{"file":"light_switch.png","version":1,"size":98,"properties":{}},{"file":"living_handle.png","version":8,"size":373,"properties":{"frames":4,"fps":5}},{"file":"living_room.png","version":14,"size":7648,"properties":{"frames":3,"fps":5}},{"file":"loose_string.png","version":4,"size":168,"properties":{"frames":2,"fps":5}},{"file":"oncoming_car.png","version":1,"size":907,"properties":{}},{"file":"outside.png","version":12,"size":11584,"properties":{"frames":2,"fps":5}},{"file":"painting.png","version":90,"size":2098,"properties":{"frames":5,"fps":5}},{"file":"plant.png","version":29,"size":1301,"properties":{"frames":2,"fps":5}},{"file":"portrait.png","version":75,"size":2336,"properties":{"frames":4,"fps":5}},{"file":"poster.png","version":1,"size":51757,"properties":{"frames":1,"fps":5}},{"file":"red_glow.png","version":1,"size":347,"properties":{}},{"file":"red_prism.png","version":2,"size":200,"properties":{"frames":1,"fps":5}},{"file":"red_prism_small.png","version":1,"size":112,"properties":{}},{"file":"remote.png","version":1,"size":95,"properties":{}},{"file":"remote_icon.png","version":8,"size":167,"properties":{"frames":1,"fps":5}},{"file":"road.png","version":1,"size":1445,"properties":{}},{"file":"road_tree.png","version":1,"size":1047,"properties":{}},{"file":"sausage.png","version":1,"size":148,"properties":{}},{"file":"scissors.png","version":1,"size":193,"properties":{}},{"file":"screw.png","version":1,"size":98,"properties":{}},{"file":"screw_driver.png","version":1,"size":268,"properties":{}},{"file":"screw_driver_icon.png","version":6,"size":397,"properties":{"frames":3,"fps":5}},{"file":"scroll_left.png","version":1,"size":123,"properties":{}},{"file":"scroll_right.png","version":1,"size":128,"properties":{}},{"file":"string_icon.png","version":9,"size":287,"properties":{"frames":1,"fps":5}},{"file":"title.png","version":1,"size":16684,"properties":{}},{"file":"top_drawer.png","version":9,"size":563,"properties":{"frames":6,"fps":5}},{"file":"tv.png","version":6,"size":3040,"properties":{"frames":3,"fps":5}},{"file":"wardrobe.png","version":45,"size":1372,"properties":{"frames":3,"fps":5}},{"file":"wardrobe_door_1.png","version":9,"size":463,"properties":{"frames":4,"fps":5}},{"file":"wardrobe_door_2.png","version":6,"size":470,"properties":{"frames":4,"fps":5}}],"assets":[],"maps":{},"sounds":[{"file":"alarm_beep.wav","version":1,"size":27540,"properties":{}},{"file":"alarm_clock.wav","version":1,"size":473256,"properties":{}},{"file":"button_click.wav","version":1,"size":8340,"properties":{}},{"file":"car_break.wav","version":1,"size":449932,"properties":{}},{"file":"car_ignition.wav","version":1,"size":866492,"properties":{}},{"file":"card_ghost.wav","version":1,"size":429318,"properties":{}},{"file":"click.wav","version":1,"size":5688,"properties":{}},{"file":"dog_bark.wav","version":1,"size":164896,"properties":{}},{"file":"dog_growl.wav","version":1,"size":35020,"properties":{}},{"file":"door_close.wav","version":1,"size":217600,"properties":{}},{"file":"door_handle.wav","version":1,"size":27476,"properties":{}},{"file":"drawer_stuck.wav","version":1,"size":116872,"properties":{}},{"file":"lock.wav","version":1,"size":277852,"properties":{}},{"file":"open_drawer.wav","version":1,"size":45032,"properties":{}},{"file":"pickup_item.wav","version":1,"size":83756,"properties":{}},{"file":"pour_water.wav","version":1,"size":349676,"properties":{}},{"file":"prism.wav","version":1,"size":414380,"properties":{}},{"file":"screw.wav","version":1,"size":348786,"properties":{}},{"file":"success.wav","version":1,"size":219068,"properties":{}},{"file":"wake_ghost.wav","version":1,"size":244880,"properties":{}},{"file":"wardrobe_door.wav","version":1,"size":34456,"properties":{}},{"file":"white_noise.wav","version":1,"size":143060,"properties":{}}],"music":[{"file":"soundtrack.mp3","version":1,"size":3922464,"properties":{}}]};
+var graphics = "M1";
+
+</script><script type="text/javascript">var orientation = 'landscape' ;
+var aspect = '16x9' ;
+var ms_libs = [] ;
+window.skip_service_worker = true;
+window.exported_project = true;
+window.ms_use_server = false ;
+</script><script src="compiler.js"></script><script src="parser.js"></script><script src="processor.js"></script><script src="program.js"></script><script src="routine.js"></script><script src="runner.js"></script><script src="token.js"></script><script src="tokenizer.js"></script><script src="transpiler.js"></script><script src="microengine.js"></script></body><script type="text/javascript">//
+//
+// The game is started with the code below.
+// Once you have received the "started" signal (see below),
+// you can do the following:
+// 1) Inject functions or objects into the global context of the microStudio engine, example:
+//
+//   window.player.setGlobal("special_callback",function(x) { console.info(x) }) ;
+//   // Your microScript code can now call the "special_callback" function
+//
+// 2) Call microScript global functions from your JavaScript code, example:
+//
+//   window.player.call("call_me_from_javascript",[10,1000]) ;
+//   // arguments to the function call are provided as an array
+//
+// 3) Run a microScript code snippet from your JavaScript code, example:
+//
+//   window.player.exec("player.position_x = 50",function(result) { console.log(result) ; }) ;
+//
+
+window.addEventListener("load",function() {
+  window.player = new Player(function(event) {
+    if (event.name == "started") {
+      // signal that the game is started
+    }
+    else if (event.name == "log") {
+      // console.info(event.data) ;
+    }
+  }) ;
+  document.body.focus() ;
+}) ;
+
+</script><script id="code" type="text/x-microscript">
+
+
+function()
+init = function()
+  load_fonts()
+  init_coordinates()
+  start_menu()
+  // start_end_game()
+  // instance = []
+  // instance.push(new Road())
+end
+
+
+update = function()
+  check_instances()
+  update_instances()
+  remove_instances()
+  // cheat()
+end
+
+
+draw = function()
+  screen.clear()
+  // draw_sprite('cartridge', 0, 0, screen_w, screen_h)
+  draw_sprite(background, 0, 0, screen_w, screen_h)
+  draw_instances()
+end
+
+
+load_fonts = function()
+  game_font = 'Courier'
+  screen.loadFont(game_font)
+  title_font = 'Salina'
+  screen.loadFont(title_font)
+end
+
+
+start_menu = function()
+  instance = []
+  mouse_at = 0
+  
+  instance.push(new Menu())
+  background = 0
+end
+
+
+start_game = function()
+  create_items()
+  message = new Message()
+  instance.push(message)
+  inventory = new Inventory()
+  instance.push(inventory)
+  room = ''
+  prisms = 0
+  enter_room('bedroom')
+  global.has_glasses = false
+  instance.push(new Fade("#000", 'in'))
+  screen.setFont(game_font)
+  message.change("Why does everything look so strange?")
+  message.wait = 180
+end
+
+
+start_end_game = function()
+  instance = []
+  prisms = 0
+  create_hospital_items()
+  message = new Message()
+  instance.push(message)
+  inventory = new Inventory()
+  instance.push(inventory)
+  inventory.pickup('Red Prism', 'red_prism', false)
+  inventory.pickup('Green Prism', 'green_prism', false)
+  inventory.pickup('Blue Prism', 'blue_prism', false)
+  enter_room('hospital')
+  message.change("Please wake up!")
+  audio.playSound('wake_ghost')
+end
+
+
+init_coordinates = function()
+  screen_w = 355
+  screen_h = 200
+  half_w = floor(screen_w / 2)
+  half_h = floor(screen_h / 2)
+  screen.setTranslation(-screen.width / 2, screen.height / 2)
+  screen.setDrawAnchor(-1, 1)
+end
+
+
+update_instances = function()
+  local id = 0
+  for id in instance
+    id.update()
+  end
+end
+
+
+remove_instances = function()
+  local i = 0
+  for i = instance.length - 1 to 0 by -1
+    if instance[i].destroy then instance.removeAt(i) end
+  end
+end
+  
+  
+draw_instances = function()
+  local id = 0
+  for id in instance
+    id.draw()
+  end
+end
+
+
+check_instances = function()
+  // reset message
+  if mouse.press then message.alpha = 0 end
+  
+  // mouse coordinates
+  mouse_at = 0
+  mx = floor(mouse.x + screen.width / 2)
+  my = floor(-mouse.y + screen.height / 2)
+
+  // hover on item
+  local id = 0
+  for id in instance
+    if room == id.location and not id.hidden then
+      if mx >= id.x and mx < id.x + id.width and my >= id.y and my < id.y + id.height then
+        mouse_at = id.name
+      end
+    end
+  end
+  
+  // hover on inventory
+  if mx >= inventory.x and mx < inventory.x + inventory.w then
+    if my >= inventory.y and my < inventory.y + inventory.h then
+      mouse_at = 'inventory'
+    end
+  end
+end
+
+
+enter_room = function(new_room)
+  room = new_room
+  if room == 'bedroom' then
+    if prisms == 0 then
+      background = 'bedroom.0'
+    else
+      background = 'bedroom.1'
+    end
+  end
+  
+  if room == 'living_room' then
+    background = 'living_room.' + (prisms - 1)
+    find_item('living_handle').frame = 0
+  end
+  
+  if room == 'outside' then
+    background = 'outside.' + (prisms - 2)
+  end
+  
+  if room == 'hospital' then
+    background = 'hospital_bg'
+  end
+end
+
+
+cheat = function()
+  if keyboard.press.C then
+    prisms = 3
+    
+    inventory.pickup('Bedroom Key', 'key')
+    inventory.pickup('TV Remote', 'remote_icon')
+    inventory.pickup('Flower', 'flower_icon')
+    inventory.pickup('Glasses', 'glasses')
+    inventory.pickup('Sausage', 'sausage')
+    inventory.pickup("String", 'string_icon')
+    global.has_glasses = true
+  end
+end
+
+
+end()
+
+
+
+function()
+choose = function(list)
+  local i = random.nextInt(list.length)
+  return list[i]
+end
+
+
+draw_sprite = function(image, x, y, w, h)
+  screen.drawSprite(image, x, -y, w, h)
+end
+
+
+rect = function(x, y, w, h, color)
+  screen.fillRect(x, -y, w, h, color)
+end
+
+
+circle = function(x, y, w, h, color)
+  screen.fillRound(x, -y, w, h, color)
+end
+
+
+write = function(text, x, y, size, color)
+  screen.drawText(text, x, -y, size, color)
+end
+
+
+center_write = function(text, x, y, size, color)
+  screen.setDrawAnchor(0, 0)
+  screen.drawText(text, x, -y, size, color)
+  screen.setDrawAnchor(-1, 1)
+end
+  
+  
+mouse_inside = function(x, y, w, h)
+  return mx >= x and mx < x + w and my >= y and my < y + h
+end
+
+
+Fade = class
+  
+  constructor = function(color, mode)
+    destroy = false
+    this.color = color
+    this.mode = mode
+    if mode == 'in' then alpha = 1 else alpha = 0 end
+  end
+  
+  
+  update = function()
+    if mode == 'in' then
+      alpha -= 0.01
+      if alpha <= 0 then destroy = true end
+    else
+      alpha += 0.01
+      if alpha >= 1 then destroy = true end
+    end
+  end
+  
+  
+  draw = function()
+    screen.setAlpha(alpha)
+    rect(0, 0, screen_w, screen_h, color)
+    screen.setAlpha(1)
+  end
+  
+end
+
+end()
+
+
+
+function()
+Item = class
+  
+  constructor = function(name, image, x, y, location, description, hidden = false)
+    destroy = false
+    this.name = name
+    this.image = image
+    this.x = x
+    this.y = y
+    this.location = location
+    this.description = description
+    this.hidden = hidden
+    width = sprites[image].width
+    height = sprites[image].height
+    frame = 0
+    base = 0
+    state = 0
+    timer = 0
+    // center
+    if x == 0 and y == 0 then
+      this.x = floor((screen_w - width) / 2)
+      this.y = floor((screen_h - height) / 2)
+    end
+  end
+  
+  
+  update = function()
+    if mouse.press and mouse_at == name then click_me() end
+    if mouse_at == name then press_me() end
+    action()
+  end
+  
+  
+  draw = function()
+    if room == location and not hidden then
+      
+      draw_sprite(image + '.' + (frame + base), x, y, width, height)
+    end
+    
+    if mouse_at == name then write(description, 7, 22, 7, 0) end
+  end
+  
+  
+  click_me = function()
+    if name == 'painting' then click_painting() end
+    if name == 'bed' then click_bed() end
+    if name == 'bedroom_lamp' then click_bedroom_lamp() end
+    if name == 'bedroom_switch' then click_bedroom_switch() end
+    if name == 'bedroom_door' then click_bedroom_door() end
+    if name == 'bedroom_handle' then click_bedroom_handle() end
+    if name == 'alarm_clock' then click_alarm_clock() end
+    if name == 'wardrobe_top_drawer' then click_wardrobe_top_drawer() end
+    if name == 'wardrobe_bottom_drawer' then click_wardrobe_bottom_drawer() end
+    if name == 'wardrobe_door_1' then click_wardrobe_door_1() end
+    if name == 'wardrobe_door_2' then click_wardrobe_door_2() end
+    if name == 'clock_exit' then click_clock_exit() end
+    if name == 'clock_exit' then click_clock_exit() end
+    if name.startsWith('clock_button') then click_clock_button() end
+    if name == 'screw_driver' then click_screw_driver() end
+    if name == 'screw' then click_screw() end
+    if name == 'key' then click_key() end
+    if name == 'red_prism' then click_red_prism() end
+    if name == 'batteries' then click_batteries() end
+    if name == 'card' then click_card() end
+    if name == 'glass' then click_glass() end
+    if name == 'loose_string' then click_loose_string() end
+    
+    // living room
+    if name == 'arrow_living' then click_arrow_living() end
+    if name == 'tv' then click_tv() end
+    if name == 'portrait' then click_portrait() end
+    if name == 'cabinet' then click_cabinet() end
+    if name == 'remote' then click_remote() end
+    if name == 'plant' then click_plant() end
+    if name == 'living_door' then click_living_door() end
+    if name == 'living_handle' then click_living_handle() end
+    if name == 'flower' then click_flower() end
+    if name == 'green_prism' then click_green_prism() end
+    if name == 'glasses' then click_glasses() end
+    
+    // outside
+    if name == 'dog' then click_dog() end
+    if name == 'car' then click_car() end
+    if name == 'bbq' then click_bbq() end
+    if name == 'bbq_lid' then click_bbq_lid() end
+    if name == 'bbq_door_1' then click_bbq_door_1() end
+    if name == 'bbq_door_2' then click_bbq_door_2() end
+    if name == 'scissors' then click_scissors() end
+    if name == 'blue_prism' then click_blue_prism() end
+    if name == 'sausage' then click_sausage() end
+    if name == 'branch' then click_branch() end
+    if name == 'arrow_outside' then click_arrow_outside() end
+    
+    // hospital
+    if name == 'red_slot' then click_red_slot() end
+    if name == 'green_slot' then click_green_slot() end
+    if name == 'blue_slot' then click_blue_slot() end
+  end
+  
+  
+  press_me = function()
+    if name == 'bedroom_handle' then press_bedroom_handle() end
+    if name.startsWith('clock_button') then press_clock_button() end
+    if name == 'living_handle' then press_living_handle() end
+  end
+  
+
+  click_painting = function()
+    if frame == 0 then message.change("It's a nice picture of our holiday.") end
+    if frame == 1 then message.change("There's a number in the picture, 7:35.") end
+  end
+    
+    
+  click_bedroom_lamp = function()
+    if frame == 0 then message.change("Maybe I should turn the light off, since it's daytime.") end
+    if frame == 1 then message.change("It's a basic lamp, but I like it.") end
+  end
+  
+    
+  click_bedroom_switch = function()
+    message.change("A switch to turn the light on and off.") 
+    local lamp = find_item('bedroom_lamp')
+    local painting = find_item('painting')
+    
+    if state == 0 then
+      state = 1
+      lamp.frame = 1
+      if painting.base == 0 then painting.frame = 1 end
+      audio.playSound('click')
+    else
+      message.change("There's no need to turn the light on.")
+    end
+  end
+  
+  
+  click_bed = function()
+    message.change("I don't need to sleep. It's time to go to work.")
+  end
+  
+  
+  click_wardrobe = function()
+    message.change("My wife and I keep our clothes here.")
+  end
+  
+  
+  click_wardrobe_top_drawer = function()
+    if state == 0 then 
+      message.change("I can't open it. It seems to be stuck.")
+      audio.playSound('drawer_stuck')
+      return
+    end
+    
+    audio.playSound('open_drawer')
+    
+    if frame == 0 then 
+      frame = 1
+      find_item('red_prism').hidden = false
+    else 
+      frame = 0 
+      find_item('red_prism').hidden = true  
+    end
+  end
+  
+  
+  click_wardrobe_bottom_drawer = function()
+    audio.playSound('open_drawer')
+    
+    if state == 0 then
+      if frame == 0 then 
+        frame = 1 
+        message.change("It's empty.")
+      else frame = 0 end
+      return
+    end
+  
+    if frame == 0 then 
+      frame = 1
+      find_item('key').hidden = false
+    else 
+      frame = 0 
+      find_item('key').hidden = true  
+    end
+  end
+  
+  
+  click_wardrobe_door_1 = function()
+    audio.playSound('wardrobe_door')
+    if frame == 0 then frame = 1
+      message.change("Where have all the clothes gone?")
+    else frame = 0 end
+  end
+  
+  
+  click_wardrobe_door_2 = function()
+    audio.playSound('wardrobe_door')
+    if frame == 0 then frame = 1
+      message.change("There's a screw sticking out of the drawer.")
+      find_item('screw').hidden = false
+    else 
+      frame = 0 
+      find_item('screw').hidden = true
+    end
+  end
+  
+  
+  click_bedroom_door = function()
+    if frame == 0 then
+      message.change("I should go downstairs.")
+    else
+      audio.playSound('door_close')
+      message.change("You enter the living room.")
+      enter_room('living_room')
+    end
+  end
+  
+  
+  click_bedroom_handle = function()
+    message.change("The door is locked.")
+    
+    if check_item_selected('Bedroom Key') then
+      audio.playSound('lock')
+      message.change("You unlock the door.")
+      local door = find_item('bedroom_door')
+      door.frame = 1
+      door.description = 'Go downstairs'
+      find_item('bedroom_handle').destroy = true
+    else
+      audio.playSound('door_handle')
+    end
+  end
+  
+  
+  click_alarm_clock = function()
+    local big_clock = find_item('big_clock')
+    big_clock.hidden = false
+    local clock_exit = find_item('clock_exit')
+    clock_exit.hidden = false
+    local i = 0
+    for i = 1 to 4
+      local digit = find_item('digit_' + i)
+      digit.hidden = false
+      digit.frame = 3
+      find_item('clock_button_' + i).hidden = false
+    end
+    find_item('clock_dots').hidden = false
+    if big_clock.frame == 1 then
+      find_item('screw_driver').hidden = false
+    end
+  end
+  
+  
+  press_bedroom_handle = function()
+    if mouse.pressed then frame = 1 else frame = 0 end
+  end
+  
+  
+  click_clock_exit = function() 
+    audio.playSound('button_click')
+    hidden = true
+    find_item('big_clock').hidden = true
+    local i = 0
+    for i = 1 to 4
+      find_item('digit_' + i).hidden = true
+      find_item('clock_button_' + i).hidden = true
+    end
+    find_item('clock_dots').hidden = true
+    find_item('screw_driver').hidden = true
+  end
+  
+  
+  click_clock_button = function()
+    audio.playSound('alarm_beep')
+    local number = name.substring(13, 14)
+    local digit = find_item('digit_' + number)
+    digit.frame = (digit.frame + 1) % 10
+    check_clock_puzzle()
+  end
+  
+  
+  press_clock_button = function()
+    if mouse.pressed then frame = 1 else frame = 0 end
+  end
+  
+  
+  click_screw_driver = function()
+    message.change("You've picked up the screw driver.")
+    destroy = true
+    inventory.pickup('Screw Driver', 'screw_driver_icon')
+  end
+  
+  
+  click_screw = function()
+    message.change("I can't use my fingers.")
+    if check_item_selected('Screw Driver') then
+    
+      // fix the drawer
+      audio.playSound('screw')
+      message.change("The drawer has been fixed.")
+      find_item('screw').destroy = true
+      find_item('wardrobe_top_drawer').state = 1 
+    end
+  end
+  
+  
+  click_key = function()
+    message.change("You've picked up a key.")
+    destroy = true
+    inventory.pickup('Bedroom Key', 'key')
+  end
+  
+  
+  click_red_prism = function()
+    instance.push(new Flash(1))
+    audio.playSound('prism')
+    message.change("You've picked up the red prism.")
+    destroy = true
+    local inv = object
+      image = 'red_prism'
+      name = 'Red Prism'
+    end
+    inventory.item.push(inv)
+    global.prisms = 1
+    
+    // paint red & show
+    global.background = 'bedroom.1'
+    local painting = find_item('painting')
+    painting.base = 2
+    painting.frame = 0
+    find_item('bed').base = 1
+    find_item('alarm_clock').base = 1
+    find_item('wardrobe').base = 1
+    find_item('wardrobe_top_drawer').base = 2
+    find_item('wardrobe_bottom_drawer').base = 2
+    find_item('wardrobe_bottom_drawer').state = 1
+    find_item('bedroom_lamp').base = 2
+    find_item('bedroom_door').base = 2
+    find_item('loose_string').frame = 1
+    find_item('batteries').hidden = false
+    if find_item('wardrobe_bottom_drawer').frame == 1 then
+      find_item('key').hidden = false
+    end
+    
+    local i = 0
+    for i = 1 to 4
+      find_item('clock_button_' + i).base = 2
+      find_item('digit_' + i).base = 10
+    end
+    find_item('clock_exit').base = 1
+    find_item('clock_dots').base = 1
+  end
+  
+  
+  click_green_prism = function()
+    instance.push(new Flash(2))
+    audio.playSound('prism')
+    message.change("You've picked up the green prism.")
+    destroy = true
+    local inv = object
+      image = 'green_prism'
+      name = 'Green Prism'
+    end
+    inventory.item.push(inv)
+    global.prisms += 1
+    
+    // paint green & show
+    global.background = 'living_room.1'
+    local portrait = find_item('portrait')
+    portrait.base = 2
+    portrait.frame = 0
+    find_item('plant').base = 1
+    find_item('wardrobe').base = 2
+    find_item('wardrobe_top_drawer').base = 4
+    find_item('wardrobe_bottom_drawer').base = 4
+    find_item('wardrobe_door_1').base = 2
+    find_item('wardrobe_door_2').base = 2
+    find_item('bedroom_lamp').base = 3
+    find_item('painting').base = 3
+    find_item('card').base = 1
+    find_item('living_door').base = 1
+    find_item('glasses').hidden = false
+    find_item('plant').state = 2
+    find_item('arrow_living').frame = 1
+    inventory.recolor('Screw Driver', 1)
+    inventory.recolor('Flower', 1)
+  end
+  
+  
+  click_arrow_living = function()
+    audio.playSound('button_click')
+    message.change("You go back to the bedroom.")
+    enter_room('bedroom')
+  end
+  
+  
+  click_tv = function()
+    if state == 0 then
+      message.change("I need the remote to turn on the tv.")
+      if not check_item_selected('TV Remote') then return end
+    
+      audio.playSound('white_noise')
+      audio.playSound('card_ghost')
+      message.change("I'll put my card next to your bed, daddy.")
+      find_item('glass').hidden = false
+      find_item('card').hidden = false
+      
+      state = 1
+    else
+      audio.playSound('white_noise')
+      message.change("Why can I hear my daughter's voice from the tv?")
+    end
+  end
+  
+  
+  click_remote = function()
+    message.change("The batteries are missing.")
+    if not check_item_selected('Batteries') then return end
+    
+    audio.playSound('button_click')
+    inventory.remove('Batteries')
+    message.change("You've picked up the remote.")
+    destroy = true
+    inventory.pickup('TV Remote', 'remote_icon')
+  end
+  
+  
+  click_plant = function()
+    if state == 0 then
+      message.change("This plant looks thirsty.")
+      if not check_item_selected('Glass Water') then return end
+      
+      audio.playSound('pour_water')
+      message.change("Wow. I've never seen flowers on this plant before.")
+      find_item('flower').hidden = false
+      
+      inventory.item[inventory.select].name = 'Empty Glass'
+      inventory.item[inventory.select].image = 'glass_empty'
+      state = 1
+    elsif state == 1 then
+      message.change("That flower looks familiar.")
+    else
+      message.change("A nice plant.")
+    end
+  end
+  
+  
+  click_portrait = function()
+    if state == 0 then
+      message.change("My lovely family. There's something missing in the picture.")
+      if not check_item_selected('Flower') then return end
+      
+      audio.playSound('success')
+      message.change("That looks better.")
+      frame = 1
+      inventory.remove('Flower')
+      find_item('green_prism').hidden = false
+      state = 1
+    else
+      message.change("Those three are very precious to me.")
+    end
+  end
+  
+  
+  click_cabinet = function()
+    message.change("Usually it's filled with all kinds of things.")
+  end
+  
+  
+  click_living_door = function()
+    message.change("I can't go to work without my glasses.")
+    if not global.has_glasses then return end
+    message.change("I should try the handle.")
+  end
+  
+  
+  click_living_handle = function()
+    audio.playSound('door_handle')
+    message.change("I need my glasses.")
+    if not global.has_glasses then return end
+    
+    message.change("You are in the garden.")
+    enter_room('outside')
+  end
+  
+  
+  press_living_handle = function()
+    if mouse.pressed then frame = 1 else frame = 0 end
+  end
+  
+  
+  click_batteries = function()
+    message.change("Where did those come from?")
+    destroy = true
+    inventory.pickup('Batteries', 'batteries_icon')
+  end
+  
+  
+  click_card = function()
+    if state == 0 then
+      message.change("Let's place this card on the wardrobe.")
+      state = 1
+      x += 70
+      y -= 45
+    else
+      message.change("Why is my daughter wishing me well?")
+    end
+  end
+  
+  
+  click_glass = function()
+    message.change("You've picked up a glass of water.")
+    destroy = true
+    inventory.pickup('Glass Water', 'glass_full')
+  end
+  
+  
+  click_flower = function()
+    message.change("My daughter likes these flowers.")
+    destroy = true
+    inventory.pickup('Flower', 'flower_icon')
+  end
+  
+  
+  click_glasses = function()
+    message.change("There they are!")
+    destroy = true
+    inventory.pickup('Glasses', 'glasses')
+    global.has_glasses = true
+  end
+  
+  
+  click_bbq_lid = function()
+    audio.playSound('wardrobe_door')
+    if frame == 0 then
+      message.change("You've opened the barbecue lid.")
+      frame = 1
+      if state == 0 then
+        find_item('sausage').hidden = false
+      end
+    else
+      message.change("You've closed the barbecue lid.")
+      frame = 0
+      if state == 0 then
+        find_item('sausage').hidden = true
+      end
+    end
+  end
+  
+  
+  click_bbq_door_1 = function()
+    audio.playSound('wardrobe_door')
+    if frame == 0 then
+      message.change("What's inside?")
+      frame = 1
+      if state == 0 then
+        find_item('blue_prism').hidden = false
+      end
+    else
+      message.change("You've closed the door.")
+      frame = 0
+      if state == 0 then
+        find_item('blue_prism').hidden = true
+      end
+    end
+  end
+  
+  
+  click_bbq_door_2 = function()
+    audio.playSound('wardrobe_door')
+    if frame == 0 then
+      message.change("There's nothing here.")
+      frame = 1
+    else
+      message.change("You've closed the door.")
+      frame = 0
+    end
+  end
+  
+  
+  click_sausage = function()
+    message.change("A sausage left over from yesterday's barbecue.")
+    inventory.pickup('Sausage', 'sausage')
+    destroy = true
+  end
+  
+  
+  click_blue_prism = function()
+    instance.push(new Flash(3))
+    audio.playSound('prism')
+    message.change("You've picked up the blue prism.")
+    destroy = true
+    inventory.pickup('Blue Prism', 'blue_prism')
+    global.prisms += 1
+    
+    // paint blue & show
+    global.background = 'outside.1'
+    find_item('bbq').base = 1
+    find_item('bbq_lid').base = 2
+    find_item('bbq_door_1').base = 2
+    find_item('bbq_door_2').base = 2
+    find_item('scissors').hidden = false
+    find_item('car').frame = 1
+    find_item('portrait').base = 3
+    find_item('painting').base = 4
+    find_item('bed').base = 2
+    find_item('living_door').base = 2
+    find_item('bedroom_handle').base = 2
+    find_item('living_handle').base = 2
+    find_item('arrow_living').frame = 2
+    find_item('arrow_outside').frame = 1
+    inventory.recolor('Screw Driver', 2)
+    inventory.recolor('Flower', 2)
+    inventory.recolor('Empty Glass', 1)
+  end
+  
+  
+  click_dog = function()
+    if state == 0 then
+      audio.playSound('dog_growl')
+      message.change("That dog looks scary.")
+  
+      if check_item_selected('Sausage') then 
+        message.change("I need to put it out of his reach...")
+      end
+      
+      if check_item_selected('Scissors') or check_item_selected('Screw Driver') then 
+        message.change("I don't want to hurt it!")
+      end
+      
+    else
+      audio.playSound('dog_growl')
+      message.change("I'm not going near it!")
+    end
+  end
+  
+  
+  click_branch = function()
+    if state == 0 then
+      message.change("I can't break it off.")
+    
+      if check_item_selected('Sausage') then 
+        message.change("It won't stay up.")
+      
+      elsif check_item_selected("String") then
+        message.change("Now I can hang something from it.")
+        frame = 1 
+        state = 1
+        inventory.remove("String")
+      end
+      
+    elsif state == 1 then
+      
+      message.change("I need something else.")
+      if not check_item_selected("Sausage") then return end
+        
+      audio.playSound('success')
+      message.change("Here doggy!")
+      frame = 2
+      state = 2
+      inventory.remove("Sausage")
+      
+      local dog = find_item('dog')
+      dog.state = 1
+      dog.timer = 60
+    
+    else
+      message.change("I'll leave it there.")
+    end
+  end  
+  
+  
+  click_loose_string = function()
+    message.change("I don't want to rip the blanket. I need something to cut it.")
+    if not check_item_selected("Scissors") then return end
+    
+    message.change("That piece of string can be useful.")
+    destroy = true
+    inventory.pickup("String", 'string_icon')
+  end
+  
+  
+  click_car = function()
+    message.change("I'm scared to get into my car because of that dog!")
+    if state == 0 then return end
+      
+    audio.playSound('car_ignition')
+    message.change("Finally I can go to work.")
+    state = 2
+    frame = 2
+  end
+  
+  
+  click_scissors = function()
+    message.change("I can cut something off with this.")
+    destroy = true
+    inventory.pickup('Scissors', 'scissors')
+  end
+  
+  
+  click_arrow_outside = function()
+    enter_room('living_room')
+    audio.playSound('button_click')
+  end
+  
+  
+  click_red_slot = function()
+    if not check_item_selected("Red Prism") then return end
+    
+    destroy = true
+    find_item('big_red').hidden = false
+    inventory.remove('Red Prism')
+    audio.playSound('success')
+    
+    global.prisms += 1
+    if global.prisms == 3 then instance.push(new Final()) end
+  end
+  
+  
+  click_green_slot = function()
+    if not check_item_selected("Green Prism") then return end
+    
+    destroy = true
+    find_item('big_green').hidden = false
+    inventory.remove('Green Prism')
+    audio.playSound('success')
+    
+    global.prisms += 1
+    if global.prisms == 3 then instance.push(new Final()) end
+  end
+  
+  
+  click_blue_slot = function()
+    if not check_item_selected("Blue Prism") then return end
+    
+    destroy = true
+    find_item('big_blue').hidden = false
+    inventory.remove('Blue Prism')
+    audio.playSound('success')
+    
+    global.prisms += 1
+    if global.prisms == 3 then instance.push(new Final()) end
+  end
+  
+  
+  action = function()
+    if name == 'tv' and state == 1 then
+      // frame += 0.1
+      // if frame == 3 then frame = 1 end
+      if frame == 1 then frame = 2 else frame = 1 end
+    end
+    
+    if name == 'dog' then
+      timer -= 1
+      if timer == 0 then
+        image = 'dog_2'
+        x = 129
+        y = 93
+        width = 65
+        height = 70
+        state = 2
+        find_item('car').state = 1
+        audio.playSound('dog_bark')
+      end
+    end
+    
+    if name == 'car' and state == 2 then
+      x += 1
+      if x > screen_w then
+        global.instance = []
+        global.instance.push(new Road())
+        print('road')
+      end
+    end
+  end
+  
+  
+  check_item_selected = function(name)
+    if inventory.select >= inventory.item.length then return false end
+    local sel = inventory.item[inventory.select]
+    if sel.name == name then return true else return false end
+  end
+  
+end
+
+
+create_items = function()
+  // bedroom
+  instance.push(new Item('bed', 'bed', 7, 101, 'bedroom', 'Bed'))
+  instance.push(new Item('wardrobe', 'wardrobe', 134, 97, 'bedroom', 'Wardrobe'))
+  instance.push(new Item('wardrobe_top_drawer', 'top_drawer', 180, 109, 'bedroom', 'Drawer'))
+  instance.push(new Item('wardrobe_bottom_drawer', 'bottom_drawer', 180, 134, 'bedroom', 'Drawer'))
+  instance.push(new Item('wardrobe_door_1', 'wardrobe_door_1', 132, 109, 'bedroom', 'Door'))
+  instance.push(new Item('wardrobe_door_2', 'wardrobe_door_2', 155, 109, 'bedroom', 'Door'))
+  instance.push(new Item('screw', 'screw', 168, 113, 'bedroom', 'Loose Screw', true))
+  instance.push(new Item('key', 'key', 190, 130, 'bedroom', 'Key', true))
+  instance.push(new Item('red_prism', 'red_prism_small', 195, 110, 'bedroom', 'Red Prism', true))
+  instance.push(new Item('bedroom_door', 'door_1', 268, 38, 'bedroom', 'Door'))
+  instance.push(new Item('painting', 'painting', 53, 36, 'bedroom', 'Picture'))
+  instance.push(new Item('bedroom_lamp', 'lamp_1' 139, 0, 'bedroom', 'Lamp'))
+  instance.push(new Item('alarm_clock', 'alarm_clock', 143, 93, 'bedroom', 'Alarm Clock'))
+  instance.push(new Item('bedroom_handle', 'door_handle', 273, 87, 'bedroom', 'Lock'))
+  instance.push(new Item('bedroom_switch', 'light_switch', 250, 100, 'bedroom', 'Light Switch'))
+  instance.push(new Item('glass', 'glass_full', 100, 125, 'bedroom', 'Glass of Water', true))
+  instance.push(new Item('card', 'card', 100, 125, 'bedroom', 'Get Well Card', true))
+  instance.push(new Item('batteries', 'batteries', 200, 100, 'bedroom', 'Batteries', true))
+  instance.push(new Item('loose_string', 'loose_string', 80, 172, 'bedroom', 'Loose String'))
+  
+  // clock puzzle
+  instance.push(new Item('big_clock', 'big_clock', 0, 0, 'bedroom', 'Alarm Clock', true))
+  instance.push(new Item('clock_exit', 'exit_button', 170, 20, 'bedroom', 'Close', true))
+  instance.push(new Item('digit_1', 'digit', 84, 87, 'bedroom', '', true))
+  instance.push(new Item('digit_2', 'digit', 129, 87, 'bedroom', '', true))
+  instance.push(new Item('clock_dots', 'clock_dots', 175, 104, 'bedroom', '', true))
+  instance.push(new Item('digit_3', 'digit', 185, 87, 'bedroom', '', true))
+  instance.push(new Item('digit_4', 'digit', 228, 87, 'bedroom', '', true))
+  instance.push(new Item('clock_button_1', 'clock_button', 98, 55, 'bedroom', 'Button', true))
+  instance.push(new Item('clock_button_2', 'clock_button', 143, 55, 'bedroom', 'Button', true))
+  instance.push(new Item('clock_button_3', 'clock_button', 199, 55, 'bedroom', 'Button', true))
+  instance.push(new Item('clock_button_4', 'clock_button', 242, 55, 'bedroom', 'Button', true))
+  instance.push(new Item('screw_driver', 'screw_driver', 95, 120, 'bedroom', 'Screw Driver', true))
+
+  // living room
+  instance.push(new Item('cabinet', 'cabinet', 21, 100, 'living_room', 'TV Cabinet'))
+  instance.push(new Item('living_door', 'door_2', 268, 44, 'living_room', 'Front Door'))
+  instance.push(new Item('plant', 'plant', 181, 82, 'living_room', 'Plant'))
+  instance.push(new Item('portrait', 'portrait', 183, 19, 'living_room', 'Portrait of my wife and kids'))
+  instance.push(new Item('living_handle', 'living_handle', 304, 87, 'living_room', 'Door Handle'))
+  instance.push(new Item('tv', 'tv', 51, 45, 'living_room', 'TV'))
+  instance.push(new Item('remote', 'remote', 159, 104, 'living_room', 'TV Remote'))
+  instance.push(new Item('flower', 'flower', 198, 77, 'living_room', 'Flower', true))
+  instance.push(new Item('glasses', 'glasses', 50, 123, 'living_room', 'Glasses', true))
+  instance.push(new Item('green_prism', 'green_prism', 197, 42, 'living_room', 'Green Prism', true))
+  instance.push(new Item('arrow_living', 'arrow_left', 5, 50, 'living_room', 'Go Upstairs'))
+
+  // outside
+  instance.push(new Item('car', 'car', 232, 93, 'outside', 'Car'))
+  instance.push(new Item('branch', 'branch', 135, 42, 'outside', 'Branch'))
+  instance.push(new Item('dog', 'dog_1', 277, 125, 'outside', 'Big Dog'))
+  instance.push(new Item('bbq', 'bbq', 2, 111, 'outside', 'Barbecue'))
+  instance.push(new Item('bbq_lid', 'bbq_lid', 16, 84, 'outside', 'Lid'))
+  instance.push(new Item('bbq_door_1', 'bbq_door_1', 12, 121, 'outside', 'Door'))
+  instance.push(new Item('bbq_door_2', 'bbq_door_2', 46, 121, 'outside', 'Door'))
+  instance.push(new Item('blue_prism', 'blue_prism', 24, 125, 'outside', 'Blue Prism', true))
+  instance.push(new Item('scissors', 'scissors', 85, 145, 'outside', 'Scissors', true))
+  instance.push(new Item('sausage', 'sausage', 45, 97, 'outside', 'Sausage', true))
+  
+  instance.push(new Item('arrow_outside', 'arrow_down', 300, 170, 'outside', 'Go Inside'))
+end
+
+
+create_hospital_items = function()
+  instance.push(new Item('red_slot', 'big_red_slot', 13, 54, 'hospital', 'Red Slot'))
+  instance.push(new Item('green_slot', 'big_green_slot', 123, 2, 'hospital', 'Green Slot'))
+  instance.push(new Item('blue_slot', 'big_blue_slot', 233, 86, 'hospital', 'Blue Slot'))
+  instance.push(new Item('big_red', 'big_red', 13, 54, 'hospital', 'Red Prism', true))
+  instance.push(new Item('big_green', 'big_green', 123, 2, 'hospital', 'Green Prism', true))
+  instance.push(new Item('big_blue', 'big_blue', 233, 86, 'hospital', 'Blue Prism', true))
+end
+
+
+find_item = function(name)
+  local found = 0
+  local id = 0
+  for id in instance
+    if id.name == name then found = id break end
+  end
+  
+  return id
+end
+
+
+check_clock_puzzle = function()
+  local dig_1 = find_item('digit_1').frame
+  local dig_2 = find_item('digit_2').frame
+  local dig_3 = find_item('digit_3').frame
+  local dig_4 = find_item('digit_4').frame
+  
+  // solved
+  if dig_1 == 0 and dig_2 == 7 and dig_3 == 3 and dig_4 == 5 then
+    message.change("That's the time I have to wake up to get to work.")
+    find_item('big_clock').frame = 1
+    find_item('digit_1').destroy = true
+    find_item('digit_2').destroy = true
+    find_item('digit_3').destroy = true
+    find_item('digit_4').destroy = true
+    find_item('clock_dots').destroy = true
+    find_item('screw_driver').hidden = false
+    audio.playSound('alarm_clock')
+  end
+end
+end()
+
+
+
+function()
+Message = class
+  
+  constructor = function()
+    destroy = false
+    alpha = 0
+    wait = 0
+  end
+  
+  
+  change = function(text)
+    this.text = text
+    alpha = 1
+    size = 7
+    w = screen.textWidth(text, size)
+    h = screen.textHeight(text, size)
+    x = floor((screen_w - w) / 2)
+    y = 8
+    wait = 120
+  end
+  
+  
+  update = function()
+    if wait > 0 then wait -= 1 end
+    if wait == 0 and alpha > 0 then alpha -= 0.05 end
+  end
+  
+  
+  draw = function()
+    if alpha <= 0 then return end
+    screen.setAlpha(alpha)
+    rect(x - 4, y - 4, w + 8, h + 15, '#000')
+    rect(x - 3, y - 3, w + 6, h + 13, '#FFF')
+    write(text, x, y, size, 0)
+    screen.setAlpha(1)
+  end
+  
+end
+end()
+
+
+
+function()
+Inventory = class
+  
+  constructor = function()
+    w = 161
+    h = 32
+    x = floor((screen_w - w) / 2)
+    y = screen_h - h - 5
+    
+    item = []
+    select = 0
+    scroll = 0
+    description = ''
+  end
+  
+  
+  update = function()
+    // hover slot
+    description = ''
+    hover = -1
+    local sy = y + 5
+    for i = 0 to 4
+      local sx = x + i * 26 + 17
+      
+      if mouse_inside(sx, sy, 22, 22) then
+        hover = i + scroll
+        if item.length > hover then description = item[hover].name end
+      end
+    end
+    
+    // select item
+    if mouse.press and hover > -1 then 
+      select = hover 
+      audio.playSound('button_click')
+    end
+    
+    // scroll
+    if mouse.press then
+      if mouse_inside(x + 4, y + 5, 9, 22) then 
+        scroll -= 1 
+        audio.playSound('button_click')
+      end
+      if mouse_inside(x + w - 14, y + 5, 9, 22) then 
+        scroll += 1 
+        audio.playSound('button_click')
+      end
+      scroll = max(min(scroll, item.length - 5), 0)
+    end
+  end
+  
+  
+  draw = function()
+    draw_sprite('inventory.' + prisms, x, y, w, h)
+    
+    // slots
+    local i = 0
+    local sy = y + 5
+    for i = 0 to 4
+      local sx = x + i * 26 + 17
+      
+      // draw slot
+      local nr = i + scroll
+      
+      // draw selection
+      if select == nr then
+        rect(sx, sy, 22, 1, '#FFF')
+        rect(sx, sy + 21, 22, 1, '#FFF')
+        rect(sx, sy, 1, 22, '#FFF')
+        rect(sx + 21, sy, 1, 22, '#FFF')
+        // rect(sx + 1, sy + 1, 20, 20, '#555')
+      end
+      
+      // draw item
+      if item.length > nr then
+        draw_sprite(item[nr].image + '.' + item[nr].frame, sx + 1, sy + 1, 20, 20)
+      end
+    end
+    
+    // info
+    write(description, 7, 22, 7, 0)
+  end
+  
+  
+  pickup = function(name, image, sound = true)
+    if sound then audio.playSound('pickup_item') end
+    
+    local inv = object
+      name = name
+      image = image
+      frame = 0
+    end
+    item.push(inv)
+    select = item.length - 1
+    scroll = max(min(select, item.length - 5), 0)
+  end
+  
+  
+  remove = function(name)
+    local i = 0
+    for i in item
+      if name == i.name then
+        item.removeElement(i)
+      end
+    end
+    
+    if select > item.length then select -= 1 end
+  end
+  
+  
+  recolor = function(name, frame)
+    local i = 0
+    for i in item
+      if name == i.name then
+        i.frame = frame
+      end
+    end
+  end
+  
+end
+end()
+
+
+
+function()
+Menu = class
+  
+  constructor = function()
+    destroy = false
+    wave = 0
+  end
+  
+  
+  update = function()
+    wave = (wave + 3) % 360
+    
+    if mouse.press then
+      destroy = true
+      instance.push(new Intro())
+      global.music = audio.playMusic('soundtrack', 1, true)
+    end
+  end
+  
+  
+  draw = function()
+    draw_sprite('title', 0, 0, screen_w, screen_h)
+    draw_sprite('road_tree', 240, 20, 102)
+    
+    screen.setFont(title_font)
+    center_write('wake up', half_w, 20, 32, '#FFF')
+    
+    center_write("click mouse to start", half_w, 70, 10 + sind(wave), '#FFF')
+    center_write("played with mouse only", half_w, 180, 8, '#FFF')  
+  end
+  
+end
+end()
+
+
+
+function()
+Intro = class
+  
+  constructor = function()
+    destroy = false
+    wait = 30
+    state = 0
+  end
+  
+  
+  update = function()
+    if wait then wait -= 1 end
+    
+    if wait == 0 then
+      state += 1
+      if state % 2 == 0 then wait = 30 else wait = 90 end
+      if state == 6 then start_game() end
+    end
+  end
+  
+  
+  draw = function()
+    if state == 1 then
+      center_write('What happened?', half_w, half_h, 12, '#FFF')
+    elsif state == 3 then
+      center_write("I remember driving to work...", half_w, half_h, 12, '#FFF')
+    elsif state == 5 then
+      center_write('Or am I still at home?', half_w, half_h, 12, '#FFF')
+    end
+  end
+  
+end
+  
+end()
+
+
+
+function()
+Road = class
+  
+  constructor = function()
+    destroy = false
+    has_car = false
+    timer = []
+    timer[0] = random.nextInt(10) + 5
+    timer[1] = random.nextInt(10) + 5
+    car_timer = 240
+    freeze = false
+  end
+  
+  
+  update = function()
+    if freeze then return end
+    
+    // trees
+    local i = 0
+    for i = 0 to 1
+      
+      if timer[i] then timer[i] -= 1 end
+    
+      if timer[i] == 0 then
+        instance.push(new Tree(i))
+        timer[i] = random.nextInt(20) + 20
+      end
+    end
+    
+    // car
+    if car_timer then car_timer -= 1 end
+    if car_timer == 0 and not has_car then
+      instance.push(new Car())
+      has_car = true
+      audio.playSound('car_break')
+    end
+  end
+  
+  
+  draw = function()
+    draw_sprite('road', 0, 0, screen_w, screen_h)
+  end
+  
+end
+
+
+Tree = class
+  
+  constructor = function(side)
+    this.side = side
+    destroy = false
+    x = half_w
+    y = half_h
+    mx = 1.5
+    if side == 0 then mx = -4 x -= 30 end
+    my = 1.2
+    size = 0.01
+    speed = 1.05
+    image = 'road_tree'
+    w = sprites[image].width
+    h = sprites[image].height
+    freeze = false
+  end
+  
+  
+  update = function()
+    if freeze then return end
+    
+    size *= speed
+    mx *= speed
+    my *= speed
+    if size >= 1 then destroy = true end
+  end
+  
+  
+  draw = function()
+    screen.setDrawAnchor(0, -1)
+    draw_sprite(image, x + mx, y + my, w * size, h * size)
+    screen.setDrawAnchor(-1, 1)
+  end
+  
+end
+
+
+Car = class
+  
+  constructor = function()
+    destroy = false
+    x = half_w - 5
+    y = half_h
+    my = 1
+    size = 0.01
+    speed = 1.08
+    image = 'oncoming_car'
+    w = sprites[image].width
+    h = sprites[image].height
+    freeze = false
+    timer = 0
+  end
+  
+  
+  update = function()
+    if freeze then 
+      timer += 1
+      if timer >= 100 then start_end_game() end
+      return 
+    end
+    
+    size *= speed
+    my *= speed
+    
+    if size >= 1 then 
+      // freeze all
+      local i = 0
+      for i in instance
+        i.freeze = true
+      end
+      instance.push(new Fade('#FFF', 'out'))
+    end
+  end
+  
+  
+  draw = function()
+    screen.setDrawAnchor(0, -1)
+    draw_sprite(image, x, y + my, w * size, h * size)
+    // rect(x, y + my, w * size, h * size, '#F00')
+    screen.setDrawAnchor(-1, 1)
+  end
+  
+end
+
+
+Flash = class
+  
+  constructor = function(number)
+    destroy = false
+    image = 'flash_' + number
+    timer = 10
+  end
+
+
+  update = function()
+    timer -= 1
+    if timer == 0 then destroy = true end
+  end
+  
+  
+  draw = function()
+    draw_sprite(image, 0, 0, screen_w, screen_h)
+  end
+  
+end
+end()
+
+
+
+function()
+Final = class
+  
+  constructor = function()
+    destroy = false
+    size = 100
+  end
+  
+  
+  update = function()
+    size += 10
+    if size > 1400 then 
+      state = 1
+      global.background = 'hospital'
+      global.instance = []
+      global.message = new Message()
+      global.instance.push(global.message)
+      instance.push(new Credits())
+      global.instance.push(new Fade('#FFF', 'in'))
+    end
+  end
+  
+  
+  draw = function()
+    // colors
+    screen.setAlpha(0.5)
+    screen.setDrawAnchor(0, 0)
+    screen.setBlending('lighter')
+    
+    draw_sprite('red_glow', 63, 104, size)
+    draw_sprite('green_glow', 173, 52, size)
+    draw_sprite('blue_glow', 283, 136, size)
+    
+    screen.setAlpha(1)
+    screen.setDrawAnchor(-1, 1)
+    screen.setBlending('normal')
+  end
+  
+end
+
+
+Credits = class
+  
+  constructor = function()
+    destroy = false
+    
+    timer = 30
+    text = ["Honey, you're awake!", "We were so worried!", 
+      "You've been in a car accident.",
+      "It was so awful...",
+      "You have been in a coma for three days.",
+      "The doctors said that if you wouldn't wake up soon...",
+      "...the damage might be permanent.",
+      "We're so glad you've found your way back to us!"]
+    text_id = 0
+    
+    credits = ["Thanks for playing!",
+      "'Wake Up' was made for the microStudio Jam #3",
+      "All code, graphics and music made by KimsGames",
+      "Sound FX from freesound.org"]
+    
+    y = screen_h
+    state = 0
+  end
+  
+  
+  update = function()
+    if timer then timer -= 1 end
+    if timer == 0 then
+      
+      if state == 0 then
+        message.change(text[text_id])
+        if text_id < text.length - 1 then text_id += 1 else state = 1 end
+        timer = 180
+      
+      elsif state == 1 then
+        state = 2
+      end
+    end
+    
+    if state == 2 then
+      y -= 0.3
+      if y < - 100 or mouse.press then start_menu() end
+    end
+  end
+  
+  
+  draw = function()
+    if state == 2 then
+      screen.setFont(game_font)
+      local i = 0
+      for i = 0 to credits.length - 1
+        center_write(credits[i], half_w, y + i * 32, 8, 0)
+      end
+    end
+  end
+  
+end
+end()
+
+
+</script></html>
