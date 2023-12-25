@@ -1,0 +1,472 @@
+<!DOCTYPE html><html><head><title>Super Shooter</title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui=1"><meta charset="UTF-8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="description" content=""><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon64.png"><link rel="apple-touch-icon" sizes="180x180" href="icon180.png"><link rel="icon" type="image/png" sizes="32x32" href="icon32.png"><link rel="icon" type="image/png" sizes="16x16" href="icon16.png"><style>html,body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow:hidden;
+  font-family: Verdana;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#canvaswrapper {
+  text-align: center ;
+}
+</style><style>@font-face { font-family: "AESystematic" ; src: url("fonts/AESystematic.ttf") format("truetype"); }</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><style>@font-face { font-family: "PixAntiqua" ; src: url("fonts/PixAntiqua.ttf") format("truetype"); }</style><style>@font-face { font-family: "RetroGaming" ; src: url("fonts/RetroGaming.ttf") format("truetype"); }</style><style>@font-face { font-family: "Unbalanced" ; src: url("fonts/Unbalanced.ttf") format("truetype"); }</style><script>window.fonts = ["AESystematic","BitCell","PixAntiqua","RetroGaming","Unbalanced"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"0x72_dungeontilesetii_v1.png","version":1,"size":40644,"properties":{"frames":1,"fps":5}},{"file":"aim.png","version":1,"size":20361,"properties":{"frames":1,"fps":5}},{"file":"alert.png","version":34,"size":174,"properties":{"frames":2,"fps":8}},{"file":"cross.png","version":69,"size":168,"properties":{"frames":1,"fps":5}},{"file":"enemy_run.png","version":1,"size":468,"properties":{"frames":4,"fps":10}},{"file":"game_over.png","version":1,"size":53498,"properties":{"frames":1,"fps":5}},{"file":"icon.png","version":31,"size":180,"properties":{"frames":1,"fps":5}},{"file":"princess.png","version":1,"size":8545,"properties":{"frames":2,"fps":5}},{"file":"title.png","version":1,"size":126791,"properties":{"frames":1,"fps":5}}],"assets":[],"maps":{"map1":"{\"width\":16,\"height\":10,\"block_width\":16,\"block_height\":16,\"sprites\":[0,\"0x72_dungeontilesetii_v1:1,4\",\"0x72_dungeontilesetii_v1:1,1\"],\"data\":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]}"},"sounds":[{"file":"game_over.wav","version":1,"size":234642,"properties":{}},{"file":"scream.wav","version":1,"size":73940,"properties":{}},{"file":"shoot.wav","version":1,"size":144718,"properties":{}}],"music":[{"file":"music.mp3","version":1,"size":4802395,"properties":{}}]};
+var graphics = "M1";
+
+</script><script type="text/javascript">var orientation = 'any' ;
+var aspect = 'free' ;
+var ms_libs = [] ;
+window.skip_service_worker = true;
+window.exported_project = true;
+window.ms_use_server = false ;
+</script><script src="parser.js"></script><script src="program.js"></script><script src="token.js"></script><script src="tokenizer.js"></script><script src="runner_v1_i.js"></script><script src="microengine.js"></script></body><script type="text/javascript">//
+//
+// The game is started with the code below.
+// Once you have received the "started" signal (see below),
+// you can do the following:
+// 1) Inject functions or objects into the global context of the microStudio engine, example:
+//
+//   window.player.setGlobal("special_callback",function(x) { console.info(x) }) ;
+//   // Your microScript code can now call the "special_callback" function
+//
+// 2) Call microScript global functions from your JavaScript code, example:
+//
+//   window.player.call("call_me_from_javascript",[10,1000]) ;
+//   // arguments to the function call are provided as an array
+//
+// 3) Run a microScript code snippet from your JavaScript code, example:
+//
+//   window.player.exec("player.position_x = 50",function(result) { console.log(result) ; }) ;
+//
+
+window.addEventListener("load",function() {
+  window.player = new Player(function(event) {
+    if (event.name == "started") {
+      // signal that the game is started
+    }
+    else if (event.name == "log") {
+      // console.info(event.data) ;
+    }
+  }) ;
+  document.body.focus() ;
+}) ;
+
+</script><script id="code" type="text/x-microscript">
+
+initAim = function() 
+  
+  screen.setCursorVisible( false )
+  
+  aim = object end
+  aim.x = 0
+  aim.y = 0
+  
+  
+end
+
+
+updateAim = function()
+  
+  aim.x = mouse.x
+  aim.y = mouse.y
+  
+  
+end
+
+
+drawAim = function()
+  
+  screen.drawSprite("aim", aim.x ,aim.y, 10)
+  
+end
+
+initEnemy = function()
+  
+  NUMBER_ENEMIES_FIRST_TIME = 4
+   
+  number_enemise = NUMBER_ENEMIES_FIRST_TIME 
+  count_enemies = number_enemise + 1
+  
+  enemy_list = []
+  speed = 0.4 // 0.4
+  
+  for i = 0 to number_enemise by 1
+    enemy_list.push(createEnemy())
+  end
+  
+  play_scream = true
+  
+end
+
+
+
+createEnemy = function()
+  local enemy = object end
+  enemy.sprite = "enemy_run"
+  enemy.x = random.intInRange(-380, -210)
+  enemy.y = random.intInRange(-85.,70)
+  enemy.width = 20
+  enemy.height = 20
+  enemy.size = 12
+  enemy.speed = speed
+  enemy.action = function()  end
+  return enemy
+end
+
+
+
+startEnemy = function()
+  
+  
+  play_scream = true
+  
+  number_enemise = number_enemise 
+  count_enemies = number_enemise + 1
+   
+  for i = 0 to number_enemise by 1
+    enemy_list.push(createEnemy())
+  end
+  
+  
+  
+end
+
+
+
+updateEnemy = function()
+  
+  for enemy  in enemy_list 
+        
+        enemy.x += enemy.speed
+        
+       
+        
+        if enemy.x >= 40 and enemy.sprite == "enemy_run" and play_scream then 
+            play_scream = false
+            audio.playSound("scream")
+        end
+        
+        
+        if enemy.x >= princess_x then 
+            enemy.speed = 0 
+            enemy.sprite += ".4"
+            game_over = true
+        end
+        
+        
+        
+      
+        if cursorOnObject(enemy.x, enemy.y, enemy.width, enemy.height) then
+   
+          
+          if mouse.press and enemy.x < princess_x and not game_over then 
+            
+            
+              if enemy.sprite == "enemy_run" then 
+                
+                  udateScore()
+                  count_enemies -= 1
+              
+              end
+              
+              enemy.sprite = "cross" 
+              enemy.size = 15 
+              enemy.speed = 0
+              
+              
+          end
+    
+    
+        end
+  end
+  
+  if count_enemies <= 1  then 
+
+      startEnemy()
+      level += 1
+      speed += 0.001
+
+  end
+  
+end
+
+drawEnemy = function()
+  
+  for enemy in enemy_list 
+    
+    screen.drawSprite(enemy.sprite, enemy.x, enemy.y, enemy.size)
+    
+    if enemy.x >= 40 and enemy.sprite == "enemy_run" then 
+      screen.drawSprite("alert", enemy.x, enemy.y + 17, 12)
+    end
+    
+  end
+  
+  
+end
+
+
+
+cursorOnObject = function(x ,y , width, height)
+  local on_object = false
+  if mouse.x > (x - width/2) and mouse.x < (x + width/2) and mouse.y > (y- height/2) and mouse.y < (y + height/2) then on_object = true  end
+  return on_object
+end
+
+
+initTimer = function() 
+  
+    timer = 3
+    game_over = false
+end
+
+playTimer = function()
+
+    
+    if game_over then 
+      
+        if timer > 0 then 
+      
+          timer -= 1/60
+          
+        else 
+          
+          timer = 0
+          mode = "game over"
+          
+        end
+    end
+    
+end
+
+
+pressReplay = function()
+  
+  if cursorOnObject(0,-80, 80, 22) and mouse.release then 
+      initEnemy()
+      initScore()
+      initPrincess()
+      initTimer()
+      mode = "game"
+  end
+  
+  
+end
+
+
+updateBestScore = function()
+  local old_best_score = storage.get(best_score)
+  local new_best_score = max(score,old_best_score)
+  storage.set(best_score, new_best_score)
+end
+
+
+
+
+
+
+drawGameOver = function()
+  screen.drawSprite("game_over", 0,0, screen.width, screen.height)
+  screen.setFont("Unbalanced")
+  screen.drawText("GAME OVER", 0, 80, 30,"rgb(142,0,0)")
+  screen.drawText("Best Score:    " + storage.get(best_score), -2, 45, 18,"rgb(142,0,0)")
+  screen.drawText("Score:    " + score, -25, 25, 18,"rgb(142,0,0)")
+  
+  screen.setFont("AESystematic")
+  screen.fillRect(0,-80,80,22,"rgba(0, 0 ,0 ,0)")
+  screen.drawText("Replay", 0, -80, 20,"rgb(255,255,85)")
+end
+
+
+
+drawLevel = function()
+  screen.drawMap("map1",0,0,screen.width,screen.height)
+end
+
+init = function()
+  
+  
+  initAim()
+  
+  mode = "title"
+
+  initEnemy()
+  initScore()
+  initPrincess()
+  initTimer()
+  
+
+  music = audio.playMusic("music", loop = 1)
+  music.setVolume(0.5)
+  music.stop()
+
+  
+end
+
+
+
+
+
+
+
+
+
+
+update = function()
+  
+  
+  
+  
+  updateAim()
+  
+  if mode == "title" then 
+      
+      pressPlay()
+      
+  elsif mode == "game" then 
+    
+      updateEnemy()
+      playTimer()
+      updateBestScore()
+      
+      music.play()
+      
+      if mouse.press then 
+          audio.playSound( "shoot", volume = 0.3 )
+      end
+      
+  elsif mode == "game over" then
+    
+      pressReplay()
+      music.stop()
+      
+      if game_over then 
+          game_over = false
+          audio.playSound("game_over")
+      end
+      
+      
+  end
+  
+  
+  
+  
+end
+
+draw = function()
+  
+ screen.clear("rgb(44,198,198)")
+  
+  if mode == "title" then 
+    drawTitle()
+  elsif mode == "game" then 
+    drawLevel()
+    drawPrincess()
+    drawEnemy()
+    drawScore()
+  elsif mode == "game over" then 
+    drawGameOver()
+  end
+  
+  drawAim()
+  
+end
+
+
+
+
+initPrincess = function()
+    princess_x = 150
+    princess_y = 0
+end
+
+drawPrincess = function()
+  screen.drawSprite("princess", princess_x, princess_y, 40  )
+end
+
+//Random Extended by Crafterz125
+//https://microstudio.dev/i/Crafterz125/randomextended/
+
+//Returns a random color code.
+random.color = function()
+  local color = "rgb("
+  color += random.nextInt(256) + ","
+  color += random.nextInt(256) + ","
+  color += random.nextInt(256) + ")"
+  return color
+end
+
+//Returns a random color code from the ranges you gave.
+random.colorRGB = function(rMin=0,rMax=255,gMin=0,gMax=255,bMin=0,bMax=255)
+  local color = "rgb("
+  color += random.intInRange(rMin,rMax) + ","
+  color += random.intInRange(gMin,gMax) + ","
+  color += random.intInRange(bMin,bMax) + ")"
+  return color
+end
+
+
+//Returns a random float number from the range you gave.
+random.floatInRange = function(MIN,MAX)
+  return random.next() * (MAX - MIN + 1) + MIN
+end
+
+//Returns a random integer from the range you gave.
+random.intInRange = function(MIN,MAX)
+  return floor(random.next() * (floor(MAX) - ceil(MIN) + 1) + ceil(MIN))
+end
+
+//Returns a random character from the string you gave.
+random.stringCharacter = function(string)
+  local character = random.nextInt(string.length)
+  return string[character]
+end
+
+//Returns a random item from the list you gave.
+random.listItem = function(list)
+  local item = random.nextInt(list.length)
+  return list[item]
+end
+
+initScore = function()
+  score = 0
+  level = 1
+end
+
+udateScore = function()
+  score += 1
+end
+
+drawScore = function()
+  screen.setFont("RetroGaming")
+  screen.drawText("Score: " + score, 120, 90, 8, "#fff")
+  screen.drawText("Level: " + level, -120, 90, 8, "#fff")
+end
+
+pressPlay = function()
+  
+  if cursorOnObject(0,-80, 50, 30) and mouse.release then 
+      mode = "game"
+  end
+  
+  
+end
+
+drawTitle = function()
+  screen.drawSprite("title", 0 , 0, screen.width, screen.height)
+  screen.fillRect(x,y,w,h,"rgba(0, 0 ,0 ,0)")
+  screen.setFont("AESystematic")
+  screen.drawText("Play", 0, -80, 20,"rgb(255,255,85)")
+  screen.setFont("PixAntiqua")
+  screen.drawText("Kill the goblins.", 0, 25, 7,"rgb(255,255,85)")
+  screen.drawText("Don't let them get to the princess and do bad things with her !", 35, 10, 7,"rgb(255,255,85)")
+  
+end
+
+</script></html>
