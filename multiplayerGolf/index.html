@@ -1,0 +1,2072 @@
+<!DOCTYPE html><html><head><title>3d mini golf (multiplayer)</title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui=1"><meta charset="UTF-8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="description" content=""><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon64.png"><link rel="apple-touch-icon" sizes="180x180" href="icon180.png"><link rel="icon" type="image/png" sizes="32x32" href="icon32.png"><link rel="icon" type="image/png" sizes="16x16" href="icon16.png"><style>html,body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow:hidden;
+  font-family: Verdana;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#canvaswrapper {
+  text-align: center ;
+}
+</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><style>@font-face { font-family: "LycheeSoda" ; src: url("fonts/LycheeSoda.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell","LycheeSoda"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"icon.png","version":7,"size":942325,"properties":{"frames":1,"fps":5}},{"file":"poster.png","version":28,"size":62012,"properties":{"frames":1,"fps":5}}],"assets":[{"file":"c1h1-c1_h1_grass.txt","version":1,"size":2024,"properties":{}},{"file":"c1h1-c1_h1_hole.txt","version":1,"size":1213,"properties":{}},{"file":"c1h1-c1_h1_wood.txt","version":1,"size":2655,"properties":{}},{"file":"c1h2-c1_h2_grass.txt","version":1,"size":1403,"properties":{}},{"file":"c1h2-c1_h2_hole.txt","version":1,"size":1224,"properties":{}},{"file":"c1h2-c1_h2_wood.txt","version":1,"size":1907,"properties":{}},{"file":"c1h3-c1_h3_grass.txt","version":1,"size":2591,"properties":{}},{"file":"c1h3-c1_h3_hole.txt","version":1,"size":1446,"properties":{}},{"file":"c1h3-c1_h3_wood.txt","version":1,"size":3866,"properties":{}},{"file":"c1h4-c1_h4_grass.txt","version":1,"size":2612,"properties":{}},{"file":"c1h4-c1_h4_hole.txt","version":1,"size":1250,"properties":{}},{"file":"c1h4-c1_h4_wood.txt","version":1,"size":3936,"properties":{}},{"file":"c1h5-c1_h5_grass.txt","version":1,"size":8751,"properties":{}},{"file":"c1h5-c1_h5_hole.txt","version":1,"size":1420,"properties":{}},{"file":"c1h5-c1_h5_wood.txt","version":1,"size":2759,"properties":{}},{"file":"c1h6-c1_h6_grass.txt","version":1,"size":3424,"properties":{}},{"file":"c1h6-c1_h6_hole.txt","version":1,"size":1261,"properties":{}},{"file":"c1h6-c1_h6_wood.txt","version":1,"size":5541,"properties":{}},{"file":"c1h7-c1_h7_grass.txt","version":1,"size":3066,"properties":{}},{"file":"c1h7-c1_h7_hole.txt","version":1,"size":1262,"properties":{}},{"file":"c1h7-c1_h7_wood.txt","version":1,"size":5211,"properties":{}},{"file":"c1h8-c1_h8_grass.txt","version":1,"size":1321,"properties":{}},{"file":"c1h8-c1_h8_hole.txt","version":1,"size":1272,"properties":{}},{"file":"c1h8-c1_h8_walls.txt","version":1,"size":2551,"properties":{}},{"file":"c1h8-c1_h8_wood.txt","version":1,"size":2727,"properties":{}},{"file":"c1h9-c1_h9_grass.txt","version":1,"size":4355,"properties":{}},{"file":"c1h9-c1_h9_hole.txt","version":1,"size":1373,"properties":{}},{"file":"c1h9-c1_h9_wood.txt","version":1,"size":7508,"properties":{}},{"file":"misc-suzanne.txt","version":1,"size":63087,"properties":{}},{"file":"misc-testscene.txt","version":1,"size":1173,"properties":{}}],"maps":{},"sounds":[],"music":[]};
+var graphics = "M1";
+
+</script><script type="text/javascript">var orientation = 'any' ;
+var aspect = '16x9' ;
+var ms_libs = [] ;
+window.skip_service_worker = true;
+window.exported_project = true;
+window.ms_use_server = false ;
+</script><script src="compiler.js"></script><script src="parser.js"></script><script src="processor.js"></script><script src="program.js"></script><script src="routine.js"></script><script src="runner.js"></script><script src="token.js"></script><script src="tokenizer.js"></script><script src="transpiler.js"></script><script src="microengine.js"></script></body><script type="text/javascript">//
+//
+// The game is started with the code below.
+// Once you have received the "started" signal (see below),
+// you can do the following:
+// 1) Inject functions or objects into the global context of the microStudio engine, example:
+//
+//   window.player.setGlobal("special_callback",function(x) { console.info(x) }) ;
+//   // Your microScript code can now call the "special_callback" function
+//
+// 2) Call microScript global functions from your JavaScript code, example:
+//
+//   window.player.call("call_me_from_javascript",[10,1000]) ;
+//   // arguments to the function call are provided as an array
+//
+// 3) Run a microScript code snippet from your JavaScript code, example:
+//
+//   window.player.exec("player.position_x = 50",function(result) { console.log(result) ; }) ;
+//
+
+window.addEventListener("load",function() {
+  window.player = new Player(function(event) {
+    if (event.name == "started") {
+      // signal that the game is started
+    }
+    else if (event.name == "log") {
+      // console.info(event.data) ;
+    }
+  }) ;
+  document.body.focus() ;
+}) ;
+
+</script><script id="code" type="text/x-microscript">
+
+
+function()
+init = function()
+  //initialise camera
+  initcamera()
+  // initialise UI
+  initUI()
+  // initialise directional light
+  light = object
+    dir = new vec3(-.6,1,.4)
+    diffusevalue = 1
+    ambientvalue = .25
+  end
+  light.dir = light.dir.normalised()
+  // load materials and mesh
+  load_materials()
+  // initialise global vars
+  globalvars = object
+    draw_vertices = false
+    draw_wireframe = false
+    draw_ball_outline = true
+    mode = "menu"
+    gravity = 8
+    // for small gaps that appear between polygons
+    fix_gaps = true
+    gap_fix = 0.8
+    // times
+    delta_time = 0
+    // delta time cap (so leaving the page don't break the game by introducing a large delta_time)
+    delta_time_max = 0.06
+    old_time = 0
+    fps = 60
+    show_fps = false
+    // cell shading option
+    cell_shade = false
+    // camera mode
+    camera_mode = "arc_lifted"
+    camera_dist = 5.5
+    normal_camera_dist = 5.5
+    // level integer value
+    level = 0
+    // is player having a turn
+    playerturn = true
+    player_input_dir = 0 // input direction and power for shooting
+    player_input_power = 0
+    power_max = 12 // maximum power player can hit the ball with
+    power_coefficient = 0.2 // coefficient to the effect distance has on power
+    wait_frames = 60 // to avoid jerky transition when loading finishes
+    // how long player has been in current mode
+    time_in_mode = 0
+    current_mode = "menu" // used to check when player has changed mode
+    mode_random_val = random.next() // for tips
+    // vars used for level completed menu
+    par = [2,3,2,2,1,5,2,5,2] // par for each course
+    shots_taken_on_level = [0,0,0,0]
+    score = [0,0,0,0]
+    level_time = 0
+    current_time = 0
+    // for checking if a ball is stationary
+    time_without_moving = 0
+    still_threshold = .25
+    // two checks are needed just in case the ball gets stuck
+    time_mostly_still = 0
+    mostly_still_threshold = 1.25
+    last_checkpoint = [new vec3(), new vec3(), new vec3(), new vec3()]
+    new_record = false // for new record
+    use_grass_fix = false // old fix to help remove bugs for level-specific situations
+    // checks to see if multiple levels are allowed (not if in level select mode)
+    play_all_levels = true
+    // vars for multiplayer
+    current_player = 0
+    num_players = 1
+    time_in_playerturn = 0
+    last_player = 0
+    // to avoid bugs caused by low fps, set a maximum amount of collision checks per frame
+    max_collision_checks = 2
+  end
+  // load saved number of players value (set in start and level select buttons in UI)
+  if storage.get("saved_player_num") != 0 then
+    globalvars.num_players = storage.get("saved_player_num")
+  end
+  // load list for debug lines
+  lines = []
+  // load balls
+  balls = [new Ball(new Vertex(new vec3()))]
+  // init ball spawnpoints (for each level)
+  spawnpoints = [
+                  new vec3(0,balls[0].size/2,-.2),
+                  new vec3(-101,balls[0].size/2,-.2),
+                  new vec3(-11,balls[0].size/2,-.2),
+                  new vec3(-44,balls[0].size/2,-.2),
+                  new vec3(-33,balls[0].size/2,-.2),
+                  new vec3(-133.5,balls[0].size/2,-.2),
+                  new vec3(-111,balls[0].size/2,-.2),
+                  new vec3(-121,balls[0].size/2,-.2),
+                  new vec3(-62,balls[0].size/2,-.2)
+                ]
+end
+
+level_init = function()
+  globalvars.mode = "wait" // waits 1 second before transitioning to avoid jerky transition when level loading finishes
+  globalvars.wait_frames = 60
+  
+  camera.rotation.y = -540.0001 // avoids culling issues
+  camera.rotation.x = -20
+  globalvars.camera_dist = 20
+  
+  local dir = random.next()*360
+  light.dir.x = sind(dir)/3
+  light.dir.z = cosd(dir)/3
+  light.dir.y = (random.next()+0.5)/1.75
+  light.dir = light.dir.normalised()
+  
+  // repeat so that the light is not solely coming from a single direction
+  // (helps the player see the course)
+  while abs(light.dir.x) < 0.1 or abs(light.dir.y) < 0.1
+    local dir = random.next()*360
+    light.dir.x = sind(dir)/3
+    light.dir.z = cosd(dir)/3
+    light.dir.y = (random.next()+0.5)/1.75
+    light.dir = light.dir.normalised()
+  end
+  
+  // reload ball number based on number of players
+  balls = []
+  for i = 0 to globalvars.num_players-1
+    balls.push(new Ball(new Vertex(new vec3())))
+  end
+  
+  local index = 0
+  for ball in balls
+    ball.v.p = spawnpoints[globalvars.level] // respawn balls
+    globalvars.last_checkpoint[index] = ball.v.p
+    ball.finished = false // allows level to restart
+    index += 1
+  end
+  // random light source direction
+  initparticles() // init all particles
+  // reset shots taken
+  globalvars.shots_taken_on_level = [0,0,0,0]
+  
+  globalvars.current_player = 0
+  globalvars.player_input_power = 10
+end
+
+
+comparison = function(a,b)
+  return b.depth - a.depth
+end
+
+update = function()
+  // update UI
+  updateUI()
+  globalvars.time_in_mode += globalvars.delta_time
+  if globalvars.mode != globalvars.current_mode then
+    globalvars.current_mode = globalvars.mode
+    globalvars.time_in_mode = 0
+    globalvars.mode_random_val = random.next()
+  end
+  // reset current in game time and score if in menu
+  if globalvars.mode == "menu" then
+    globalvars.current_time = 0
+    globalvars.score = [0,0,0,0]
+  end
+  if globalvars.mode=="play" or globalvars.mode=="starting_anim" or globalvars.mode == "finished" then
+    if globalvars.mode=="play" then
+      //update current time in game
+      globalvars.current_time += globalvars.delta_time
+    end
+    //update camera
+    updatecamera()
+    // update vertices
+    for vert in vertices
+      vert.update()
+    end
+    // collect all objects in a list of objects (for sorting and conciseness)
+    all_objects = triangles.concat(lines).concat(balls).concat(particles)
+    // update all objects in list
+    for obj in all_objects
+      obj.update()
+    end
+    all_objects.sort(comparison)
+    // check if all balls have finished
+    local level_finished = true
+    for ball in balls
+      if not ball.finished then
+        level_finished = false
+        break
+      end
+    end
+    if level_finished then
+      if globalvars.mode != "finished" then
+        // deal with scoring (once)
+        for i = 0 to globalvars.num_players-1
+          globalvars.score[i] += (globalvars.shots_taken_on_level[i]-globalvars.par[globalvars.level])
+        end
+        // set level to next
+        globalvars.level += 1
+        // get time player took to complete level
+        globalvars.level_time = globalvars.time_in_mode
+        // reset time in mode a frame earlier than usual to avoid a bug
+        globalvars.time_in_mode = 0
+        // for camera animation
+        camera.rotation.y = camera.rotation.y % 360
+      end
+      globalvars.mode = "finished" // finished screen
+      initparticles() // get rid of particles
+    end
+  elsif globalvars.mode == "wait" then // avoids jerky transitions
+    globalvars.wait_frames -= 1
+    if globalvars.wait_frames < 0 then
+      globalvars.mode = "starting_anim"
+    end
+  end
+  // delta time
+  calc_delta_time()
+end
+
+draw = function()
+  screen.clear()
+  if globalvars.mode == "play" or globalvars.mode == "starting_anim" or globalvars.mode == "finished" then
+    // draw skybox (get translation of background)
+    local s_translation = camera.FOV*sind(-camera.rotation.x)/cosd(-camera.rotation.x) // translation
+    s_translation = max(min(s_translation, 250),-250)
+    // draw grey part
+    screen.setLinearGradient(0,s_translation-5,0,5+s_translation,"rgb(90,90,90)","rgb(255,255,255)")
+    screen.fillRect(0,s_translation,screen.width,screen.height*6)
+    // draw sky
+    screen.setLinearGradient(0,6+s_translation,0,120+s_translation,"rgb(255,255,255)","rgb(25,160,227)")
+    screen.fillRect(0,screen.height*3+6+s_translation,screen.width,screen.height*6)
+    // draw vertices if they are meant to be drawn
+    if globalvars.draw_vertices then
+      for vert in vertices
+        vert.draw()
+      end
+    end
+    // draw all objects
+    for obj in all_objects
+      obj.draw()
+    end
+  end
+  // draw UI
+  drawUI()
+end
+
+
+
+
+
+end()
+
+
+
+function()
+Ball = class
+  constructor = function(vertex, size = .45)
+    this.v = vertex
+    this.size = size
+    
+    this.speed = new vec3()
+    
+    //collision details (mainly for friction)
+    this.colliders = []
+    this.last_collision_normal = new vec3()
+    this.collider_friction = 0
+    // check if finished yet
+    this.finished = false
+    // depth for sorting
+    this.depth = 0
+    // sorting weight
+    this.sorting_weight = 0
+  end
+  
+  update = function()
+    if finished then
+      sorting_weight = 22 // under grass but over hole (so ball doesn't bug)
+    end
+    v.update()
+    // get depth
+    depth = (v.p - camera.position).length()+sorting_weight
+    // repeate collisions more times depending on speed (if collision can be calculated more than once a frame)
+    // to try to avoid bugs (mainly a through-wall bug) caused by low fps
+    local repetitions = floor(speed.length()/globalvars.power_max*globalvars.max_collision_checks)
+    repetitions = min(repetitions, globalvars.max_collision_checks-1)
+    for i = 0 to repetitions
+      if globalvars.mode != "starting_anim" and globalvars.playerturn == false then
+        speed.y -= globalvars.gravity * min(globalvars.delta_time,globalvars.delta_time_max) / (repetitions+1)
+        v.p += speed * min(globalvars.delta_time,globalvars.delta_time_max) / (repetitions+1)
+        // apply friction (constant drag value against speed value)
+        if speed.length() < collider_friction then // make sure drag doesn't overshoot, set speed to 0
+          speed = new vec3(0,0,0)
+        else
+          speed -= speed.normalised() * collider_friction / (repetitions+1)
+        end
+        handle_collision()
+      end
+    end
+  end
+  
+  draw = function()
+    local scale_fac = camera.FOV/v.p_rotated.z
+    if v.p_rotated.z > camera.near_clip_dist then
+      // draw outline
+      if globalvars.draw_ball_outline then
+        screen.fillRound(v.p_projected.x, v.p_projected.y, size*scale_fac, size*scale_fac,"rgb(0,0,0)")
+      end
+      screen.fillRound(v.p_projected.x, v.p_projected.y, size*scale_fac-1.5, size*scale_fac-1.5, "#fff")
+    end
+  end
+  
+  handle_collision = function() // handle collision
+    colliders = []
+    for tri in triangles
+      // start with bounding box  test to lower computations
+      if helpers.rect_contains(v.p, tri.bounding_box, size) then
+        local d = helpers.dist_to_tri(v.p,vertices[tri.i1].p,vertices[tri.i2].p,vertices[tri.i3].p)
+        if d < size/2 then
+          // add to colliders
+          colliders.push(tri)
+        end
+      end
+    end
+    // check if finished yet and get highest mati (any colliders have finished material)
+    local highest_index = 0
+    for collider in colliders
+      if collider.mati == 3 then // bottom of hole material
+        finished = true
+      end
+      highest_index = max(collider.mati, highest_index)
+    end
+    // handle collision physics
+    local n = new vec3()
+    if highest_index == 0 and globalvars.use_grass_fix then // grass
+      // note: the below code was used as a band-aid fix for the jam before
+      // all bugs were solved. Please ignore this code.
+      
+      // if the collider is grass, then just use the pre-calculated normal
+      // there should be almost no situations where the collision normal differs with the triangle normal
+      // for grass specifically, so this avoid bugs
+      local loop_index = 0
+      for collider in colliders
+        n = collider.normal
+        // check if normal needs to be flipped (can be pointing the wrong way)
+        if n.dot(speed) > 0 then
+          // normal and speed cannot be pointing in the same direction, so flip normal
+          n = n*-1
+        end
+        // deal with collision
+        if loop_index == 0 then // only need to push ball out once
+          // push ball outside of triangles
+          local d = nearest_dist_from_colliders(v.p,colliders)
+          local depth = size/2 - d // how far ball must be pushed out
+          v.p += n*(depth) // push ball out of triangle
+        end
+        // handle ball physics
+        local v_project = n.dot(speed)
+        // bounce and friction values are kept inside triangle material
+        // use highest collider mat index for collision
+        v_project = (-1-materials[highest_index].bounce) * v_project
+        speed += n * v_project
+        // set last collision normal to normal
+        last_collision_normal = n
+        // get friction (as a speed coefficient) (same method as getting bounce)
+        collider_friction = materials[highest_index].friction
+        loop_index += 1
+      end
+    else
+      // get collision normal and deal with collisions
+      n = get_normal_from_colliders(v.p,colliders)
+      // push ball outside of triangle
+      local d = nearest_dist_from_colliders(v.p,colliders)
+      local depth = size/2 - d // how far ball must be pushed out
+      v.p += n*(depth) // push ball out of triangle
+      // handle ball physics
+      local v_project = n.dot(speed)
+      // bounce and friction values are kept inside triangle material
+      // use highest collider mat index for collision
+      v_project = (-1-materials[highest_index].bounce) * v_project
+      speed += n * v_project
+      // set last collision normal to normal
+      last_collision_normal = n
+      // get friction (as a speed coefficient) (same method as getting bounce)
+      collider_friction = materials[highest_index].friction
+    end
+  end
+  
+  // get collision normal from a point with a triangle
+  // note; the collision with numerous triangles at once (with edges)
+  // was causing bugs so this method is no longer used
+  get_collision_normal = function(p, a, b, c)
+    local normal = new vec3()
+    // find normalx
+    local offset = new vec3(0.001,0,0) // can be any arbitrarily small value (smaller = more accurate)
+    normal.x = helpers.dist_to_tri(p+offset,a,b,c)-helpers.dist_to_tri(p,a,b,c)
+    // find normaly
+    offset = new vec3(0,0.001,0)
+    normal.y = helpers.dist_to_tri(p+offset,a,b,c)-helpers.dist_to_tri(p,a,b,c)
+    // find normalz
+    offset = new vec3(0,0,0.001)
+    normal.z = helpers.dist_to_tri(p+offset,a,b,c)-helpers.dist_to_tri(p,a,b,c)
+    // return normal
+    return normal.normalised()
+  end
+  
+  // gets normal from multiple colliders at once (removes collision bugs)
+  // such as the ball going through the floor or flying into the air
+  // unforunately, this significantly lowers fps
+  get_normal_from_colliders = function(p,colliders)
+    local normal = new vec3()
+    // find value which will be used to find all normals
+    local temp = nearest_dist_from_colliders(p, colliders)
+    // find normalx
+    local offset = new vec3(0.001,0,0) // can be any arbitrarily small value (smaller = more accurate)
+    normal.x = nearest_dist_from_colliders(p+offset, colliders)-temp
+    // find normaly
+    local offset = new vec3(0,0.001,0) // can be any arbitrarily small value (smaller = more accurate)
+    normal.y = nearest_dist_from_colliders(p+offset, colliders)-temp
+    // find normalz
+    local offset = new vec3(0,0,0.001) // can be any arbitrarily small value (smaller = more accurate)
+    normal.z = nearest_dist_from_colliders(p+offset, colliders)-temp
+    return normal.normalised()
+  end
+  
+  // gets the nearest distance from multiple colliders at once
+  nearest_dist_from_colliders = function(p, colliders)
+    local min_dist = 10000000000
+    for collider in colliders
+      local d = helpers.dist_to_tri(p, vertices[collider.i1].p,vertices[collider.i2].p,vertices[collider.i3].p)
+      min_dist = min(min_dist, d)
+    end
+    return min_dist
+  end
+end
+
+
+
+
+
+
+
+
+
+
+end()
+
+
+
+function()
+initcamera = function()
+  camera = object
+    position = new vec3(0,0,-5)
+    // values incremented to avoid a culling bug which
+    // occured at rotation values of 0
+    rotation = new vec3(0.001,0.001,0)
+    rotation_matrix = new mat3(0,0,0,0,0,0,0,0,0)
+    FOV_DEG = 90
+    FOV = (screen.width/2)/atan(90*PI/180)
+    near_clip_dist = 0.2
+    height = 1
+  end
+end
+
+updatecamera = function()
+  // set camera height
+  if globalvars.mode == "starting_anim" then
+    camera.height = 3.5
+  else
+    if camera.height != 1 then // move towards camera.height = 1
+      camera.height += (1-camera.height)/12
+      if round(camera.height*1000)/1000 == 1 then
+        camera.height = 1
+      end
+    end
+    if globalvars.camera_dist != globalvars.normal_camera_dist then
+      globalvars.camera_dist += (globalvars.normal_camera_dist-globalvars.camera_dist)/12
+       if round(globalvars.camera_dist*1000)/1000 == globalvars.normal_camera_dist then
+        globalvars.camera_dist = globalvars.normal_camera_dist
+      end
+    end
+  end
+  // move camera up for level complete animation
+  if globalvars.mode == "finished" then
+    camera.rotation.x += (-90-camera.rotation.x)/25
+    camera.rotation.y += (0.01-camera.rotation.y)/12
+    globalvars.camera_dist += (30-globalvars.camera_dist)/32
+  end
+  // rotation
+  local movevec = new vec3(0,0,0)
+  if globalvars.mode == "play" then
+    if globalvars.camera_mode == "free" then
+      if keyboard.ARROW_RIGHT then
+        camera.rotation.y += 120*min(globalvars.delta_time, globalvars.delta_time_max)
+      end
+      if keyboard.ARROW_LEFT then
+        camera.rotation.y -= 120*min(globalvars.delta_time, globalvars.delta_time_max)
+      end
+      if keyboard.ARROW_UP then
+        camera.rotation.x += 120*min(globalvars.delta_time, globalvars.delta_time_max)
+      end
+      if keyboard.ARROW_DOWN then
+        camera.rotation.x -= 120*min(globalvars.delta_time, globalvars.delta_time_max)
+      end
+    else
+      if keyboard.RIGHT then
+        camera.rotation.y += 90*min(globalvars.delta_time, globalvars.delta_time_max)
+      end
+      if keyboard.LEFT then
+        camera.rotation.y -= 90*min(globalvars.delta_time, globalvars.delta_time_max)
+      end
+      if keyboard.UP then
+        camera.rotation.x += 90*min(globalvars.delta_time, globalvars.delta_time_max)
+      end
+      if keyboard.DOWN then
+        camera.rotation.x -= 90*min(globalvars.delta_time, globalvars.delta_time_max)
+      end
+    end
+  end
+  // clamp camera x rotation to 180 degrees of freedom so the camera cannot flip on y-axis
+  camera.rotation.x = max(min(camera.rotation.x,10),-90)
+  if globalvars.camera_mode == "free" then
+    if keyboard.W then
+      movevec.z += 9*min(globalvars.delta_time, globalvars.delta_time_max)
+    end
+    if keyboard.S then
+      movevec.z -= 9*min(globalvars.delta_time, globalvars.delta_time_max)
+    end
+    if keyboard.D then
+      movevec.x += 9*min(globalvars.delta_time, globalvars.delta_time_max)
+    end
+    if keyboard.A then
+      movevec.x -= 9*min(globalvars.delta_time, globalvars.delta_time_max)
+    end
+    if keyboard.Q then
+      movevec.y += 9*min(globalvars.delta_time, globalvars.delta_time_max)
+    end
+    if keyboard.E then
+      movevec.y -= 9*min(globalvars.delta_time, globalvars.delta_time_max)
+    end
+    camera.position += movevec.rotate_y(-camera.rotation.y)
+    if keyboard.press.F and globalvars.mode == "play" then // leave camera mode
+      globalvars.camera_mode = "arc"
+    end
+  elsif globalvars.camera_mode == "arc" or globalvars.camera_mode == "arc_lifted" then
+    if globalvars.mode == "starting_anim" then // smoothly rotate and zoom towards starting position
+      camera.rotation.x = -35
+      camera.rotation.y -= camera.rotation.y/80
+      if camera.rotation.y > .8 then // add extra rotation so it doesn't slow down. This stops the camera from jerking.
+        camera.rotation.y += 0.4
+      else
+        camera.rotation.y += 0.05
+      end
+      globalvars.camera_dist += (globalvars.normal_camera_dist-globalvars.camera_dist)/60
+      if round(camera.rotation.y*100)/100 >= 0 then
+        globalvars.camera_dist = globalvars.normal_camera_dist
+        camera.rotation.y = 0.0001 // avoid culling issues
+      end
+      // check if key pressed to start level
+      for key in keyboard
+        if keyboard[key] and key != "press" and key != "release" then
+          camera.rotation.y = 0.001 // avoid culling issues
+          globalvars.mode = "play"
+        end
+      end
+    end
+    // animate between player's turns for smooth camera transitions
+    local temp = min(globalvars.time_in_playerturn*1.5,1)
+    // cubic smoothing
+    if temp < 0.5 then
+      temp = 3 * temp ^ 3
+    else
+      temp = (1 - (-2 * temp + 2) ^ 3 / 2)
+    end
+    local offset = balls[globalvars.current_player].v.p - balls[globalvars.last_player].v.p
+    camera.position = balls[globalvars.last_player].v.p + (offset*temp)
+    if globalvars.mode == "finished" then
+      camera.position = balls[0].v.p.duplicate()
+    end
+    camera.position.x += globalvars.camera_dist * sind(-camera.rotation.y) * cosd(camera.rotation.x)
+    camera.position.y -= globalvars.camera_dist * sind(camera.rotation.x)
+    camera.position.z -= globalvars.camera_dist * cosd(-camera.rotation.y) * cosd(camera.rotation.x)
+    camera.position.y += camera.height
+    // switch to free cam
+    if keyboard.press.F and globalvars.mode == "play" then // leave camera mode
+      globalvars.camera_mode = "free"
+    end
+  end
+  // deal with player shooting
+  particles = [] // clear particles
+  if globalvars.playerturn and globalvars.mode == "play" then
+    // increment time in mode variable (for animations)
+    globalvars.time_in_playerturn += min(globalvars.delta_time, globalvars.delta_time_max)
+    // get player input vector (drag mouse to shoot in a direction)
+    // change in direction will be angle to ball
+    if globalvars.camera_mode != "free" then
+      if mouse.pressed then
+        if not UI.buttons[5].mouse_hover then // if not hovering over shoot button
+          // invert and add camera rotation so that 1. particles align with camera and 2. point away from mouse
+          globalvars.player_input_dir = camera.rotation.y+atan2d(balls[globalvars.current_player].v.p_projected.x-mouse.x, balls[globalvars.current_player].v.p_projected.y-mouse.y)
+          globalvars.player_input_power = (balls[globalvars.current_player].v.p_projected - new vec2(mouse.x, mouse.y)).length()
+          globalvars.player_input_power = min(globalvars.player_input_power * globalvars.power_coefficient, globalvars.power_max)
+        end
+      end
+      // actual player shooting is dealt with by a button
+      // (reference above)
+    end
+    // add particles to show where the ball will be going
+    // particle(vertex, size)
+    // get details of current shot
+    local s = globalvars.player_input_power * 1/60 // assumes 60 fps
+    local dir = new vec3(s*sind(globalvars.player_input_dir),0,s*cosd(globalvars.player_input_dir))
+    for d = 0 to 5 // each particle will travel 3.5 frames into the future in the direction of the shot
+      particles.push(new Particle(new Vertex(balls[globalvars.current_player].v.p + dir*d*3.5), 0.1))
+    end
+  else // check if ball is slowed sufficiently allow player input again
+    if not globalvars.playerturn then
+      if balls[globalvars.current_player].speed.length() < 0.5 then
+        globalvars.time_mostly_still += min(globalvars.delta_time, globalvars.delta_time_max)
+      else
+        globalvars.time_mostly_still = 0
+      end
+      if balls[globalvars.current_player].speed.length() < 0.1 then
+        globalvars.time_without_moving += min(globalvars.delta_time, globalvars.delta_time_max)
+      else
+        globalvars.time_without_moving = 0
+      end
+    end
+    // if player is still for enough time, recieve player input again
+    if globalvars.time_without_moving > globalvars.still_threshold or globalvars.time_mostly_still > globalvars.mostly_still_threshold then
+      globalvars.playerturn = true
+      // reset player input
+      globalvars.player_input_dir = camera.rotation.y
+      globalvars.player_input_power = 10
+      // set new checkpoint
+      globalvars.last_checkpoint[globalvars.current_player] = balls[globalvars.current_player].v.p
+      // go to next player (if multiplayer)
+      next_player()
+      // reset time in player's mode
+      globalvars.time_in_playerturn = 0
+    end
+  end
+  // death plane for falling off
+  if balls[globalvars.current_player].v.p.y < -8 then
+    balls[globalvars.current_player].v.p = globalvars.last_checkpoint[globalvars.current_player]
+    balls[globalvars.current_player].speed = new vec3()
+    globalvars.shots_taken_on_level[globalvars.current_player] += 1
+    globalvars.playerturn = true
+    // go to next player (if multiplayer)
+    next_player()
+  end
+  // sines/cosines
+  // note: the camera only rotates around the x and y axis
+  local sinx = sind(camera.rotation.x)
+  local cosx = cosd(camera.rotation.x)
+  local siny = sind(camera.rotation.y)
+  local cosy = cosd(camera.rotation.y)
+  // update rotation matrix
+  camera.rotation_matrix.mat =[[cosy,0,-siny],
+                              [-siny*sinx,cosx,-cosy*sinx],
+                              [siny*cosx,sinx,cosy*cosx]]
+end
+
+// transition to next player
+next_player = function()
+  globalvars.last_player = globalvars.current_player
+  globalvars.current_player += 1
+  if globalvars.current_player >= globalvars.num_players then
+    globalvars.current_player = 0
+  end
+  local loop_out_index = globalvars.num_players
+  local iterations = 0
+  while balls[globalvars.current_player].finished // skip players that are finished
+    globalvars.current_player += 1
+    if globalvars.current_player >= globalvars.num_players then
+      globalvars.current_player = 0
+    end
+    if iterations > loop_out_index then // all balls are finished, break loop
+      break
+    end
+    iterations += 1
+  end
+end
+
+
+
+
+
+
+end()
+
+
+
+function()
+initUI = function()
+  UI = object
+    buttons = []
+    sliders = []
+    protips = [
+                "Press F to enter/exit free cam",
+                "Use the arrow keys or WASD to rotate the camera",
+                "Drag the mouse to shoot",
+                "When in free cam (F), use WASDQE and ARROWs to navigate",
+                "Falling off the map penalises you 1 shot."
+              ]
+  end
+  // add buttons
+  // start button: initialises the first level
+  UI.buttons.push(new Button(new vec2(0,10), new vec2(90,20), "Start", "menu", function() globalvars.play_all_levels = true load_level() storage.set("saved_player_num", globalvars.num_players) end))
+  // level select menu
+  UI.buttons.push(new Button(new vec2(0,-25), new vec2(140,20), "Level Select", "menu", function() globalvars.mode = "level_select" end))
+  // next level button
+  UI.buttons.push(new Button(new vec2(0,-88), new vec2(100,20), "Continue", "finished", function() load_level() end))
+  // increase/decrease number of players buttons
+  UI.buttons.push(new Button(new vec2(55,-72), new vec2(70,20), "increase", "menu", function() if globalvars.num_players < 4 then globalvars.num_players += 1 end end, false, 16))
+  UI.buttons.push(new Button(new vec2(-51,-72), new vec2(70,20), "decrease", "menu", function() if globalvars.num_players > 1 then globalvars.num_players -= 1 end end, false, 16))
+  // shoot button - the function this button is decided by by the camera_and_input_script
+  UI.buttons.push(new Button(new vec2(-144,-90), new vec2(65,20), "Shoot!", "play", function() 
+    particles = []
+    local s = globalvars.player_input_power // to be used for shot power
+    balls[globalvars.current_player].speed = new vec3(s*sind(globalvars.player_input_dir),0,s*cosd(globalvars.player_input_dir))
+    globalvars.playerturn = false
+    globalvars.shots_taken_on_level[globalvars.current_player] += 1 
+  end, true))
+  // restart button
+  UI.buttons.push(new Button(new vec2(0,-58), new vec2(160,20), "Back to menu", "game_complete", function() init() end))
+  // level select buttons
+  for y = 1 to -1
+    for x = -1 to 1
+      UI.buttons.push(new Button(new vec2(x*120,y*60-5), new vec2(90,20), "Level " + (x+(y*-3)+5), "level_select", function() 
+        globalvars.level = (x+(y*-3)+4) // get correct level value from x and y values
+        load_level()
+        globalvars.play_all_levels = false
+        storage.set("saved_player_num", globalvars.num_players) // save number of players
+        end))
+    end
+  end
+  // back to menu button in play loop
+  UI.buttons.push(new Button(new vec2(128,-92), new vec2(110,20), "Back to Menu", "play", function() init() end, true, 14))
+  // back to menu button in level select
+  UI.buttons.push(new Button(new vec2(0,-88), new vec2(120,20), "Back to Menu", "level_select", function() init() end, true, 16))
+end
+
+updateUI = function()
+  for button in UI.buttons
+    button.update()
+  end
+  // for slider in UI.sliders
+  //   slider.update()
+  // end
+end
+
+drawUI = function()
+  // local score and shots_taken lists with non-playing players removed
+  local local_score = globalvars.score.concat()
+  for i = 3 to globalvars.num_players // remove players who aren't playing
+    local_score.remove(i)
+  end
+  local local_shots_taken = globalvars.shots_taken_on_level.concat()
+  for i = 3 to globalvars.num_players // remove players who aren't playing
+    local_shots_taken.remove(i)
+  end
+  // if it's the finish menu, all the shots taken is represented by the score plus the sum of all pars
+  for score in local_score
+    score += sum_of_pars()
+  end
+  if globalvars.mode == "menu" then
+    screen.setFont("LycheeSoda")
+    screen.drawSprite("poster",0,0,screen.width,screen.height)
+    // draw darkening rect over background
+    screen.setAlpha(0.4)
+    screen.fillRect(0,0,screen.width, screen.height,"rgb(135,135,135)")
+    screen.setAlpha(1)
+    screen.drawText("Microstudio Mini Golf", 0, 50, 25,"rgb(255,170,0)")
+    screen.drawText("Number of Players: " + globalvars.num_players, 0, -54, 18,"rgb(255,170,0)")
+  elsif globalvars.mode == "load" or globalvars.mode == "wait" then
+    screen.drawSprite("poster",0,0,screen.width,screen.height)
+    // draw darkening rect over background
+    screen.setAlpha(0.3)
+    screen.fillRect(0,0,screen.width, screen.height,"rgb(135,135,135)")
+    screen.setAlpha(1)
+    // loading animation
+    local text = "Currently Loading"
+    if round(system.time()/350)%5 != 0 then
+      for i = 0 to round(system.time()/350)%5-1
+        text += "."
+      end
+    end
+    screen.setAlpha(0.8)
+    // draw loading text
+    screen.drawText(text, 0, -50, 25,"rgb(255,255,255)")
+    // draw pro-tip
+    screen.drawText("How to Play:", 0, 55, 30,"rgb(255,170,0)")
+    screen.drawText(UI.protips[floor(globalvars.mode_random_val*UI.protips.length)], 0, 32, 10,"rgb(255,255,255)")
+    screen.setAlpha(1)
+  elsif globalvars.mode == "starting_anim" then
+    if globalvars.show_fps then
+      // draw fps
+      screen.setDrawAnchor(-1,0)
+      screen.drawText("fps: " + globalvars.fps, -173, -90, 15, "#fff")
+      screen.setDrawAnchor(0,0)
+    end
+    screen.drawText("Level " + (globalvars.level+1), 0, 85, 25,"rgb(255,170,0)")
+    screen.drawText("Par: " + globalvars.par[globalvars.level], 0, 60, 12,"rgb(255,255,255)")
+    screen.drawText("Press any key to start", 0, -89, 12,"rgb(0,0,0)")
+  elsif globalvars.mode == "finished" then
+    // draw darkening rect over background (actual background is still drawn)
+    screen.setAlpha(min(globalvars.time_in_mode,.8))
+    screen.fillRect(0,0,screen.width, screen.height,"rgb(0,0,0)")
+    screen.setAlpha(helpers.clamp((globalvars.time_in_mode-1)/2,0,1))
+    screen.drawText("Level Completed!",0,75,25,"rgb(255,170,0)")
+    screen.drawText("Par: " + globalvars.par[globalvars.level-1], 0, 50-5, 16,"rgb(225,225,225)")
+    screen.drawText("Shots taken: " + local_shots_taken, 0, 25-5, 16,"rgb(225,225,225)")
+    screen.drawText("Current score: " + local_score, 0, 0-5, 16,"rgb(225,225,225)")
+    screen.drawText("Level Time: " + round(globalvars.level_time*100)/100, 0, -25-5, 16,"rgb(225,225,225)")
+    screen.drawText("Current Time: " + round(globalvars.current_time*100)/100, 0, -50-5, 16,"rgb(225,225,225)")
+  elsif globalvars.mode == "game_complete" then
+    screen.setFont("LycheeSoda")
+    screen.drawSprite("poster",0,0,screen.width,screen.height)
+    // draw darkening rect over background
+    screen.setAlpha(0.6)
+    screen.fillRect(0,0,screen.width, screen.height,"rgb(135,135,135)")
+    screen.setAlpha(1)
+    if not globalvars.play_all_levels then
+      screen.drawText("Level Complete!", 0, 80, 25,"rgb(255,170,0)")
+      screen.drawText("As you completed the game from", 0, 30, 16, "#fff")
+      screen.drawText("the level select menu, no best", 0, 10, 16, "#fff")
+      screen.drawText("score is available.", 0, -10, 16, "#fff")
+    else
+      screen.drawText("Game Complete!", 0, 80, 25,"rgb(255,170,0)")
+      screen.drawText("Score: " + local_score, 0, 50, 18, "#fff")
+      screen.drawText("Time Taken: " + round(globalvars.current_time*100)/100, 0, 25, 18, "#fff")
+      screen.drawText("Shots Taken: " + (local_score), 0, 0, 18, "#fff")
+      screen.drawText("Best Score: " + storage.get("best_score"), 0, -25, 18, "#fff")
+      if globalvars.new_record then
+        screen.setDrawRotation(30+sind(globalvars.time_in_mode*80)*5)
+        screen.drawText("New Record!", -60, -18,12,"rgb(255,170,0)")
+      end
+      screen.setDrawRotation(0)
+    end
+  elsif globalvars.mode == "level_select" then
+    screen.drawSprite("poster",0,0,screen.width,screen.height)
+    // draw darkening rect over background
+    screen.setAlpha(0.7)
+    screen.fillRect(0,0,screen.width, screen.height,"rgb(75,75,75)")
+    screen.setAlpha(.6)
+    screen.drawText("Note: You can't set a new best score or play multiple levels", 0, 92, 11, "#fff")
+    screen.setDrawAnchor(-1, 0)
+    screen.drawText("via level select mode.", -172, 79, 11, "#fff")
+    screen.setDrawAnchor() // reset draw anchor
+  else // mode == play
+    if globalvars.show_fps then
+      // draw fps
+      screen.setDrawAnchor(-1,0)
+      screen.drawText("fps: " + globalvars.fps, -173, -90, 15, "#fff")
+      screen.setDrawAnchor(0,0)
+    end
+    if globalvars.playerturn then
+      if globalvars.num_players > 1 then
+        screen.setDrawAnchor(-1,0)
+        screen.drawText("Shots taken: " + globalvars.shots_taken_on_level[globalvars.current_player], 20, 93, 12,"rgb(45,45,45)")
+        screen.setDrawAnchor(1,0)
+        screen.drawText("Par: " + globalvars.par[globalvars.level], 175, 93, 12,"rgb(45,45,45)")
+        screen.setDrawAnchor(-1,0)
+        if globalvars.num_players > 1 then // show indicator for which player it is
+          screen.drawText("Player " + (globalvars.current_player+1) + "'s turn", -175, 92, 14)
+        end
+      else
+        screen.setDrawAnchor(-1,0)
+        screen.drawText("Shots taken: " + globalvars.shots_taken_on_level[globalvars.current_player], -175, 93, 12,"rgb(45,45,45)")
+        screen.setDrawAnchor(1,0)
+        screen.drawText("Par: " + globalvars.par[globalvars.level], 175, 93, 12,"rgb(45,45,45)")
+        screen.setDrawAnchor(-1,0)
+      end
+    end
+    screen.setDrawAnchor(0,0)
+  end
+  for button in UI.buttons
+    button.draw()
+  end
+    // for slider in UI.sliders
+    //   slider.draw()
+    // end
+end
+
+sum_of_pars = function()
+  local number = 0
+  for par in globalvars.par
+    number += par
+  end
+  return number
+end
+
+// a button has a position, dimensions, text, the mode it appears in
+// and a function which will be run when it is clicked
+
+Button = class
+  constructor = function(pos,dim,text,mode,func, must_be_players_turn=false, textsize=20)
+    this.p = pos
+    this.dim = dim
+    this.text = text
+    this.mode = mode
+    this.function = func
+    this.textsize = textsize
+    // for checking if it should be shown only if player is shooting or not
+    this.must_be_player_turn = must_be_players_turn
+    
+    // vars
+    this.mouse_hover = false
+    this.clicked = false
+  end
+  
+  update = function()
+    if globalvars.time_in_mode > 0.1 then // avoids immediate clicks
+      mouse_hover = false
+      clicked = false
+      if globalvars.mode == this.mode then
+        if not must_be_player_turn or globalvars.playerturn == true then
+          if helpers.rect_contains_2d(new vec2(mouse.x,mouse.y), object pos = this.p dimensions = this.dim end) then
+            mouse_hover = true
+          end
+        end
+      end
+      if mouse_hover and mouse.pressed then
+        clicked = true
+      end
+      // if mouse is released while hovering over the button, run it's function
+      if mouse_hover and mouse.release then
+        this.function()
+      end
+    end
+  end
+  
+  draw = function()
+    if globalvars.mode == this.mode then
+      if not must_be_player_turn or globalvars.playerturn == true then
+        if clicked then
+          screen.setAlpha(0.3)
+        elsif mouse_hover then
+          screen.setAlpha(0.9)
+        else
+          screen.setAlpha(0.6)
+        end
+        screen.drawText(text, p.x, p.y, textsize,"rgb(255,255,255)")
+      end
+    end
+  end
+end
+
+
+
+
+end()
+
+
+
+function()
+initparticles = function()
+  particles = []
+end
+
+Particle = class
+  constructor = function(vertex, size)
+    this.v = vertex
+    this.size = size
+    
+    // depth for sorting
+    this.depth = 0
+  end
+  
+  update = function()
+    v.update()
+    depth = (v.p-camera.position).length()
+  end
+  
+  draw = function()
+    if v.p_rotated.z >= camera.near_clip_dist then
+      local s_factor = size * camera.FOV / v.p_rotated.z
+      screen.fillRound(v.p_projected.x, v.p_projected.y, s_factor, s_factor, "#fff")
+    end
+  end
+end
+end()
+
+
+
+function()
+load_materials = function()
+  // materials have a colour, diffuse and ambient values, bounce and friction values
+  // friction is basically just a constant applied drag
+  materials = [
+                // grass
+                object col = new vec3(126,200,80) diffuse = .8 ambient = 0.05 bounce = .3 friction = 0.015  end,
+                // wood
+                object col = new vec3(193,154,107) diffuse = .8 ambient = .15 bounce = .6 friction = 0.002 end,
+                // hole material
+                object col = new vec3(120,120,120) diffuse = .8 ambient = .2 bounce = .2 friction = 0.01 end
+                // bottom of hole (used as finish)
+                object col = new vec3(180,180,180) diffuse = .8 ambient = .3 bounce = 0 friction = 0.01 end
+              ]
+end
+
+load_level = function()
+  globalvars.mode = "load"
+  // list containing all vertices, faces, triangles
+  vertices = []
+  triangles = []
+  faces = []
+  all_objects = []
+  // note: objects (as wavefront .obj) should be made of only triangles or quads
+  // and should be imported as .txt
+  // materials should only be in format material.001,.002.003, cont.
+  // if using culling for different objects, normals should be correct way
+  // (indicate culling using the second input to the obj_file, =true if culling)
+  
+  // third input is a manual addition to the depth value used to sort triangles
+  // and defaults to 0. A smaller weight gives higher sorting priority.
+  
+  // load suzanne (load text then read obj file)
+  //asset_manager.loadText("suzanne", function(text) read_obj_file(text, true) end)
+  
+  //asset_manager.loadText("testscene", function(text) read_obj_file(text, false) end)
+  
+  // last loaded asset must include level_init()
+  if globalvars.level == 9 or not globalvars.play_all_levels then // finished game or finished single level from level select menu
+    globalvars.mode = "game_complete"
+    // get best score of all players
+    local best_score_of_players = 10000000
+    for score in globalvars.score
+      best_score_of_players = min(best_score_of_players, score)
+    end
+    // set best score
+    if globalvars.play_all_levels then
+      if storage.get("played_before") == 0 then
+        // as storage natively resets to 0, we need this for the player's first score
+        // just in case it is > 0
+        storage.set("played_before",1)
+        storage.set("best_score", best_score_of_players)
+        globalvars.new_record = true
+      else
+        if globalvars.score < storage.get("best_score") then
+          storage.set("best_score",best_score_of_players)
+          globalvars.new_record = true
+        end
+      end
+    end
+  elsif globalvars.level == 0 then
+    asset_manager.loadText("c1h1/c1_h1_wood", function(text) read_obj_file(text, false,-0.5) end)
+    asset_manager.loadText("c1h1/c1_h1_hole", function(text) read_obj_file(text, false,25) end)
+    asset_manager.loadText("c1h1/c1_h1_grass", function(text) read_obj_file(text, false,8) level_init() end)
+    for ball in balls
+      ball.sorting_weight = 0
+    end
+  elsif globalvars.level == 1 then
+    asset_manager.loadText("c1h6/c1_h6_wood", function(text) read_obj_file(text, false,0) end)
+    asset_manager.loadText("c1h6/c1_h6_hole", function(text) read_obj_file(text, false,25) end)
+    asset_manager.loadText("c1h6/c1_h6_grass", function(text) read_obj_file(text, false,6) level_init() end)
+    for ball in balls
+      ball.sorting_weight = -.55
+    end
+  elsif globalvars.level == 2 then
+    asset_manager.loadText("c1h2/c1_h2_wood", function(text) read_obj_file(text, false,0) end)
+    asset_manager.loadText("c1h2/c1_h2_hole", function(text) read_obj_file(text, false,25) end)
+    asset_manager.loadText("c1h2/c1_h2_grass", function(text) read_obj_file(text, false,8) level_init() end)
+    for ball in balls
+      ball.sorting_weight = 0
+    end
+  elsif globalvars.level == 3 then
+    asset_manager.loadText("c1h4/c1_h4_wood", function(text) read_obj_file(text, false,0) end)
+    asset_manager.loadText("c1h4/c1_h4_hole", function(text) read_obj_file(text, false,25) end)
+    asset_manager.loadText("c1h4/c1_h4_grass", function(text) read_obj_file(text, false,10) level_init() end)
+    for ball in balls
+      ball.sorting_weight = 0
+    end
+  elsif globalvars.level == 4 then
+    asset_manager.loadText("c1h3/c1_h3_wood", function(text) read_obj_file(text, false,0) end)
+    asset_manager.loadText("c1h3/c1_h3_hole", function(text) read_obj_file(text, false,25) end)
+    asset_manager.loadText("c1h3/c1_h3_grass", function(text) read_obj_file(text, false,4) level_init() end)
+    for ball in balls
+      ball.sorting_weight = 0
+    end
+  elsif globalvars.level == 5 then
+    asset_manager.loadText("c1h9/c1_h9_wood", function(text) read_obj_file(text, false,0) end)
+    asset_manager.loadText("c1h9/c1_h9_hole", function(text) read_obj_file(text, false,25) end)
+    asset_manager.loadText("c1h9/c1_h9_grass", function(text) read_obj_file(text, false,4) level_init() end)
+    for ball in balls
+      ball.sorting_weight = 0
+    end
+  elsif globalvars.level == 6 then
+    asset_manager.loadText("c1h7/c1_h7_wood", function(text) read_obj_file(text, false,0) end)
+    asset_manager.loadText("c1h7/c1_h7_hole", function(text) read_obj_file(text, false,25) end)
+    asset_manager.loadText("c1h7/c1_h7_grass", function(text) read_obj_file(text, false,1) level_init() end)
+    for ball in balls
+      ball.sorting_weight = 0
+    end
+  elsif globalvars.level == 7 then
+    asset_manager.loadText("c1h8/c1_h8_wood", function(text) read_obj_file(text, false,0) end)
+    asset_manager.loadText("c1h8/c1_h8_walls", function(text) read_obj_file(text, true,0) end)
+    asset_manager.loadText("c1h8/c1_h8_hole", function(text) read_obj_file(text, false,25) end)
+    asset_manager.loadText("c1h8/c1_h8_grass", function(text) read_obj_file(text, false,9) level_init() end)
+    for ball in balls
+      ball.sorting_weight = 0
+    end
+  elsif globalvars.level == 8 then
+    asset_manager.loadText("c1h5/c1_h5_wood", function(text) read_obj_file(text, false,0) end)
+    asset_manager.loadText("c1h5/c1_h5_hole", function(text) read_obj_file(text, false,25) end)
+    asset_manager.loadText("c1h5/c1_h5_grass", function(text) read_obj_file(text, false,4) level_init() end)
+    for ball in balls
+      ball.sorting_weight = 0
+    end
+  end
+end
+
+
+
+
+
+
+
+
+
+end()
+
+
+
+function()
+Tri = class
+  constructor = function(i1,i2,i3,mati,sortingweight,cull = false)
+    // indices of points this tri is connected to
+    this.i1 = i1
+    this.i2 = i2
+    this.i3 = i3
+    this.mati = mati
+    this.cull = cull
+    
+    // for z-sorting (sorting weight is used for any necessary manual adjustment for the best sorting)
+    this.depth = 0
+    this.s_weight = sortingweight
+    // surface normal
+    this.normal = calc_normal()
+    // for lighting
+    this.diffuse = calc_diffuse()
+    // final projected points after z-clipping
+    this.p1_projected = new vec3()
+    this.p2_projected = new vec3()
+    this.p3_projected = new vec3()
+    // if it's a quad due to z-clipping
+    this.p4_projected = new vec3()
+    this.is_quad = false
+    // if tri normal needs to be flipped due to camera angle
+    this.flip_normal = false
+    // calc bounding box for collision checks
+    this.bounding_box = calc_bounding_box()
+  end
+  
+  update = function()
+    // calculate depth (length of midpoint of rotated vertices)
+    local midpoint = (vertices[i1].p-camera.position) + (vertices[i2].p-camera.position) + (vertices[i3].p-camera.position)
+    midpoint /= 3
+    depth = midpoint.length() + s_weight
+    
+    // check if normal should be flipped
+    this.flip_normal = cull_tri()
+    diffuse = calc_diffuse()
+  end
+  
+  calc_bounding_box = function()
+    local bounding_box = object
+      // get midpoint
+      p = (vertices[i1].p + vertices[i2].p + vertices[i3].p) / 3
+    end
+    local p = bounding_box.p
+    // get dimensions (max distance from midpoint on each axis)
+    bounding_box.dim = new vec3(
+                      max(abs(vertices[i1].p.x-p.x),max(abs(vertices[i2].p.x-p.x),abs(vertices[i3].p.x-p.x))),
+                      max(abs(vertices[i1].p.y-p.y),max(abs(vertices[i2].p.y-p.y),abs(vertices[i3].p.y-p.y))),
+                      max(abs(vertices[i1].p.z-p.z),max(abs(vertices[i2].p.z-p.z),abs(vertices[i3].p.z-p.z)))
+                    )
+    return bounding_box
+  end
+  
+  cull_tri = function() // check if triangle needs to bbe culled (or should flip normal)
+    // old code which uses screen coords to check whether triangle is clockwise or not
+    
+    // local anglea=atand( (vertices[i2].p_projected.x-vertices[i1].p_projected.x) / (vertices[i2].p_projected.y-vertices[i1].p_projected.y) ) // Angle between point 1 and 2
+    // if vertices[i2].p_projected.y<vertices[i1].p_projected.y then // Correction for actual angle wanted
+    //   anglea+=90
+    // else
+    //   anglea+=270
+    // end
+    // local angleb=atand( (vertices[i3].p_projected.x-vertices[i1].p_projected.x) / (vertices[i3].p_projected.y-vertices[i1].p_projected.y)) // Angle between point 1 and 3
+    // if vertices[i3].p_projected.y<vertices[i1].p_projected.y then
+    //   angleb+=90
+    // else
+    //   angleb+=270
+    // end
+    // local angle=angleb-anglea // Overall angle of tri
+    // if angle>180 then // 'flip' direction of angle from >180 to >-180
+    //   angle-=360
+    // end
+    // if angle<-180 then
+    //   angle+=360
+    // end
+    // if angle<0 then
+    //   return true // culled
+    // end
+    // return false // not culled
+    
+    // new code - checks whether the triangle's normal is facing the camera
+    local vectopoint = vertices[i1].p - camera.position // this accounts for projection (note: you can do this for any of the triangle's points as they lie along the triangle's plane)
+    local dot = vectopoint.dot(normal)
+    if dot < 0 then // facing camera
+      return false
+    end
+    return true
+  end
+  
+  calc_normal = function()
+    // normal is cross product of the following two vectors
+    local v1 = vertices[i2].p - vertices[i1].p
+    local v2 = vertices[i3].p - vertices[i1].p
+    
+    // cross and flip
+    local n = v1.cross(v2)
+    n = n.normalised()*-1
+    return n
+  end
+  
+  calc_diffuse = function()
+    local mat = materials[mati]
+    // calculate diffuse light intensity
+    // screen_normal is the surface normal flipped if necessary due to the view angle of camera
+    local diffuse = 0
+    if flip_normal then
+      local newnormal = normal*-1
+      diffuse = light.dir.dot(newnormal)
+    else
+      diffuse = light.dir.dot(normal)
+    end
+    diffuse = max(diffuse, 0)*(mat.diffuse*light.diffusevalue)+mat.ambient+light.ambientvalue
+    return diffuse
+  end
+  
+  draw = function()
+    // draw depending on indices
+    render_clipped_tri()
+  end
+  
+  // z-clip the triangle given a clipping plane
+  render_clipped_tri = function()
+    // points for clipping are placed in a list to make it easier to clip
+    local points = [vertices[i1].p_rotated, vertices[i2].p_rotated, vertices[i3].p_rotated]
+    local num = 0 // number of points behind clipping plane
+    local index = 0
+    local points_behind_plane = []
+    is_quad = false // for rendering
+    // loop through points to get indices of points behind clipping plane and
+    // the number of points behind clipping plane
+    for p in points
+      if p.z < camera.near_clip_dist then
+        points_behind_plane.push(index) // add to points behind camera plane
+        num += 1 // increment number of points behind camera plane
+      end
+      index += 1 // for indices
+    end
+    // if flip_normal is true (and culling), don't draw the triangle
+    // otherise draw it normally
+    if not flip_normal or not cull then
+      // render triangle
+      if num == 0 then // completely in front of plane, render normally
+        render_tri(points)
+      elsif num == 1 then // 1 point is behind camera plane (tri must be rendered as quad, with the two new points being the clipped lines between the clipped point and the two other points)
+        is_quad = true // for rendering
+        local p_behind = points_behind_plane[0] // only one point is behind quad, so this will get the index of that point
+        
+        // clip first point
+        local clipped = helpers.clip_line(points[p_behind],points[helpers.mod(p_behind - 1,3)])
+        local clipped2 = helpers.clip_line(points[p_behind],points[helpers.mod(p_behind + 1,3)])
+        
+        // render final quad with clipped points (insert into points list)
+        points[p_behind] = clipped.p1 // insert first point
+        points.insertAt(clipped2.p1, p_behind+1) // insert second point next to the first
+        
+        // render final tri
+        render_tri(points)
+      elsif num == 2 then // 2 points are behind camera plane (tri will become smaller as the points behind the plane will simply be clipped as a line with the point not behind the plane)
+        // find point not behind clipping plane
+        local p_in_front = 0
+        if points_behind_plane.contains(0) then // p0 is behind clipping plane
+          p_in_front = 1
+          if points_behind_plane.contains(1) then
+            p_in_front = 2
+          end
+        end
+        
+        // clip points that are behind plane with point not behind plane
+        for p in points_behind_plane
+          local clipped = helpers.clip_line(points[p],points[p_in_front])
+          points[p] = clipped.p1
+        end
+        
+        // render final tri
+        render_tri(points)
+      end // otherwise (num == 3) the tri should not be rendered (completely behind clipping plane)
+    end
+  end
+  
+  render_tri = function(points)
+    local mat = materials[mati] // get material
+    // project points
+    this.p1_projected = points[0].project(camera.FOV)
+    this.p2_projected = points[1].project(camera.FOV)
+    this.p3_projected = points[2].project(camera.FOV)
+    if is_quad then // clipped triangle
+      this.p4_projected = points[3].project(camera.FOV) // project final point in quad
+      // draw quad
+      if globalvars.cell_shade then
+        screen.setLineWidth(0.5*min((20-this.depth)/20,1))
+        screen.drawLine(p1_projected.x, p1_projected.y, p2_projected.x, p2_projected.y, "rgb(0,0,0)")
+        screen.drawLine(p2_projected.x, p2_projected.y, p3_projected.x, p3_projected.y, "rgb(0,0,0)")
+        screen.drawLine(p3_projected.x, p3_projected.y, p4_projected.x, p4_projected.y, "rgb(0,0,0)")
+        screen.drawLine(p4_projected.x, p4_projected.y, p1_projected.x, p1_projected.y, "rgb(0,0,0)")
+      elsif globalvars.fix_gaps then
+        screen.setLineWidth(globalvars.gap_fix)
+        screen.drawLine(p1_projected.x, p1_projected.y, p2_projected.x, p2_projected.y, "rgb("+mat.col.x*diffuse+","+mat.col.y*diffuse+","+mat.col.z*diffuse+")")
+        screen.drawLine(p2_projected.x, p2_projected.y, p3_projected.x, p3_projected.y, "rgb("+mat.col.x*diffuse+","+mat.col.y*diffuse+","+mat.col.z*diffuse+")")
+        screen.drawLine(p3_projected.x, p3_projected.y, p4_projected.x, p4_projected.y, "rgb("+mat.col.x*diffuse+","+mat.col.y*diffuse+","+mat.col.z*diffuse+")")
+        screen.drawLine(p4_projected.x, p4_projected.y, p1_projected.x, p1_projected.y, "rgb("+mat.col.x*diffuse+","+mat.col.y*diffuse+","+mat.col.z*diffuse+")")
+      end
+      if globalvars.draw_wireframe then
+        screen.drawPolygon(p1_projected.x,p1_projected.y,
+                          p2_projected.x,p2_projected.y,
+                          p3_projected.x,p3_projected.y,
+                          p4_projected.x,p4_projected.y,
+                          "rgb("+mat.col.x*diffuse+","+mat.col.y*diffuse+","+mat.col.z*diffuse+")")
+      else // fill quad
+        screen.fillPolygon(p1_projected.x,p1_projected.y,
+                          p2_projected.x,p2_projected.y,
+                          p3_projected.x,p3_projected.y,
+                          p4_projected.x,p4_projected.y,
+                          "rgb("+mat.col.x*diffuse+","+mat.col.y*diffuse+","+mat.col.z*diffuse+")")
+      end
+    else
+      // draw tri
+      
+      // alternate method to fix gaps (doesn't work as well for large triangles like these)
+      //make points a little bigger to avoid gaps in trisurface
+      // p1_projected = p1_projected*(1+globalvars.gap_fix)-(p2_projected+p3_projected)*(globalvars.gap_fix/2)
+      // p2_projected = p2_projected*(1+globalvars.gap_fix)-(p1_projected+p3_projected)*(globalvars.gap_fix/2)
+      // p3_projected = p3_projected*(1+globalvars.gap_fix)-(p1_projected+p2_projected)*(globalvars.gap_fix/2)
+      
+      if globalvars.draw_wireframe then
+        screen.drawPolygon(p1_projected.x,p1_projected.y,
+                          p2_projected.x,p2_projected.y,
+                          p3_projected.x,p3_projected.y,
+                          "rgb("+mat.col.x*diffuse+","+mat.col.y*diffuse+","+mat.col.z*diffuse+")")
+      else // fill tri
+        // fill lines around tri to remove gaps in the isosurface
+        if globalvars.cell_shade then
+          screen.setLineWidth(0.5*min((20-this.depth)/20,1))
+          screen.drawLine(p1_projected.x, p1_projected.y, p2_projected.x, p2_projected.y, "rgb(0,0,0)")
+          screen.drawLine(p2_projected.x, p2_projected.y, p3_projected.x, p3_projected.y, "rgb(0,0,0)")
+          screen.drawLine(p3_projected.x, p3_projected.y, p1_projected.x, p1_projected.y, "rgb(0,0,0)")
+        else
+          if globalvars.fix_gaps then
+            screen.setLineWidth(globalvars.gap_fix)
+            screen.drawLine(p1_projected.x, p1_projected.y, p2_projected.x, p2_projected.y, "rgb("+mat.col.x*diffuse+","+mat.col.y*diffuse+","+mat.col.z*diffuse+")")
+            screen.drawLine(p2_projected.x, p2_projected.y, p3_projected.x, p3_projected.y, "rgb("+mat.col.x*diffuse+","+mat.col.y*diffuse+","+mat.col.z*diffuse+")")
+            screen.drawLine(p3_projected.x, p3_projected.y, p1_projected.x, p1_projected.y, "rgb("+mat.col.x*diffuse+","+mat.col.y*diffuse+","+mat.col.z*diffuse+")")
+          end
+        end
+         screen.fillPolygon(p1_projected.x,p1_projected.y,
+                            p2_projected.x,p2_projected.y,
+                            p3_projected.x,p3_projected.y,
+                            "rgb("+mat.col.x*diffuse+","+mat.col.y*diffuse+","+mat.col.z*diffuse+")")
+      end
+    end
+  end
+end
+
+
+
+Vertex = class
+  constructor = function(p, col=new vec3(255,255,255))
+    this.p = p
+    this.col = col
+    
+    this.depth = 0 // for z-sorting
+    // rotated 3d coords
+    this.p_rotated = p
+    // 2d coords
+    this.p_projected = p
+  end
+  
+  update = function()
+    calc()
+  end
+  
+  draw = function()
+    if p_rotated.z > camera.near_clip_dist then
+      screen.fillRound(p_projected.x,p_projected.y,1,1,"rgb("+col.x+","+col.y+","+col.z+")")
+    end
+  end
+  
+  calc = function()
+    // translate
+    local temp = p - camera.position
+    // convert to matrices
+    // local matrix = new mat3(temp.x,temp.y,temp.z,
+    //                         temp.x,temp.y,temp.z,
+    //                         temp.x,temp.y,temp.z)
+    // // multiply by rotation matrix
+    // matrix *= camera.rotation_matrix
+    // // convert back to vectors
+    // p_rotated = matrix.convert_to_vector()
+    p_rotated = MatrixVectorMultiply(temp, camera.rotation_matrix.mat)
+    temp = p_rotated.z
+    // stop z-from being behind camera for projection
+    p_rotated.z = max(p_rotated.z, camera.near_clip_dist)
+    // project to 2d screen
+    p_projected = p_rotated.project(camera.FOV)
+    // move z back so that triangles are rendered with correct clipping
+    p_rotated.z = temp
+  end
+end
+
+// line is mainly used for debugging
+Line = class
+  constructor = function(v1, v2, col=new vec3(255,255,255))
+    // v1 and v2 are vertices
+    this.v1 = v1
+    this.v2 = v2
+    
+    this.col = col
+    this.depth = 0
+    // final screen points
+    this.v1_projected = new vec3()
+    this.v2_projected = new vec3()
+  end
+  
+  update = function()
+    // update vertices
+    v1.update()
+    v2.update()
+    // clip line
+    local clipped = helpers.clip_line(v1.p_rotated, v2.p_rotated)
+    // project clipped points
+    v1_projected = clipped.p1.project(camera.FOV)
+    v2_projected = clipped.p2.project(camera.FOV)
+  end
+  
+  draw = function()
+    // make sure line isn't completely behind camera clipping plane
+    if v1.p_rotated.z >= camera.near_clip_dist or v2.p_rotated.z >= camera.near_clip_dist then
+      screen.drawLine(v1_projected.x, v1_projected.y, v2_projected.x, v2_projected.y,"rgb("+col.x+","+col.y+","+col.z+")")
+    end
+  end
+end
+
+
+
+
+
+
+
+
+end()
+
+
+
+function()
+vec2 = class
+  constructor = function(x=0, y=0)
+    this.x = x
+    this.y = y
+    
+    // can be used to check the type in code as follows:
+    // if vectors.isVector3
+    this.isVector2 = true
+  end
+  
+  "+" = function(a,b)
+    if a.isVector3 or b.isVector3 then
+      print("vector error: addition between vector3 and vector2")
+      return
+    end
+    if not a.isVector2 then // numbers are scalar and vector
+      // cannot occur
+      return
+    elsif not b.isVector2 then
+      return new vec2(a.x+b,a.y+b)
+    else
+      return new vec2(a.x+b.x, a.y+b.y)
+    end
+  end
+  
+  "-" = function(a,b)
+    if a.isVector3 or b.isVector3 then
+      print("vector error: addition between vector3 and vector2")
+      return
+    end
+    if not a.isVector2 then // numbers are scalar and vector
+      // cannot occur
+      return
+    elsif not b.isVector2 then
+      return new vec2(a.x-b,a.y-b)
+    else
+      return new vec2(a.x-b.x, a.y-b.y)
+    end
+  end
+  
+  "*" = function(a,b)
+    if a.isVector3 or b.isVector3 then
+      print("vector error: addition between vector2 and vector3")
+      return
+    end
+    if not a.isVector2 then // numbers are scalar and vector
+      // cannot occur
+      return
+    elsif not b.isVector2 then
+      return new vec2(a.x*b,a.y*b)
+    else
+      return new vec2(a.x*b.x, a.y*b.y)
+    end
+  end
+  
+  "/" = function(a,b)
+    if a.isVector3 or b.isVector3 then
+      print("vector error: addition between vector3 and vector2")
+      return
+    end
+    if not a.isVector2 then // numbers are scalar and vector
+      // cannot occur
+      return
+    elsif not b.isVector2 then
+      return new vec2(a.x/b,a.y/b)
+    else
+      return new vec2(a.x/b.x, a.y/b.y)
+    end
+  end
+  
+  // duplicates vector
+  duplicate = function()
+    return new vec2(this.x, this.y)
+  end
+  
+  // length of vector
+  length = function()
+    return sqrt(this.x ^ 2 + this.y ^ 2)
+  end
+  
+  // dot product of self and another vector
+  dot = function(vec)
+    return this.x * vec.x + this.y * vec.y
+  end
+  
+  // normalise vector
+  normalised = function()
+    local len = length()
+    this.x /= len
+    this.y /= len
+  end
+  
+  // rotates angle by an angle in degrees
+  rotated = function(angle)
+    temp = this.x
+    this.x = cosd(angle) * x - sind(angle) * y
+    this.y = sind(angle) * temp + cosd(angle) * y
+  end
+end
+
+vec3 = class
+  constructor = function(x=0, y=0, z=0)
+    this.x = x
+    this.y = y
+    this.z = z
+    
+    // can be used to check the type in code as follows:
+    // if vectors.isVector3
+    this.isVector3 = true
+  end
+  
+  "+" = function(a,b)
+    if a.isVector2 or b.isVector2 then
+      print("vector error: addition between vec3 and vec2")
+      return
+    end
+    if not a.isVector3 then // numbers are vector and scalar
+      // this cannot occur because overloading operators
+      return
+    elsif not b.isVector3 then
+      return new vec3(a.x+b, a.y+b, a.z+b)
+    else
+      return new vec3(a.x+b.x, a.y+b.y, a.z+b.z)
+    end
+  end
+  
+  "-" = function(a,b)
+    if a.isVector2 or b.isVector2 then
+      print("vector error: subtraction between vec3 and vec2")
+      return
+    end
+    if not a.isVector3 then // numbers are vector and scalar
+      // cannot occur
+      return
+    elsif not b.isVector3 then
+      return new vec3(a.x-b, a.y-b, a.z-b)
+    else
+      return new vec3(a.x-b.x, a.y-b.y, a.z-b.z)
+    end
+  end
+  
+  "*" = function(a,b)
+    if a.isVector2 or b.isVector2 then
+      print("vector error: multiplication between vec3 and vec2")
+      return
+    end
+    if not a.isVector3 then // numbers are vector and scalar
+      //cannot occur
+      return
+    elsif not b.isVector3 then
+      return new vec3(a.x*b, a.y*b, a.z*b)
+    else
+      return new vec3(a.x*b.x, a.y*b.y, a.z*b.z)
+    end
+  end
+  
+  "/" = function(a,b)
+    if a.isVector2 or b.isVector2 then
+      print("vector error: division between vec3 and vec2")
+      return
+    end
+    if not a.isVector3 then // numbers are vector and scalar
+      // cannot occur
+      return
+    elsif not b.isVector3 then
+      return new vec3(a.x/b, a.y/b, a.z/b)
+    else
+      return new vec3(a.x/b.x, a.y/b.y, a.z/b.z)
+    end
+  end
+  
+  // duplicates vector
+  duplicate = function()
+    return new vec3(this.x, this.y, this.z)
+  end
+  
+  // length of vector
+  length = function()
+    return sqrt(this.x*this.x + this.y*this.y + this.z*this.z)
+  end
+  
+  // dot product of self and another vector
+  dot = function(vec)
+    if not vec.isVector3 then
+      print("vector error: attempted dot product between vec3 and other type")
+    end
+    return this.x * vec.x + this.y * vec.y + this.z * vec.z
+  end
+  
+  // normalise vector
+  normalised = function()
+    local len = length()
+    local ox = this.x/len
+    local oy = this.y/len
+    local oz = this.z/len
+    return new vec3(ox, oy, oz)
+  end
+  
+  // cross product of two vectors
+  cross = function(vec)
+    local ox = this.y * vec.z - vec.y * this.z
+    local oy = vec.x * this.z - this.x * vec.z
+    local oz = this.x * vec.y - vec.x * this.y
+    return new vec3(-ox, -oy, -oz)
+  end
+  
+  // project 3d values to 2d space given an FOV
+  project = function(FOV)
+    return new vec2(FOV * this.x / this.z, FOV * this.y / this.z)
+  end
+  
+  rotate_y = function(dir)
+    return new vec3(cosd(dir)*this.x-sind(dir)*this.z,this.y,sind(dir)*this.x+cosd(dir)*this.z)
+  end
+end
+
+mat3 = class
+  constructor = function(v1,v2,v3,v4,v5,v6,v7,v8,v9)
+    mat = [[v1,v2,v3],[v4,v5,v6],[v7,v8,v9]]
+  end
+  
+  "+" = function(a,b)
+    return new mat3(a.mat[0][0]+b.mat[0][0],
+                    a.mat[0][1]+b.mat[0][1],
+                    a.mat[0][2]+b.mat[0][2],
+                    a.mat[1][0]+b.mat[1][0],
+                    a.mat[1][1]+b.mat[1][1],
+                    a.mat[1][2]+b.mat[1][2],
+                    a.mat[2][0]+b.mat[2][0],
+                    a.mat[2][1]+b.mat[2][1],
+                    a.mat[2][2]+b.mat[2][2])
+  end
+  
+  "*" = function(a,b)
+    return new mat3(a.mat[0][0]*b.mat[0][0],
+                    a.mat[0][1]*b.mat[0][1],
+                    a.mat[0][2]*b.mat[0][2],
+                    a.mat[1][0]*b.mat[1][0],
+                    a.mat[1][1]*b.mat[1][1],
+                    a.mat[1][2]*b.mat[1][2],
+                    a.mat[2][0]*b.mat[2][0],
+                    a.mat[2][1]*b.mat[2][1],
+                    a.mat[2][2]*b.mat[2][2])
+  end
+  
+  "-" = function(a,b)
+    return new mat3(a.mat[0][0]-b.mat[0][0],
+                    a.mat[0][1]-b.mat[0][1],
+                    a.mat[0][2]-b.mat[0][2],
+                    a.mat[1][0]-b.mat[1][0],
+                    a.mat[1][1]-b.mat[1][1],
+                    a.mat[1][2]-b.mat[1][2],
+                    a.mat[2][0]-b.mat[2][0],
+                    a.mat[2][1]-b.mat[2][1],
+                    a.mat[2][2]-b.mat[2][2])
+  end
+  
+  "/" = function(a,b)
+    return new mat3(a.mat[0][0]/b.mat[0][0],
+                    a.mat[0][1]/b.mat[0][1],
+                    a.mat[0][2]/b.mat[0][2],
+                    a.mat[1][0]/b.mat[1][0],
+                    a.mat[1][1]/b.mat[1][1],
+                    a.mat[1][2]/b.mat[1][2],
+                    a.mat[2][0]/b.mat[2][0],
+                    a.mat[2][1]/b.mat[2][1],
+                    a.mat[2][2]/b.mat[2][2])
+  end
+  
+  convert_to_vector = function()
+    return new vec3(mat[0][0]+mat[0][1]+mat[0][2],
+                    mat[1][0]+mat[1][1]+mat[1][2],
+                    mat[2][0]+mat[2][1]+mat[2][2])
+  end
+end
+
+MatrixVectorMultiply = function(vec, mat)
+  return new vec3(vec.x*mat[0][0]+vec.y*mat[0][1]+vec.z*mat[0][2],
+                  vec.x*mat[1][0]+vec.y*mat[1][1]+vec.z*mat[1][2],
+                  vec.x*mat[2][0]+vec.y*mat[2][1]+vec.z*mat[2][2])
+end
+
+
+
+end()
+
+
+
+function()
+calc_delta_time = function()
+  globalvars.delta_time = (system.time() - globalvars.old_time)/1000
+  globalvars.old_time = system.time()
+  globalvars.fps = round(1/globalvars.delta_time*10)/10
+end
+end()
+
+
+
+function()
+helpers = object end
+
+
+helpers.clip_line = function(point1,point2) // given the camera position, find the two new points of the line if it is z-clipped
+  local m = (camera.near_clip_dist-point1.z)/(point2.z-point1.z)
+  local out = object
+    p1 = point1.duplicate()
+    p2 = point2.duplicate()
+  end
+  if out.p1.z < camera.near_clip_dist then
+    out.p1 = out.p1 + (out.p2-out.p1)*m
+    out.p1.z = camera.near_clip_dist
+  end
+  if out.p2.z < camera.near_clip_dist then
+    out.p2 = out.p1 + (out.p2-out.p1)*m
+    out.p2.z = camera.near_clip_dist
+  end
+  return out
+end
+
+helpers.mod = function(x,y)
+  return x-y*floor(x/y)
+end
+
+helpers.dist_to_tri = function(p,a,b,c)
+  // edge vectors
+  local ba = b-a
+  local cb = c-b
+  local ac = a-c
+  
+  // vertices to point vector
+  local pa = p-a
+  local pb = p-b
+  local pc = p-c
+  
+  // normal
+  local n = ba.cross(ac)
+  
+  // does p lie in the extruded prism of the triangle?
+  local num = 0
+  local temp1 = ba.cross(n)
+  local temp2 = cb.cross(n)
+  local temp3 = ac.cross(n)
+  num += helpers.sign(temp1.dot(pa))
+  num += helpers.sign(temp2.dot(pb))
+  num += helpers.sign(temp3.dot(pc))
+  if num < 2 then // no, get distance to edges (nearest edge will be distance to triangle)
+    local val = ba*helpers.clamp(ba.dot(pa)/(ba.dot(ba)), 0, 1)-pa
+    out = val.dot(val)
+    val = cb*helpers.clamp(cb.dot(pb)/(cb.dot(cb)), 0, 1)-pb
+    out = min(out, val.dot(val))
+    val = ac*helpers.clamp(ac.dot(pc)/(ac.dot(ac)), 0, 1)-pc
+    out = min(out, val.dot(val))
+    return sqrt(out)
+  else // yes, get distance to triangle plane
+    return sqrt(pa.dot(n)*pa.dot(n)/n.dot(n))
+  end
+end
+
+helpers.sign = function(val)
+  if val == 0 then
+    return 0
+  elsif val > 0 then
+    return 1
+  else
+    return -1
+  end
+end
+
+helpers.clamp = function(val, bottom, top)
+  local out = val
+  if out > top then
+    out = top
+  end
+  if out < bottom then
+    out = bottom
+  end
+  return out
+end
+
+// finds distance to rect given a position and r with dimensions and position
+helpers.dist_to_rect = function(p, r)
+  local delta = r.p-p
+  delta.x = abs(delta.x) - r.dim.x
+  delta.y = abs(delta.y) - r.dim.y
+  delta.z = abs(delta.z) - r.dim.z
+  local d = max(delta.x, delta.y, delta.z)
+  if d>0 then
+    delta.x *= delta.x > 0
+    delta.y *= delta.y > 0
+    delta.z *= delta.z > 0
+    d = sqrt(delta.x*delta.x+delta.y*delta.y+delta.z*delta.z)
+  end
+  return d
+end
+
+// finds if a rectangle contains point p (having position and dimension)
+// this rectangle's size will be incremented by size
+helpers.rect_contains = function(p,r,size)
+  local delta = r.p-p
+  delta.x = abs(delta.x)
+  delta.y = abs(delta.y)
+  delta.z = abs(delta.z)
+  if delta.x < r.dim.x + size and delta.y < r.dim.y + size and delta.z < r.dim.z + size then
+    return true
+  end
+  return false
+end
+
+// 2d version
+helpers.rect_contains_2d = function(p,r)
+  local delta = r.pos-p
+  delta.x = abs(delta.x)
+  delta.y = abs(delta.y)
+  if delta.x < r.dimensions.x/2 and delta.y < r.dimensions.y/2 then
+    return true
+  end
+  return false
+end
+
+
+
+
+
+
+
+
+
+end()
+
+
+
+function()
+read_obj_file = function(text, culling_on, s_weight=0)
+  // read .obj file (adds to lists: vertices, faces, triangles)
+  local vertex_list_len = vertices.length // needed to get the correct indices
+  local i = 0
+  local current_mat_index = 0 // material index
+  // local faces needed so that all faces are not calculated in the triangle splitting process
+  local local_faces = []
+  while i <= text.length and i != -1 // i=-1 means another function stopped the loop
+    local temp = read_next_val(text, i)
+    i = temp.new_index
+    if temp.text == "v" then // read a vertex
+      // x-value of vertex
+      temp = read_next_val(text, i)
+      i = temp.new_index
+      local x = temp.text*1 // convert to int
+      // y-value of vertex
+      temp = read_next_val(text, i)
+      i = temp.new_index
+      local y = temp.text*1 // convert to int
+      // z-value of vertex
+      temp = read_next_val(text, i)
+      i = temp.new_index
+      local z = temp.text*1 // convert to int
+      // add to vertices
+      vertices.push(new Vertex(new vec3(x,y,z), new vec3(255,255,255)))
+    elsif temp.text == "f" then // read face indices
+      local indices = []
+      while text[i+1] != "f" and text[i+1] != "u" and text[i+1] != "o" and text[i+1] != "l" // read face indices until next face or some other stopping points
+        temp = read_next_val(text, i) //Read tuple. We are ondwly intereted in the first part.
+        i = temp.new_index
+        indices.push(temp.text*1-1) // convert to int
+        if i == -1 then // object has been completely read
+          break
+        end
+      end
+      local_faces.push(indices + [current_mat_index]) // add material index on end
+    elsif temp.text == "usemtl" then
+      temp = read_next_val(text, i+10) // move past 'material.' part so it can be parsed into an integer
+      i = temp.new_index
+      current_mat_index = temp.text * 1 - 1 // materials are material.001, .002, cont. so this works
+    end
+  end
+  // all faces must be triangles or quads for this to work
+  // this converts faces into mesh
+  // faces are in format [i1,i2,i3.... ix, material index ]
+  for face in local_faces
+    if face.contains(-1) then // this can happen due to how the obj reader is stopped
+      face.remove(face.indexOf(-1)) // remove bad index
+    end
+    // increment each value by the length of vertices at the beginning of the load
+    // to get correct indices
+    for iter = 0 to face.length-2 // don't want to add to the material index
+      face[iter] += vertex_list_len
+    end
+    if face.length == 4 then // load tri
+      // obj_index must be passed into each tri so that it can 
+      // find where it's vertices are (they are attached to the parent object)
+      triangles.push(new Tri(face[0],face[1],face[2],face[3],s_weight,culling_on))
+    elsif face.length == 5 then // load quad
+      triangles.push(new Tri(face[0],face[1],face[2],face[4],s_weight,culling_on))
+      triangles.push(new Tri(face[2],face[3],face[0],face[4],s_weight,culling_on))
+    end
+  end
+  // add new faces to faces list
+  faces.concat(local_faces)
+end
+
+// read next value in .obj (as .txt) file
+read_next_val = function(text,base_index, stop = " ")
+  local index = base_index
+  // find first letter of value
+  while text[index] == " "
+    index += 1
+    if index > text.length then // avoids infinite loops
+      return object new_index = -1 end
+    end
+  end
+  // collect value
+  local val = ""
+  local rec = true
+  while text[index] != stop
+    if text[index] == "/" then // we aren't interested in information after the backslash for faces, so stop recording information
+      rec = false
+    end
+    if rec then
+      val += text[index]
+    end
+    index += 1
+    if index > text.length then
+      return object new_index = -1 text = val end
+    end
+  end
+  // return value and new index
+  local output = object
+    new_index = index
+    text = val
+  end
+  return output
+end
+
+
+
+
+
+
+
+end()
+
+
+</script></html>
