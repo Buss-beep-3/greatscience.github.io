@@ -1,0 +1,2799 @@
+<!DOCTYPE html><html><head><title>Super Idle</title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui=1"><meta charset="UTF-8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="description" content=""><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon64.png"><link rel="apple-touch-icon" sizes="180x180" href="icon180.png"><link rel="icon" type="image/png" sizes="32x32" href="icon32.png"><link rel="icon" type="image/png" sizes="16x16" href="icon16.png"><style>html,body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow:hidden;
+  font-family: Verdana;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#canvaswrapper {
+  text-align: center ;
+}
+</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"background.png","version":1,"size":425653,"properties":{"frames":1,"fps":5}},{"file":"icon.png","version":4,"size":88594,"properties":{"frames":1,"fps":5}},{"file":"idol.png","version":1,"size":18916,"properties":{"frames":1,"fps":5}},{"file":"info.png","version":28,"size":254,"properties":{"frames":1,"fps":5}},{"file":"menu.png","version":16,"size":235,"properties":{"frames":1,"fps":5}},{"file":"musicoff.png","version":1,"size":356,"properties":{"frames":1,"fps":5}},{"file":"musicon.png","version":1,"size":270,"properties":{"frames":1,"fps":5}},{"file":"particles.png","version":165,"size":69617,"properties":{"frames":25,"fps":7}},{"file":"poster.png","version":1,"size":103926,"properties":{"frames":1,"fps":5}},{"file":"slider.png","version":14,"size":213,"properties":{"frames":1,"fps":5}},{"file":"slider2.png","version":23,"size":289,"properties":{"frames":1,"fps":5}},{"file":"slider2_background.png","version":5,"size":232,"properties":{"frames":1,"fps":5}},{"file":"slider_background.png","version":5,"size":270,"properties":{"frames":1,"fps":5}},{"file":"soundoff.png","version":10,"size":391,"properties":{"frames":1,"fps":5}},{"file":"soundon.png","version":1,"size":303,"properties":{"frames":1,"fps":5}},{"file":"tsc.png","version":21,"size":954,"properties":{"frames":1,"fps":5}},{"file":"upgradeeighticon.png","version":2,"size":20302,"properties":{"frames":1,"fps":5}},{"file":"upgradeeighticonlocked.png","version":2,"size":3391,"properties":{"frames":1,"fps":5}},{"file":"upgradeelevenicon.png","version":2,"size":31716,"properties":{"frames":1,"fps":5}},{"file":"upgradeeleveniconlocked.png","version":2,"size":24299,"properties":{"frames":1,"fps":5}},{"file":"upgradefiveicon.png","version":2,"size":19363,"properties":{"frames":1,"fps":5}},{"file":"upgradefiveiconlocked.png","version":2,"size":4156,"properties":{"frames":1,"fps":5}},{"file":"upgradefouricon.png","version":1,"size":20276,"properties":{"frames":1,"fps":5}},{"file":"upgradefouriconlocked.png","version":4,"size":4755,"properties":{"frames":1,"fps":5}},{"file":"upgradenineicon.png","version":2,"size":14621,"properties":{"frames":1,"fps":5}},{"file":"upgradenineiconlocked.png","version":2,"size":6653,"properties":{"frames":1,"fps":5}},{"file":"upgradesevenicon.png","version":1,"size":50533,"properties":{"frames":1,"fps":5}},{"file":"upgradeseveniconlocked.png","version":1,"size":42636,"properties":{"frames":1,"fps":5}},{"file":"upgradesixicon.png","version":2,"size":18807,"properties":{"frames":1,"fps":5}},{"file":"upgradesixiconlocked.png","version":2,"size":6533,"properties":{"frames":1,"fps":5}},{"file":"upgradetenicon.png","version":2,"size":23568,"properties":{"frames":1,"fps":5}},{"file":"upgradeteniconlocked.png","version":13,"size":6820,"properties":{"frames":1,"fps":5}},{"file":"upgradethirteenicon.png","version":1,"size":43863,"properties":{"frames":1,"fps":5}},{"file":"upgradethirteeniconlocked.png","version":1,"size":11309,"properties":{"frames":1,"fps":5}},{"file":"upgradethreeicon.png","version":1,"size":19359,"properties":{"frames":1,"fps":5}},{"file":"upgradetwelveicon.png","version":1,"size":83666,"properties":{"frames":1,"fps":5}},{"file":"upgradetwelveiconlocked.png","version":1,"size":15391,"properties":{"frames":1,"fps":5}},{"file":"upgradetwoicon.png","version":1,"size":22559,"properties":{"frames":1,"fps":5}}],"assets":[],"maps":{},"sounds":[{"file":"buy.wav","version":0,"size":231162,"properties":{}},{"file":"click.wav","version":1,"size":5144,"properties":{}},{"file":"menuclick.wav","version":0,"size":60390,"properties":{}}],"music":[{"file":"background_music.mp3","version":0,"size":3153128,"properties":{}}]};
+var graphics = "M1";
+
+</script><script type="text/javascript">var orientation = 'landscape' ;
+var aspect = '16x9' ;
+var ms_libs = [] ;
+window.skip_service_worker = true;
+window.exported_project = true;
+window.ms_use_server = false ;
+</script><script src="parser.js"></script><script src="program.js"></script><script src="token.js"></script><script src="tokenizer.js"></script><script src="runner_v1_i.js"></script><script src="microengine.js"></script></body><script type="text/javascript">//
+//
+// The game is started with the code below.
+// Once you have received the "started" signal (see below),
+// you can do the following:
+// 1) Inject functions or objects into the global context of the microStudio engine, example:
+//
+//   window.player.setGlobal("special_callback",function(x) { console.info(x) }) ;
+//   // Your microScript code can now call the "special_callback" function
+//
+// 2) Call microScript global functions from your JavaScript code, example:
+//
+//   window.player.call("call_me_from_javascript",[10,1000]) ;
+//   // arguments to the function call are provided as an array
+//
+// 3) Run a microScript code snippet from your JavaScript code, example:
+//
+//   window.player.exec("player.position_x = 50",function(result) { console.log(result) ; }) ;
+//
+
+window.addEventListener("load",function() {
+  window.player = new Player(function(event) {
+    if (event.name == "started") {
+      // signal that the game is started
+    }
+    else if (event.name == "log") {
+      // console.info(event.data) ;
+    }
+  }) ;
+  document.body.focus() ;
+}) ;
+
+</script><script id="code" type="text/x-microscript">
+
+// This file contains functions that are useful
+// for a wide range of tasks. These are called
+// "helper functions" or "utility functions"
+//
+
+help = object end
+
+ 
+// takes an angle in degrees and returns a vector in the form of a list [x, y]
+// the elements [x, y] of this direction vector can then be multiplied by a
+// certain speed (in pixels per frame) to move an entity on the screen
+help.angleToVector = function(angle)
+  return [cosd(angle), sind(angle)]
+end
+
+// discover the name of the sprite portion at an (x, y) position in the world
+// NOTE: the draw width/height is not the width of the map, but how width/high
+// you draw it in the game
+help.checkCollision = function(x, y, map_name, map_draw_width, map_draw_height)
+  local grid_x = floor((x + map_draw_width / 2) / (map_draw_width / maps[map_name].width))
+  local grid_y = floor((y + map_draw_height / 2) / (map_draw_height / maps[map_name].height))
+  return maps[map_name].get(grid_x, grid_y)
+end
+
+// checks to see if the mouse is touching/hovering over a rectangle
+// useful for detecting hover/click on buttons
+help.checkRectMouseHover = function(x, y, width, height)
+  local hover = true
+  if mouse.x < (x - width/2) then hover = false end
+  if mouse.x > (x + width/2) then hover = false end
+  if mouse.y < (y - height/2) then hover = false end
+  if mouse.y > (y + height/2) then hover = false end
+  return hover
+end
+
+// returns a random item from a list
+help.choose = function(lst)
+  local index = random.nextInt(lst.length)
+  return lst[index]
+end
+
+// keep a value within a set range
+// useful for keeping a player on the screen etc.
+// NOTE: returns the new value, does not automatically change it
+help.clamp = function(value, lower_limit, upper_limit)
+  if lower_limit > upper_limit then
+    local old_lower_limit = lower_limit
+    lower_limit = upper_limit
+    upper_limit = old_lower_limit
+  end
+  local val = max(value, lower_limit)
+  val = min(val, upper_limit)
+  return val
+end
+
+// takes screen co-ordinates (not map coord) and replaces the map square with a blank
+// useful for removing items from the map when collecting gems etc.
+help.deleteMapItem = function(x, y, map_name, map_draw_width, map_draw_height)
+  local grid_x = floor((x + map_draw_width / 2) / (map_draw_width / maps[map_name].width))
+  local grid_y = floor((y + map_draw_height / 2) / (map_draw_height / maps[map_name].height))
+  maps[map_name].set(grid_x, grid_y, " ")
+end
+
+// takes screen co-ordinates (not map coord) and replaces the map square with a blank
+// useful for removing items from the map when collecting gems etc.
+help.deleteMapItem = function(x, y, map, map_draw_width, map_draw_height)
+  local grid_x = floor((x + map_draw_width / 2) / (map_draw_width / maps[map].width))
+  local grid_y = floor((y + map_draw_height / 2) / (map_draw_height / maps[map].height))
+  maps[map].set(grid_x, grid_y, " ")
+end
+
+// find the distance between object 1 and object 2
+// useful for a simple circular collision detection
+help.distance = function(x1, y1, x2, y2)
+  local a = x2 - x1
+  local b = y2 - y1
+  local c = sqrt(pow(a, 2) + pow(b, 2))
+  return c
+end
+
+// returns a number that moves smoothly between .4 and 1
+// useful for flashing text if used to set the alpha each frame
+help.getFlashValue = function(seconds_per_flash = 1.5)
+  return pow(cos(system.time()/1000*PI/seconds_per_flash), 2) * 0.6 + .4
+end
+
+// finds the angle in degrees from point 1 to point 2
+help.getAngle = function(x1, y1, x2, y2)
+  return atan2d(y2 - y1, x2 - x1)
+end
+
+// returns a number that moves smoothly between .4 and 1
+// very useful for flashing text if used to set the alpha each frame
+help.getFlashValue = function(seconds_per_flash = 1.5)
+  return pow(cos(system.time()/1000*PI/seconds_per_flash), 2) * 0.6 + .4
+end
+
+// slowly transition a variable to value for smooth tween effects
+help.moveToward = function(current_value, target, amount)
+  local new_value = 0
+  if current_value == target then
+    new_value = current_value
+  elsif current_value < target then
+    new_value = current_value + amount
+    if new_value > target then new_value = target end
+  elsif current_value > target then
+    new_value = current_value - amount
+    if new_value < target then new_value = target end  
+  end
+  return new_value
+end
+
+// sets the length of a movement vector to 1, making it a direction vector
+// useful for directions as it can then be multiplied by an object's speed
+help.normalize = function(vector)
+  local x = vector[0]
+  local y = vector[1]
+  local v = sqrt(pow(x, 2) + pow(y, 2))
+  local new_x = x / v
+  local new_y = y / v
+  return [new_x, new_y]
+end
+
+// returns a random number (float/with decimals) within the range [low, high)
+help.randRange = function(low, high)
+  return (high - low) * random.next() + low
+end
+
+// removes objects from a given list that have a property "delete = true"
+// useful for deleting enemies, bullets etc. run at the end of each frame
+// then simply set object.delete = true to ensure it's deletion
+help.removeDeleted = function(object_list)
+  for i = object_list.length - 1 to 0 by -1
+    if object_list[i].delete then 
+      object_list.removeAt(i) 
+    end
+  end
+end
+
+// returns the sign of a number: -1 for negative numbers, 0 for 0
+// and 1 for positive
+help.sign = function(num)
+  if num < 0 then return -1 end
+  if num > 0 then return 1 end
+  return 0
+end
+
+// find the diagonal length of a vector
+help.vectorLength = function(x, y)
+  return sqrt(pow(x, 2) + pow(y, 2))
+end
+
+// takes a (direction or movement) vector in the form of a list [x, y]
+// returns an angle in degrees
+help.vectorToAngle = function(vec)
+  return atan2d(vec[1], vec[0])
+end
+
+// makes the object wrap around the screen when moving off the edge
+// note: object must have x and y fields (variables)
+help.wrap = function(obj, leeway = 0)
+  if obj.x + leeway < -screen.width/2 then
+    obj.x = screen.width/2 + leeway
+  elsif obj.x - leeway > screen.width/2 then
+    obj.x = -screen.width/2 - leeway
+  end 
+  if obj.y + leeway < -screen.height/2 then
+    obj.y = screen.height/2 + leeway
+  elsif obj.y - leeway > screen.height/2 then
+    obj.y = -screen.height/2 - leeway
+  end 
+end
+
+// calculate the map grid position of a specific x value in the world
+help.xpos_to_grid = function(x, map_columns, map_draw_width)
+  local column_draw_width = map_draw_width / map_columns
+  return floor((x + map_draw_width / 2) / column_draw_width)
+end
+
+// calculate the map grid position of a specific y value in the world
+help.ypos_to_grid = function(y, map_rows, map_draw_height)
+  local row_draw_height = map_draw_height / map_rows
+  return floor((y + map_draw_height / 2) / row_draw_height)
+end
+
+
+
+initPrestige = function()
+  prestige = object
+    amount = 0
+    token = 0
+    boost = 0.1
+    active = false
+    requiredsc = 0
+    total = 0
+    word = ""
+    requirements = ""
+    gained = 0
+  end
+  
+  pbutton = object
+    x = 0
+    y = -55
+    active = false
+    hover = false
+    scale = 1
+    width = 80
+    height = 30
+  end
+  
+  pmenu = object
+    x = 90
+    y = -64
+    active = false
+    hover = false
+    scale = 1
+    width = 60
+    height = 20
+  end
+end
+
+
+
+updatePrestige = function()
+
+  prestige.boost = round((pmbtotaltscboost+0.1)*100)/100
+
+  if help.checkRectMouseHover(pbutton.x, pbutton.y, pbutton.width, pbutton.height) then
+    pbutton.hover = true
+  else
+    pbutton.hover = false
+  end
+  
+  if help.checkRectMouseHover(pmenu.x, pmenu.y, pmenu.width, pmenu.height) then
+    pmenu.hover = true
+  else
+    pmenu.hover = false
+  end
+  
+  if menu.active == true and menubutton3.active == true and pmenu.active == false then
+    if pbutton.hover then
+      if prestige.active then
+        if mouse.pressed then
+          pbutton.scale = 1.2
+        else
+          pbutton.scale = 1.1
+        end
+        if mouse.press then
+          if sounds.active then
+          audio.playSound("menuclick", sounds.volume)
+          end
+          runprestige()
+        end
+      else
+        if menu.active == true and menubutton3.active == true then
+          if mouse.press then
+            if sounds.active then
+              audio.playSound("menuclick", sounds.volume, 0.1)
+            end
+          end
+        end
+      end
+    else
+      pbutton.scale = 1
+    end
+  end
+  
+  if menu.active and menubutton3.active then
+    if pmenu.hover then
+      if mouse.pressed then
+        pmenu.scale = 1.2
+      else
+        pmenu.scale = 1.1
+      end
+      if mouse.press then
+        if sounds.active then
+        audio.playSound("menuclick", sounds.volume)
+        end
+        if pmenu.active == false then
+          pmenu.active = true
+        else
+          pmenu.active = false
+        end
+      end
+    else
+      pmenu.scale = 1
+    end
+  end
+
+
+  prestige.requiredsc = 1000000000
+  if upgradeNine.amount > 0 and score > prestige.requiredsc then
+    prestige.active = true
+  else
+    prestige.active = false
+    prestige.requirements = "Requirements: SC Miner & 1B SC"
+  end
+  
+  if total.total > 1000000000*(10^prestige.total) then
+    prestige.gained += 1
+    prestige.total += 1
+  end
+  
+  prestige.word = wordUpgrade2(prestige.gained, prestige)
+  
+  if pmenu.active == true then
+    pmenu.x = 135
+    pmenu.y = -80
+    screen.setAlpha(1)
+    screen.fillRect(0,0,screen.width,screen.height,"rgb(0,0,0)")
+    screen.drawRect(0,0,screen.width,screen.height,"rgb(255,255,255)")
+    screen.fillRect(pmenu.x, pmenu.y, pmenu.width*pmenu.scale, pmenu.height*pmenu.scale,"rgb(45,45,45)")
+    screen.drawRect(pmenu.x, pmenu.y, pmenu.width*pmenu.scale, pmenu.height*pmenu.scale,"rgb(30,30,30)")
+    screen.drawText("Go Back", pmenu.x, pmenu.y, 6, "#FFF")
+    screen.drawText("Prestige Menu", 0, 80, 10, "#FFF")
+    screen.drawText("TSC: " + prestige.token, -145, 80, 8, "#FFF")
+    screen.drawSprite("tsc", 130, 70, 40, 40)
+    screen.drawText("No. of Prestiges: " + prestige.amount, -130, -90, 6, "#FFF")
+    screen.drawText("Note: A more powerful upgrade will overwrite the weaker ones.", 10, -90, 4, "#FFF")
+  else
+    pmenu.x = 90
+    pmenu.y = -64
+  end
+end
+
+
+runprestige = function()
+  prestige.amount += 1
+  score = 0
+  prestige.total = 0
+  prestige.token += prestige.gained
+  prestige.gained = 0
+  initIdol()
+  initUpgrade()
+  initSlider()
+  initParticles()
+  initNews()
+  initMultipliers()
+  initMenu()
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+pmb = class
+  constructor = function(x,y,requirement, requirementactive, price, active, hover, scale, text, description, powerconstant, power)
+    this.x = x
+    this.y = y
+    this.requirement = requirement
+    this.requirementactive = requirementactive
+    this.price = price
+    this.active = active
+    this.hover = hover
+    this.scale = scale
+    this.text = text
+    this.description = description
+    this.power = power
+    this.powerconstant = powerconstant
+  end
+  
+  drawPMB = function()
+    if pmenu.active and this.active == false then
+      screen.setDrawRotation(45)
+      screen.fillRect(this.x,this.y,15*this.scale,15*this.scale,"#fff")
+      screen.setDrawRotation(0)
+    elsif pmenu.active and this.active = true then
+      screen.setDrawRotation(45)
+      screen.fillRect(this.x,this.y,15*this.scale,15*this.scale,"rgb(113,255,113)")
+      screen.setDrawRotation(0)
+    end
+  end
+  
+  drawlines = function()
+    if pmenu.active and this.active == false then
+      drawlinetolast1()
+    elsif pmenu.active and this.active = true then
+      drawlinetolast2()
+    end
+  end
+  
+  check_requirements = function()
+    if PMBlist[requirement].active == true then
+      requirementactive = 1
+    end
+  end
+  
+  check_power = function()
+    if this.active == true then
+      this.power = this.powerconstant
+    end
+  end
+  
+  drawlinetolast1 = function()
+    screen.drawLine(this.x,this.y,PMBlist[requirement].x,PMBlist[requirement].y,"#fff")
+  end
+  drawlinetolast2 = function()
+    screen.drawLine(this.x,this.y,PMBlist[requirement].x,PMBlist[requirement].y,"rgb(113,255,113)")
+  end
+  
+  drawtext = function()
+    if this.hover and pmenu.active then
+      screen.setFont("Verdana")
+      screen.fillRect(this.x, this.y+35, 80, 40,"rgb(75,75,75)")
+      screen.drawRect(this.x, this.y+35, 80, 40, "#000")
+      screen.drawText(this.text, this.x, this.y+45,5,"rgb(255,179,28)")
+      screen.drawText(this.description,this.x, this.y+35,3.5,"#FFF")
+      screen.drawText("Cost: " + this.price + " TSC", this.x, this.y+25, 4, "#FFF")
+    end
+  end
+  
+  check_click = function()
+    if help.checkRectMouseHover(this.x, this.y, 15, 15) then
+      this.hover = true
+    else
+      this.hover = false
+    end
+    
+    if pmenu.active then
+      if this.hover then
+        if mouse.pressed then
+          this.scale = 1.2
+        else
+          this.scale = 1.1
+        end
+        if mouse.press then
+          if sounds.active then
+          audio.playSound("menuclick", sounds.volume)
+          end
+          if this.requirementactive and this.active == false and prestige.token >= this.price then
+            this.active = true
+            prestige.token -= this.price
+          end
+        end
+      else
+        this.scale = 1
+      end
+    end
+  end
+end
+
+
+initPMB = function()
+  PMBlist=[]
+  PMBlist.push(new pmb(-130,-5,0,1,0,false,false,1,"Unlock Prestige Menu", "The Beginning...", 0, 0))                   //BaseNode   0    
+  PMBlist.push(new pmb(-80,35,0,0,1,false,false,1,"Government Support", "15% Discount On All Upgrades", 0.15, 0))        //Top 1st    1
+  PMBlist.push(new pmb(-80,-45,0,0,1,false,false,1,"World Wide Web", "1.5x SPCS On All Upgrades", 0.5, 0))                  //Bottom 1st 2
+  PMBlist.push(new pmb(-30,35,1,0,3,false,false,1,"Government Funds", "30% Discount On All Upgrades",0.15, 0))           //Top 2nd    3
+  PMBlist.push(new pmb(-30,-45,2,0,3,false,false,1,"Speedy Internet", "2.5x SPCS On All Upgrades", 0.5, 0))                 //Bottom 2nd 4
+  PMBlist.push(new pmb(20,35,3,0,5,false,false,1,"International Support", "45% Discount On All Upgrades", 0.15, 0))      //Top 3rd    5
+  PMBlist.push(new pmb(20,-45,4,0,5,false,false,1,"Instant Propaganda", "4x SPCS On All Upgrades", 2, 0))               //Bottom 3rd 6
+  PMBlist.push(new pmb(70,35,5,0,10,false,false,1,"International Funds", "60% Discount On All Upgrades",0.15, 0))        //Top 4th    7
+  PMBlist.push(new pmb(70,-45,6,0,10,false,false,1,"Idol Supercomputer", "7x SPCS On All Upgrades", 3, 0))             //Bottom 4th 8
+  PMBlist.push(new pmb(120,35,7,0,25,false,false,1,"Universal Discount", "75% Discount On All Upgrades",0.15, 0))       //Top 5th    9
+  PMBlist.push(new pmb(120,-45,8,0,25,false,false,1,"Diamond Idol", "10x SPCS On All Upgrades", 3, 0))                  //Bottom 5th 10
+  PMBlist.push(new pmb(20,-5,4,0,10,false,false,1,"Better Tokens Lvl.1", "+3% TSC Effectiveness",0.03, 0))              //Middle 1st 11
+  PMBlist.push(new pmb(70,-5,11,0,15,false,false,1,"Better Tokens Lvl.2", "+6% TSC Effectiveness",0.03, 0))             //Middle 2nd 12
+  PMBlist.push(new pmb(120,-5,12,0,25,false,false,1,"Better Tokens Lvl.3", "+9% TSC Effectiveness",0.03, 0))            //Middle 3rd 13
+end
+
+
+
+updatePMB = function()
+  for pmb in PMBlist
+    pmb.check_requirements()
+    pmb.check_click()
+    pmb.check_power()
+  end
+  
+  pmbtotaldiscount = 1-PMBlist[1].power-PMBlist[3].power-PMBlist[5].power-PMBlist[7].power-PMBlist[9].power
+  pmbtotalmultiplier = 1+PMBlist[2].power+PMBlist[4].power+PMBlist[6].power+PMBlist[8].power+PMBlist[10].power
+  pmbtotaltscboost = PMBlist[11].power+PMBlist[12].power+PMBlist[13].power
+end
+
+
+drawPMB = function()                                                                                        
+  for pmb in PMBlist
+    pmb.drawlines()
+  end
+  for pmb in PMBlist
+    pmb.drawPMB()
+  end
+  for pmb in PMBlist
+    pmb.drawtext()
+  end
+end
+
+
+
+
+initTitle = function()
+  titlebutton = object
+    x = 0
+    y = -72
+    hover = false
+    scale = 1
+    width = 120
+    height = 40
+    timer = 60
+    subsize = 10
+    rate = 1/15
+  end
+end
+
+updateTitle = function()
+  if gamemode == "title" then
+    titletimer += 1
+  end
+  if titletimer > 130 then
+    gamemode = "title2"
+  end
+  if gamemode == "title2" then
+    if help.checkRectMouseHover(titlebutton.x, titlebutton.y, titlebutton.width, titlebutton.height) then
+      titlebutton.hover = true
+      if mouse.pressed then
+        if sounds.active then
+        audio.playSound("menu", sounds.volume)
+        end
+        gamemode = "play"
+      end
+    else
+      titlebutton.hover = false
+    end
+    
+    if titlebutton.hover == true then
+      if mouse.pressed then
+        titlebutton.scale = 1.2
+      else
+        titlebutton.scale = 1.1
+      end
+    else
+      titlebutton.scale = 1
+    end
+  end
+end
+
+drawTitle = function()
+  if gamemode == "title" then
+    screen.clear()
+    screen.setAlpha(1*titletimer/180)
+    screen.drawSprite("background",0,0,screen.width,screen.height)
+    screen.drawSprite("idol",0,0,70,100)
+    screen.setFont("Verdana")
+    screen.drawText("Super Idle", 0, 70, 30,"rgb(0,0,0)")
+    screen.drawText("Super Idle", 0, 68, 30, "#FFF")
+  end
+  if gamemode == "title2" then
+    screen.drawSprite("background",0,0,screen.width,screen.height)
+    screen.setDrawRotation(idolrotation)
+    screen.drawSprite("idol",0,0,70,100)
+    screen.setDrawRotation(0)
+    screen.setFont("Verdana")
+    screen.drawText("Super Idle", 0, 70, 30,"rgb(0,0,0)")
+    screen.drawText("Super Idle", 0, 68, 30, "#FFF")
+    screen.setRotation(-15)
+    screen.drawText("By MGB", 100, 66, titlebutton.subsize,"rgb(0,0,0)")
+    screen.drawText("By MGB", 100, 65, titlebutton.subsize, "#FFF")
+    screen.setRotation(0)
+    screen.fillRect(titlebutton.x, titlebutton.y, titlebutton.width*titlebutton.scale, titlebutton.height*titlebutton.scale, "#112")
+    screen.drawRect(titlebutton.x, titlebutton.y, titlebutton.width*titlebutton.scale, titlebutton.height*titlebutton.scale, "#000")
+    screen.drawText("Click to Play!", titlebutton.x, titlebutton.y, 12*titlebutton.scale, "#FFF")
+    idolrotation += 1
+    if titlebutton.subsize > 12.5 then
+      titlebutton.rate = titlebutton.rate*(-1)
+    elsif titlebutton.subsize < 7.5 then
+      titlebutton.rate = titlebutton.rate*(-1)
+    end
+    titlebutton.subsize -= titlebutton.rate
+  end
+end
+
+// Super Idle Is Officially Released!
+// Added so many things to explore and discover
+// Fine Tuned prestige system
+// https://microstudio.io/MetalGuitarBoy/superidleofficial/
+// 30/03/2022
+
+init = function()
+  titletimer = 0
+  bugtimer = 60
+  gamemode = "title"
+  score = 0
+  initIdol()
+  initUpgrade()
+  initSlider()
+  initParticles()
+  initNews()
+  initMultipliers()
+  initMenu()
+  initMusic()
+  initPrestige()
+  initPMB()
+  initTitle()
+end
+
+
+update = function()
+  if gamemode == "title" then
+    updateTitle()
+  end
+  if gamemode == "title2" then
+    updateTitle()
+  end
+  if gamemode == "play" then
+    if bugtimer >= 0 then
+      upgradeOne.amount = 1
+      upgradeTwo.amount = 0
+      upgradeThree.amount = 0
+      upgradeFour.amount = 0
+      upgradeFive.amount = 0
+      bugtimer -= 1
+    end
+    updateIdol()
+    updateUpgrade()
+    updateSlider()
+    updateParticles()
+    updateNews()
+    updateMultipliers()
+    updateMenu()
+    updatePrestige()
+    updatePMB()
+  end
+  updateMusic()
+end
+
+
+
+draw = function()
+  if gamemode == "play" then
+    if pmenu.active == false then
+      screen.setAlpha(1)
+      screen.drawSprite("background", 0, 0, screen.width, screen.height)
+      screen.setFont("Verdana")
+      screen.setAlpha(0.85)
+      screen.fillRect(-90, 65, 160, upgradeOne.height, "#112")
+      screen.drawRect(-90, 65, 160, upgradeOne.height, "#000")
+      screen.setAlpha(0.5)
+      screen.fillRect(75, 0, 140, 200, "#112")
+      screen.drawRect(75, 0, 140, 200, "#000")
+      screen.setAlpha(1)
+      
+      if score < 1000 then
+        screen.drawText("Social Credit: " + round(score), -90, 65, 11, "#FFF")
+      elsif score < 10000 then
+        screen.drawText("Social Credit: " + round(score/100)/10 + " k", -90, 65, 11, "#FFF")
+      elsif score < 1000000 then
+        screen.drawText("Social Credit: " + round(score/1000) + " k", -90, 65, 11, "#FFF")
+      elsif score < 10000000 then
+        screen.drawText("Social Credit: " + round(score/100000)/10 + " M", -90, 65, 11, "#FFF")
+      elsif score < 1000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000) + " M", -90, 65, 11, "#FFF")
+      elsif score < 10000000000 then
+        screen.drawText("Social Credit: " + round(score/100000000)/10 + " B", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000) + " B", -90, 65, 11, "#FFF")
+      elsif score < 10000000000000 then
+        screen.drawText("Social Credit: " + round(score/100000000000)/10 + " T", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000000) + " T", -90, 65, 11, "#FFF")
+      elsif score < 10000000000000000 then
+        screen.drawText("Social Credit: " + round(score/100000000000000)/10 + " q", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000000000) + " q", -90, 65, 11, "#FFF")
+      elsif score < 10000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/100000000000000000)/10 + " Q", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000000000000) + " Q", -90, 65, 11, "#FFF")
+      elsif score < 10000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/100000000000000000000)/10 + " s", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000000000000000) + " s", -90, 65, 11, "#FFF")
+      elsif score < 10000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/100000000000000000000000)/10 + " S", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000000000000000000) + " S", -90, 65, 11, "#FFF")
+      elsif score < 10000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/10000000000000000000000000)/10 + " O", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000000000000000000000) + " O", -90, 65, 11, "#FFF")
+      elsif score < 10000000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/10000000000000000000000000000)/10 + " n", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000000000000000000000000) + " n", -90, 65, 11, "#FFF")
+      elsif score < 10000000000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/10000000000000000000000000000000)/10 + " d", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000000000000000000000000000) + " d", -90, 65, 11, "#FFF")
+      elsif score < 10000000000000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/10000000000000000000000000000000000)/10 + " u", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000000000000000000000000000000) + " u", -90, 65, 11, "#FFF")
+      elsif score < 10000000000000000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/10000000000000000000000000000000000000)/10 + " D", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000000000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000000000000000000000000000000000) + " D", -90, 65, 11, "#FFF")
+      elsif score < 10000000000000000000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/10000000000000000000000000000000000000000)/10 + " Tr", -90, 65, 11, "#FFF")
+      elsif score < 1000000000000000000000000000000000000000000000 then
+        screen.drawText("Social Credit: " + round(score/1000000000000000000000000000000000000000000) + " Tr", -90, 65, 11, "#FFF")
+      end
+      
+      screen.setAlpha(0.85)
+      screen.fillRect(-90, -73, 160, upgradeOne.height, "#112")
+      screen.drawRect(-90, -73, 160, upgradeOne.height, "#000")
+      screen.setAlpha(1)
+      
+      if scps.amount < 1000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount*10)/10, -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100)/10 + " k", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000) + " k", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000)/10 + " M", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000) + " M", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000)/10 + " B", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000) + " B", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000000)/10 + " T", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000000) + " T", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000000000)/10 + " q", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000000000) + " q", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000000000000)/10 + " Q", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000000000000) + " Q", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000000000000000)/10 + " s", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000000000000000) + " s", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000000000000000000)/10 + " S", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000000000000000000) + " S", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000000000000000000000)/10 + " O", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000000000000000000000) + " O", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000000000000000000000000)/10 + " n", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000000000000000000000000) + " n", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000000000000000000000000000)/10 + " d", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000000000000000000000000000) + " d", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000000000000000000000000000000)/10 + " u", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000000000000000000000000000000) + " u", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000000000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000000000000000000000000000000000)/10 + " D", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000000000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000000000000000000000000000000000) + " D", -90, -80, 7, "#FFF")
+      elsif scps.amount < 10000000000000000000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/100000000000000000000000000000000000000000)/10 + " Tr", -90, -80, 7, "#FFF")
+      elsif scps.amount < 1000000000000000000000000000000000000000000000 then
+        screen.drawText("Social Credit Per Second: " + round(scps.amount/1000000000000000000000000000000000000000000) + " Tr", -90, -80, 7, "#FFF")
+      end
+        
+        
+      if upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one *pmbtotalmultiplier < 1000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier), -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 10000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/100)/10 + " k", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 1000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/1000) + " k", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 10000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/100000)/10 + " M", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 1000000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/1000000) + " M", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 10000000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/100000000)/10 + " B", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 1000000000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/1000000000) + " B", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 10000000000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/100000000000)/10 + " T", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 1000000000000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/1000000000000) + " T", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 10000000000000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/100000000000000)/10 + " q", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 1000000000000000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/1000000000000000) + " q", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 10000000000000000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/100000000000000000)/10 + " Q", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 1000000000000000000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/1000000000000000000) + " Q", -90, -65, 7, "#FFF")
+      elsif upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier < 10000000000000000000000 then
+        screen.drawText("Social Credit Per Click: " + round(upgradeOne.amount*(1+prestige.token*prestige.boost) * 2^multipliers.one*pmbtotalmultiplier/100000000000000000000)/10 + " s", -90, -65, 7, "#FFF")
+      end
+    end
+    
+    drawIdol()
+    drawUpgrade()
+    drawSlider()
+    drawParticles()
+    drawNews()
+    drawMenu()
+    drawPMB()
+  else
+    drawTitle()
+  end
+end
+
+initIdol = function()
+  idol = object
+    x = -90
+    y = -5
+    width = 55.6
+    height = 82.8
+    rotation = 0
+    hover = false
+    scale = 1
+  end
+  
+  scps = object
+    amount = 0
+  end
+  
+end
+
+updateIdol = function()
+  if pmenu.active == false then
+    //rotating the idol
+    idol.rotation -= 0.5
+    
+    //check mouse hover
+    if help.distance(idol.x, idol.y, mouse.x, mouse.y) < 50 then
+      idol.hover = true
+    else
+      idol.hover = false
+      idol.scale = 1
+    end  
+  
+  
+    //process mouse click
+    if idol.hover then
+      if menu.active == false then
+        if mouse.pressed then
+          idol.scale = 1.2
+        else
+          idol.scale = 1.1
+        end
+        if mouse.press then
+          createParticles(mouse.x, mouse.y, 45, 0)
+          if sounds.active then
+            audio.playSound("click", sounds.volume)
+          end
+          score += (upgradeOne.amount * 2^multipliers.one)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+          total.total += (upgradeOne.amount * 2^multipliers.one)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+        end
+      end
+    else
+      idol.scale = 1
+    end
+  end
+  
+  //caclulating social credits per second
+
+  scps.amount = (upgradeTwo.total + upgradeThree.total + upgradeFour.total + upgradeFive.total + upgradeSix.total + upgradeSeven.total + upgradeEight.total + upgradeNine.total + upgradeTen.total + upgradeEleven.total)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  
+end
+
+
+drawIdol = function()
+  if pmenu.active == false then
+    screen.setDrawRotation(idol.rotation)
+    screen.drawSprite("idol", idol.x, idol.y, idol.width*idol.scale, idol.height*idol.scale)
+    screen.setDrawRotation(0)
+  end
+end
+
+initUpgrade = function()
+
+  upgradeOne = object
+    x = 75
+    y = 30
+    width = 140
+    height = 40
+    amount = 1
+    price = 15
+    hover = false
+    total = 0
+    word = ""
+    trueprice = 0
+  end
+  
+  upgradeTwo = object
+    x = 75
+    y = -15
+    width = 140
+    height = 40
+    amount = 0
+    price = 100
+    hover = false
+    timer = 1
+    total = 0
+    word = ""
+    trueprice = 0
+  end
+  
+  upgradeThree = object
+    x = 75
+    y = -60
+    width = 140
+    height = 40
+    amount = 0
+    price = 500
+    hover = false
+    timer = 1
+    total = 0
+    word = ""
+    trueprice = 0
+  end
+
+  upgradeFour = object
+    x = 75
+    y = -105
+    width = 140
+    height = 40
+    amount = 0
+    price = 3000
+    hover = false
+    timer = 1
+    total = 0
+    word = ""
+    trueprice = 0
+  end
+  
+  upgradeFive = object
+    x = 75
+    y = -150
+    width = 140
+    height = 40
+    amount = 0
+    price = 10000
+    hover = false
+    timer = 1
+    total = 0
+    word = ""
+    trueprice = 0
+  end
+  
+  upgradeSix = object
+    x = 75
+    y = -195
+    width = 140
+    height = 40
+    amount = 0
+    price = 40000
+    hover = false
+    timer = 1
+    total = 0
+    word = ""
+    trueprice = 0
+  end
+  
+  upgradeSeven = object
+    x = 75
+    y = -240
+    width = 140
+    height = 40
+    amount = 0
+    price = 200000
+    hover = false
+    timer = 1
+    total = 0
+    word = ""
+    trueprice = 0
+  end
+  
+  upgradeEight = object
+    x = 75
+    y = -285
+    width = 140
+    height = 40
+    amount = 0
+    price = 1666666
+    hover = false
+    timer = 1
+    total = 0
+    word = ""
+    trueprice = 0
+  end
+  
+  upgradeNine = object
+    x = 75
+    y = -330
+    width = 140
+    height = 40
+    amount = 0
+    price = 123456789
+    hover = false
+    timer = 1
+    total = 0
+    word = ""
+    trueprice = 0
+  end
+  
+  upgradeTen = object
+    x = 75
+    y = -375
+    width = 140
+    height = 40
+    amount = 0
+    price = 3999999999
+    hover = false
+    timer = 1
+    total = 0
+    word = ""
+    trueprice = 0
+  end
+  
+  upgradeEleven = object
+    x = 75
+    y = -420
+    width = 140
+    height = 40
+    amount = 0
+    price = 75000000000
+    hover = false
+    timer = 1
+    total = 0
+    word = ""
+    trueprice = 0
+  end
+  
+  total = object
+    total = 0
+    word = ""
+  end
+end
+
+updateActualPrice = function()
+  upgradeOne.trueprice = upgradeOne.price*pmbtotaldiscount
+  upgradeTwo.trueprice = upgradeTwo.price*pmbtotaldiscount
+  upgradeThree.trueprice = upgradeThree.price*pmbtotaldiscount
+  upgradeFour.trueprice = upgradeFour.price*pmbtotaldiscount
+  upgradeFive.trueprice = upgradeFive.price*pmbtotaldiscount
+  upgradeSix.trueprice = upgradeSix.price*pmbtotaldiscount
+  upgradeSeven.trueprice = upgradeSeven.price*pmbtotaldiscount
+  upgradeEight.trueprice = upgradeEight.price*pmbtotaldiscount
+  upgradeNine.trueprice = upgradeNine.price*pmbtotaldiscount
+  upgradeTen.trueprice = upgradeTen.price*pmbtotaldiscount
+  upgradeEleven.trueprice = upgradeEleven.price*pmbtotaldiscount
+end
+
+checkUpgrade = function(upgrade)
+  if help.checkRectMouseHover(upgrade.x, upgrade.y-slider.addon, upgrade.width, upgrade.height) then
+    upgrade.hover = true
+    if mouse.press and score >= upgrade.trueprice then
+      if sounds.active then
+      audio.playSound("buy", sounds.volume)
+      end
+      score -= upgrade.trueprice
+      upgrade.amount += 1
+      upgrade.price += upgrade.price*0.1
+      upgrade.trueprice += upgrade.trueprice*0.1
+    end
+  else
+    upgrade.hover = false
+  end
+  return upgrade
+end
+
+wordUpgrade1 = function(upgradetotal, upgrade)
+  if upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000 then
+    upgrade.word = upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100)/10 + " k"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000) + " k"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000)/10 + " M"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000) + " M"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000)/10 + " B"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000) + " B"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000)/10 + " T"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000) + " T"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000)/10 + " q"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000 then
+    upgrade.word =round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000) + " q"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000)/10 + " Q"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000) + " Q"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000)/10 + " s"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000) + " s"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000)/10 + " S"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000) + " S"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000)/10 + " O"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000) + " O"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000)/10 + " n"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000) + " n"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000000)/10 + " d"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000000) + " d"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000000000)/10 + " U"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000000000) + " U"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000000000000)/10 + " D"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000000000000) + " D"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000000000000000)/10 + " Tr"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000000000000000) + " Tr"
+  end
+  return upgrade.word
+end
+
+wordUpgrade2 = function(upgradetotal, upgrade)
+  if upgradetotal < 1000 then
+    upgrade.word = round(upgrade.total)
+  elsif upgradetotal < 10000 then
+    upgrade.word = round(upgrade.total/100)/10 + " k"
+  elsif upgradetotal < 1000000 then
+    upgrade.word = round(upgrade.total/1000) + " k"
+  elsif upgradetotal < 10000000 then
+    upgrade.word = round(upgrade.total/100000)/10 + " M"
+  elsif upgradetotal < 1000000000 then
+    upgrade.word = round(upgrade.total/1000000) + " M"
+  elsif upgradetotal < 10000000000 then
+    upgrade.word = round(upgrade.total/100000000)/10 + " B"
+  elsif upgradetotal < 1000000000000 then
+    upgrade.word = round(upgrade.total/1000000000) + " B"
+  elsif upgradetotal < 10000000000000 then
+    upgrade.word = round(upgrade.total/100000000000)/10 + " T"
+  elsif upgradetotal < 1000000000000000 then
+    upgrade.word = round(upgrade.total/1000000000000) + " T"
+  elsif upgradetotal < 10000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000)/10 + " q"
+  elsif upgradetotal < 1000000000000000000 then
+    upgrade.word =round(upgrade.total/1000000000000000) + " q"
+  elsif upgradetotal < 10000000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000000)/10 + " Q"
+  elsif upgradetotal < 1000000000000000000000 then
+    upgrade.word = round(upgrade.total/1000000000000000000) + " Q"
+  elsif upgradetotal < 10000000000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000000000)/10 + " s"
+  elsif upgradetotal < 1000000000000000000000000 then
+    upgrade.word = round(upgrade.total/1000000000000000000000) + " s"
+  elsif upgradetotal < 10000000000000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000000000000)/10 + " S"
+  elsif upgradetotal < 1000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/1000000000000000000000000) + " S"
+  elsif upgradetotal < 10000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000000000000000)/10 + " O"
+  elsif upgradetotal < 1000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/1000000000000000000000000000) + " O"
+  elsif upgradetotal < 10000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000000000000000000)/10 + " n"
+  elsif upgradetotal < 1000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/1000000000000000000000000000000) + " n"
+  elsif upgradetotal < 10000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000000000000000000000)/10 + " d"
+  elsif upgradetotal < 1000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/1000000000000000000000000000000000) + " d"
+  elsif upgradetotal < 10000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000000000000000000000000)/10 + " u"
+  elsif upgradetotal < 1000000000000000000000000000000000000000 then
+    upgrade.word =round(upgrade.total/1000000000000000000000000000000000000) + " u"
+  elsif upgradetotal < 10000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000000000000000000000000000)/10 + " D"
+  elsif upgradetotal < 1000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/1000000000000000000000000000000000000000) + " D"
+  elsif upgradetotal < 10000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000000000000000000000000000000)/10 + " Tr"
+  elsif upgradetotal < 1000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/1000000000000000000000000000000000000000000) + " Tr"
+  elsif upgradetotal < 10000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000000000000000000000000000000000)/10 + " qu"
+  elsif upgradetotal < 1000000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/1000000000000000000000000000000000000000000000) + " qu"
+  elsif upgradetotal < 10000000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/100000000000000000000000000000000000000000000000)/10 + " Qu"
+  elsif upgradetotal < 1000000000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total/1000000000000000000000000000000000000000000000000) + " Qu"
+  end
+  return upgrade.word
+end
+
+wordUpgrade3 = function(upgradetotal, upgrade)
+  if upgradetotal*(1+prestige.token*prestige.boost*pmbtotalmultiplier) < 1000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier*10)/10
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100)/10 + " k"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000) + " k"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000)/10 + " M"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000) + " M"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000)/10 + " B"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000) + " B"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000)/10 + " T"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000) + " T"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000)/10 + " q"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000) + " q"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000)/10 + " Q"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000) + " Q"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000)/10 + " s"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000) + " s"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000)/10 + " S"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000) + " S"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000)/10 + " O"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000) + " O"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000)/10 + " n"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000) + " n"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000000)/10 + " d"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000000) + " d"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000000000)/10 + " u"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000000000) + " u"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000000000000)/10 + " D"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000000000000) + " D"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000000000000000)/10 + " Tr"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000000000000000) + " Tr"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000000000000000000)/10 + " qu"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000000000000000000) + " qu"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000000000000000000000)/10 + " Qu"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000000000000000000000) + " Qu"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 10000000000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/100000000000000000000000000000000000000000000000000)/10 + " se"
+  elsif upgradetotal*(1+prestige.token*prestige.boost)*pmbtotalmultiplier < 1000000000000000000000000000000000000000000000000000000 then
+    upgrade.word = round(upgrade.total*(1+prestige.token*prestige.boost)*pmbtotalmultiplier/1000000000000000000000000000000000000000000000000000) + " se"
+  end
+  return upgrade.word
+end
+
+updateUpgrade = function()
+  updateActualPrice()
+  
+  if menu.active == false then
+    upgradeOne = checkUpgrade(upgradeOne)
+    upgradeTwo = checkUpgrade(upgradeTwo)
+    upgradeThree = checkUpgrade(upgradeThree)
+    if upgradeThree.amount > 0 then
+      upgradeFour = checkUpgrade(upgradeFour)
+    end
+    if upgradeFour.amount > 0 then
+      upgradeFive = checkUpgrade(upgradeFive)
+    end
+    if upgradeFive.amount > 0 then
+      upgradeSix = checkUpgrade(upgradeSix)
+    end
+    if upgradeSix.amount > 0 then
+      upgradeSeven = checkUpgrade(upgradeSeven)
+    end
+    if upgradeSeven.amount > 0 then
+      upgradeEight = checkUpgrade(upgradeEight)
+    end
+    if upgradeEight.amount > 0 then
+      upgradeNine = checkUpgrade(upgradeNine)
+    end
+    if upgradeNine.amount > 0 then
+      upgradeTen = checkUpgrade(upgradeTen)
+    end
+    if upgradeTen.amount > 0 then
+      upgradeEleven = checkUpgrade(upgradeEleven)
+    end
+  end
+  
+  upgradeOne.total = upgradeOne.amount * 2^multipliers.one*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  upgradeTwo.total = upgradeTwo.amount/2*(2^multipliers.two)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  upgradeThree.total = upgradeThree.amount*4*(2^multipliers.three)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  upgradeFour.total = upgradeFour.amount*10*(2^multipliers.four)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  upgradeFive.total = upgradeFive.amount*40*(2^multipliers.five)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  upgradeSix.total = upgradeSix.amount*100*(2^multipliers.six)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  upgradeSeven.total = upgradeSeven.amount*400*(2^multipliers.seven)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  upgradeEight.total = upgradeEight.amount*6666*(2^multipliers.eight)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  upgradeNine.total = upgradeNine.amount*98765*(2^multipliers.nine)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  upgradeTen.total = upgradeTen.amount*999999*(2^multipliers.ten)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  upgradeEleven.total = upgradeEleven.amount*10000000*(2^multipliers.eleven)*(1+prestige.token*prestige.boost)*pmbtotalmultiplier
+  
+  upgradeOne.word = wordUpgrade3(upgradeOne.total, upgradeOne)
+  upgradeTwo.word = wordUpgrade3(upgradeTwo.total, upgradeTwo)
+  upgradeThree.word = wordUpgrade3(upgradeThree.total, upgradeThree)
+  upgradeFour.word = wordUpgrade3(upgradeFour.total, upgradeFour)
+  upgradeFive.word = wordUpgrade3(upgradeFive.total, upgradeFive)
+  upgradeSix.word = wordUpgrade3(upgradeSix.total, upgradeSix)
+  upgradeSeven.word = wordUpgrade3(upgradeSeven.total, upgradeSeven)
+  upgradeEight.word = wordUpgrade3(upgradeEight.total, upgradeEight)
+  upgradeNine.word = wordUpgrade3(upgradeNine.total, upgradeNine)
+  upgradeTen.word = wordUpgrade3(upgradeTen.total, upgradeTen)
+  upgradeEleven.word = wordUpgrade3(upgradeEleven.total, upgradeEleven)
+  total.word = wordUpgrade2(total.total, total)
+  
+  //calculating social credit production
+  score += scps.amount/60
+  total.total += scps.amount/60
+end
+
+
+dodrawUpgrade = function(upgrade, multipliers, upgradeName, hireorbuy)
+  screen.setFont("Verdana")
+  if score < upgrade.trueprice then
+    screen.setAlpha(0.5)
+  else
+    screen.setAlpha(0.85)
+  end
+  
+  //box
+  screen.fillRect(upgrade.x, upgrade.y-slider.addon, upgrade.width, upgrade.height, "#112")
+  screen.drawRect(upgrade.x, upgrade.y-slider.addon, upgrade.width, upgrade.height, "#000")
+  //text
+  if upgrade.amount < 1000 then
+    screen.drawText("Lvl." + multipliers + upgradeName + upgrade.amount, upgrade.x+13, upgrade.y+6-slider.addon, 5, "#FFF")
+  elsif upgrade.amount < 10000 then
+    screen.drawText("Lvl." + multipliers + upgradeName + round(upgrade.amount/100)/10 + " k", upgrade.x+13, upgrade.y+6-slider.addon, 5, "#FFF")
+  elsif upgrade.amount < 1000000 then
+    screen.drawText("Lvl." + multipliers + upgradeName + round(upgrade.amount/1000) + " k", upgrade.x+13, upgrade.y+6-slider.addon, 5, "#FFF")
+  elsif upgrade.amount < 10000000 then
+    screen.drawText("Lvl." + multipliers + upgradeName + round(upgrade.amount/100000)/10 + " M", upgrade.x+13, upgrade.y+6-slider.addon, 5, "#FFF")
+  elsif upgrade.amount < 1000000000 then
+    screen.drawText("Lvl." + multipliers + upgradeName + round(upgrade.amount/1000000) + " M", upgrade.x+13, upgrade.y+6-slider.addon, 5, "#FFF")
+  end  
+
+    if upgrade.trueprice < 1000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice) + " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100)/10 + " k"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000) + " k"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000)/10 + " M"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000) + " M"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000)/10 + " B"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000) + " B"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000)/10 + " T"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000) + " T"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000)/10 + " q"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000) + " q"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000000)/10 + " Q"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000000) + " Q"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000000000)/10 + " s"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000000000) + " s"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000000000000)/10 + " S"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000000000000) + " S"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000000000000000)/10 + " O"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000000000000000) + " O"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000000000000000000)/10 + " n"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000000000000000000) + " n"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000000000000000000000)/10 + " d"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000000000000000000000) + " d"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000000000000000000000000)/10 + " u"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000000000000000000000000) + " u"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000000000000000000000000000)/10 + " D"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000000000000000000000000000) + " D"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000000000000000000000000000000)/10 + " Tr"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000000000000000000000000000000) + " Tr"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000000000000000000000000000000000)/10 + " qu"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000000000000000000000000000000000) + " qu"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 10000000000000000000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/100000000000000000000000000000000000000000000000)/10 + " Qu"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    elsif upgrade.trueprice < 1000000000000000000000000000000000000000000000000000 then
+      screen.drawText(hireorbuy + round(upgrade.trueprice/1000000000000000000000000000000000000000000000000) + " Qu"+ " social credits.", upgrade.x+13, upgrade.y-8-slider.addon, 4, "#FFF")
+    end  
+
+  screen.setAlpha(1)
+  return upgrade
+  return multipliers
+  return upgradeName
+  return hireorbuy
+end
+
+hiddenUpgrade = function(upgrade)
+  screen.setAlpha(0.5)
+  screen.fillRect(upgrade.x, upgrade.y-slider.addon, upgrade.width, upgrade.height, "#112")
+  screen.drawRect(upgrade.x, upgrade.y-slider.addon, upgrade.width, upgrade.height, "#000")
+  screen.drawText("?????", upgrade.x+15, upgrade.y+6-slider.addon, 10, "#FFF")
+  screen.drawText("???", upgrade.x+15, upgrade.y-8-slider.addon, 6, "#FFF")
+  return upgrade
+end
+
+drawUpgrade = function()
+  if pmenu.active == false then
+    upgradeOne = dodrawUpgrade(upgradeOne, multiplierslevel.one, " Super Idols: ", "Hire more for ")
+    upgradeTwo = dodrawUpgrade(upgradeTwo, multiplierslevel.two, " Followers: ", "Buy more for ")
+    upgradeThree = dodrawUpgrade(upgradeThree, multiplierslevel.three, " Bing Chilling: ", "Buy more for ")
+    if upgradeThree.amount > 0 then
+      upgradeFour = dodrawUpgrade(upgradeFour, multiplierslevel.four, " Subscribers: ", "Buy more for ")
+    else
+      upgradeFour = hiddenUpgrade(upgradeFour)
+    end
+    if upgradeFour.amount > 0 then
+      upgradeFive = dodrawUpgrade(upgradeFive, multiplierslevel.five, " Sweatshop Workers: ", "Hire more for ")
+    else
+      upgradeFive = hiddenUpgrade(upgradeFive)
+    end
+    if upgradeFive.amount > 0 then
+      upgradeSix = dodrawUpgrade(upgradeSix, multiplierslevel.six, " CCTV Cameras: ", "Buy more for ")
+    else
+      upgradeSix = hiddenUpgrade(upgradeSix)
+    end
+    if upgradeSix.amount > 0 then
+      upgradeSeven = dodrawUpgrade(upgradeSeven, multiplierslevel.seven, " Concerts: ", "Buy more for ")
+    else
+      upgradeSeven = hiddenUpgrade(upgradeSeven)
+    end
+    if upgradeSeven.amount > 0 then
+      upgradeEight = dodrawUpgrade(upgradeEight, multiplierslevel.eight, " Endorsements: ", "Buy more for ")
+    else
+      upgradeEight = hiddenUpgrade(upgradeEight)
+    end
+    if upgradeEight.amount > 0 then
+      upgradeNine = dodrawUpgrade(upgradeNine, multiplierslevel.nine, " SC Miners: ", "Hire more for ")
+    else
+      upgradeNine = hiddenUpgrade(upgradeNine)
+    end
+    if upgradeNine.amount > 0 then
+      upgradeTen = dodrawUpgrade(upgradeTen, multiplierslevel.ten, " Idol Robots: ", "Buy more for ")
+    else
+      upgradeTen = hiddenUpgrade(upgradeTen)
+    end
+    if upgradeTen.amount > 0 then
+      upgradeEleven = dodrawUpgrade(upgradeEleven, multiplierslevel.eleven, " Golden Idols: ", "Buy more for ")
+    else
+      upgradeEleven = hiddenUpgrade(upgradeEleven)
+    end
+    
+    screen.setAlpha(1)
+    screen.drawSprite("idol", upgradeOne.x-50, upgradeOne.y+1-slider.addon, 20, 29)
+    screen.drawSprite("upgradetwoicon", upgradeTwo.x-50, upgradeTwo.y+1-slider.addon, 30, 30)
+    screen.drawSprite("upgradethreeicon", upgradeThree.x-50, upgradeThree.y+1-slider.addon, 30, 30)
+    if upgradeThree.amount > 0 then
+      screen.drawSprite("upgradefouricon", upgradeFour.x-50, upgradeFour.y+1-slider.addon, 30, 30)
+    else
+      screen.drawSprite("upgradefouriconlocked", upgradeFour.x-50, upgradeFour.y+1-slider.addon, 30, 30)
+    end
+    if upgradeFour.amount > 0 then
+      screen.drawSprite("upgradefiveicon", upgradeFive.x-50, upgradeFive.y+1-slider.addon, 30, 30)
+    else
+      screen.drawSprite("upgradefiveiconlocked", upgradeFive.x-50, upgradeFive.y+1-slider.addon, 30, 30)
+    end
+    if upgradeFive.amount > 0 then
+      screen.drawSprite("upgradesixicon", upgradeSix.x-50, upgradeSix.y+1-slider.addon, 30, 30)
+    else
+      screen.drawSprite("upgradesixiconlocked", upgradeSix.x-50, upgradeSix.y+1-slider.addon, 30, 30)
+    end
+    if upgradeSix.amount > 0 then
+      screen.drawSprite("upgradesevenicon", upgradeSeven.x-50, upgradeSeven.y+1-slider.addon, 30, 30)
+    else
+      screen.drawSprite("upgradeseveniconlocked", upgradeSeven.x-50, upgradeSeven.y+1-slider.addon, 30, 30)
+    end
+    if upgradeSeven.amount > 0 then
+      screen.drawSprite("upgradeeighticon", upgradeEight.x-50, upgradeEight.y+1-slider.addon, 30, 30)
+    else
+      screen.drawSprite("upgradeeighticonlocked", upgradeEight.x-50, upgradeEight.y+1-slider.addon, 30, 30)
+    end
+    if upgradeEight.amount > 0 then
+      screen.drawSprite("upgradenineicon", upgradeNine.x-50, upgradeNine.y+1-slider.addon, 30, 30)
+    else
+      screen.drawSprite("upgradenineiconlocked", upgradeNine.x-50, upgradeNine.y+1-slider.addon, 30, 30)
+    end
+    if upgradeNine.amount > 0 then
+      screen.drawSprite("upgradetenicon", upgradeTen.x-50, upgradeTen.y+1-slider.addon, 30, 30)
+    else
+      screen.drawSprite("upgradeteniconlocked", upgradeTen.x-50, upgradeTen.y+1-slider.addon, 30, 30)
+    end
+    if upgradeTen.amount > 0 then
+      screen.drawSprite("upgradeelevenicon", upgradeEleven.x-50, upgradeEleven.y+1-slider.addon, 30, 30)
+    else
+      screen.drawSprite("upgradeeleveniconlocked", upgradeEleven.x-50, upgradeEleven.y+1-slider.addon, 30, 30)
+    end
+  end
+end
+
+initSlider = function()
+  
+  slider = object
+    x = -3
+    y = 60
+    width = 8
+    height = 32
+    hover = false
+    addon = 0
+  end
+  
+  slider2 = object
+    x = -100
+    y = 10
+    width = 8
+    height = 8
+    hover = false
+    addon = 0
+  end
+  
+  slider3 = object
+    x = 90
+    y = 10
+    width = 8
+    height = 8
+    hover = false
+    addon = 0
+  end
+  
+  slider_background = object
+    x = -3
+    y = 0
+    width = 8
+    height = 150
+  end
+  
+  slider2_background = object
+    x = -80
+    y = 10
+    width = 75
+    height = 4
+  end
+  
+  slider3_background = object
+    x = 70
+    y = 10
+    width = 75
+    height = 4
+  end
+
+end
+
+
+updateSlider = function()
+  if help.distance(slider.x, slider.y, mouse.x, mouse.y) < 32 then
+    slider.hover = true
+  else
+    slider.hover = false
+  end
+  
+  if slider.hover then
+    if menu.active == false then
+      if slider.y > -59 and slider.y < 59 then
+        if mouse.pressed then
+          slider.y = mouse.y
+        end
+      elsif slider.y < -59 then
+        slider.y = -58
+      elsif slider.y > 59 then
+        slider.y = 58
+      end
+    end
+  end
+  slider.y=help.clamp(slider.y,-58.99999999999,58.99999999999)
+  
+  slider.addon = slider.y*2.65 - 190.8
+  
+end
+
+
+drawSlider = function()
+  if pmenu.active == false then
+    screen.setAlpha(1)
+    screen.drawSprite("slider_background", slider_background.x, slider_background.y, slider_background.width, slider_background.height)      
+    screen.drawSprite("slider", slider.x, slider.y, slider.width, slider.height)
+  end
+end
+
+
+
+
+
+
+
+
+
+initParticles = function()
+  particles_list = []
+end
+
+
+createParticles = function(xpos, ypos, s, delay = 0) // delay in seconds
+  local particles = object
+    x = xpos
+    y = ypos
+    size = s
+    active = true
+  end
+  particles.frame = 0 - delay
+  particles_list.push(particles)
+  
+end
+
+updateParticles = function()
+ local temp = []//change name if doesnt work
+ for item in particles_list
+   item.frame += 0.6
+   if item.frame >= 24 then
+     item.active = false
+   end
+   //save from deletion if active
+   if item.active then
+     temp.push(item)
+   end
+ end
+ particles_list = temp
+end
+
+drawParticles = function()
+  for item in particles_list
+    sprites["particles"].setFrame(floor(item.frame))
+    screen.drawSprite("particles", item.x, item.y, 100, 100)
+  end
+end
+
+
+
+initNews = function()
+  news_info = object
+    x = 350
+    y = 93
+    size = 5
+  end
+end
+
+updateNews = function()
+  if news_info.x > -350 then
+    news_info.x = news_info.x-0.5
+  else
+    news_info.x = 350
+  end
+end
+
+drawNews = function()
+  if pmenu.active == false then
+    screen.fillRect(0,100,400,25,"rgb(45,45,45)")
+    screen.drawRect(0,100,400,25,"rgb(0,0,0)")
+    screen.setFont("Verdana")
+    local news = " "
+    if total.total < 100 then
+      news = "Your social credit score is very low ;-;"
+    elsif total.total < 1000 then
+      news = "Your social credit score is getting better..."
+    elsif total.total < 100000 then
+      news = "Super Idol is growing in popularity in China..."
+    elsif total.total < 10000000 then
+      news = "Super Idol has become increasingly popular globally..."
+    elsif total.total < 1000000000 then
+      news = "Breaking News! Super Idol has achieved over 10 Million Social Credits..."
+    elsif total.total < 100000000000 then
+      news = "The world's economy has crashed, but one individual has so many Social Credits that it doesn't even matter..."
+    elsif total.total < 10000000000000 then
+      news = "Super Idol has ruled the Earth, and is moving its target towards outer space..."
+    elsif total.total < 1000000000000000 then
+      news = "Many galaxies have been taken over by super idol..."
+    elsif total.total < 100000000000000000 then
+      news = "The huge amounts of Social Credits have resulted in a gargantuous black hole, and is slowly breaking the universe..."
+    else
+      news = "Super Idol has ruled the universe with its enormous amounts of social credits."
+    end
+    screen.drawText(news,news_info.x, news_info.y, news_info.size, "#FFF")
+  end
+end
+
+initMultipliers = function()
+  multipliers = object
+    one = 0
+    two = 0
+    three = 0
+    four = 0
+    five = 0
+    six = 0
+    seven = 0
+    eight = 0
+    nine = 0 
+    ten = 0
+    eleven = 0
+  end
+  multiplierslevel = object
+    one = 0
+    two = 0
+    three = 0
+    four = 0
+    five = 0
+    six = 0
+    seven = 0
+    eight = 0
+    nine = 0 
+    ten = 0
+    eleven = 0
+  end
+end
+
+
+updateMultipliers = function()
+  multipliers.one = getmultipliertypethree(upgradeOne)
+  multipliers.two = getmultipliertypetwo(upgradeTwo)
+  multipliers.three = getmultipliertypetwo(upgradeThree)
+  multipliers.four = getmultipliertypetwo(upgradeFour)
+  multipliers.five = getmultipliertypetwo(upgradeFive)
+  multipliers.six = getmultipliertypetwo(upgradeSix)
+  multipliers.seven = getmultipliertypetwo(upgradeSeven)
+  multipliers.eight = getmultipliertypetwo(upgradeEight)
+  multipliers.nine = getmultipliertypetwo(upgradeNine)
+  multipliers.ten = getmultipliertypetwo(upgradeTen)
+  multipliers.eleven = getmultipliertypetwo(upgradeEleven)
+  
+  multiplierslevel.one = getmultipliertypeone(upgradeOne)
+  multiplierslevel.two = getmultipliertypeone(upgradeTwo)
+  multiplierslevel.three = getmultipliertypeone(upgradeThree)
+  multiplierslevel.four = getmultipliertypeone(upgradeFour)
+  multiplierslevel.five = getmultipliertypeone(upgradeFive)
+  multiplierslevel.six = getmultipliertypeone(upgradeSix)
+  multiplierslevel.seven = getmultipliertypeone(upgradeSeven)
+  multiplierslevel.eight = getmultipliertypeone(upgradeEight)
+  multiplierslevel.nine = getmultipliertypeone(upgradeNine)
+  multiplierslevel.ten = getmultipliertypeone(upgradeTen)
+  multiplierslevel.eleven = getmultipliertypeone(upgradeEleven)
+end
+
+
+getmultipliertypeone=function(upgrade)
+  if upgrade.amount < 10 then
+    multiplier = 0
+  elsif upgrade.amount < 25 then
+    multiplier = 1
+  elsif upgrade.amount < 50 then
+    multiplier = 2
+  elsif upgrade.amount < 75 then
+    multiplier = 3
+  elsif upgrade.amount < 100 then
+    multiplier = 4
+  elsif upgrade.amount < 125 then
+    multiplier = 5
+  elsif upgrade.amount < 150 then
+    multiplier = 6
+  elsif upgrade.amount < 175 then
+    multiplier = 7
+  elsif upgrade.amount < 200 then
+    multiplier = 8
+  elsif upgrade.amount < 225 then
+    multiplier = 9
+  elsif upgrade.amount < 250 then
+    multiplier = 10
+  elsif upgrade.amount < 275 then
+    multiplier = 11
+  elsif upgrade.amount < 300 then
+    multiplier = 12
+  elsif upgrade.amount < 325 then
+    multiplier = 13
+  elsif upgrade.amount < 350 then
+    multiplier = 14
+  elsif upgrade.amount < 375 then
+    multiplier = 15
+  elsif upgrade.amount < 400 then
+    multiplier = 16
+  elsif upgrade.amount < 425 then
+    multiplier = 17
+  elsif upgrade.amount < 450 then
+    multiplier = 18
+  elsif upgrade.amount < 475 then
+    multiplier = 19
+  elsif upgrade.amount < 500 then
+    multiplier = 20
+  elsif upgrade.amount < 525 then
+    multiplier = 21
+  elsif upgrade.amount < 550 then
+    multiplier = 22
+  elsif upgrade.amount < 575 then
+    multiplier = 23
+  elsif upgrade.amount < 600 then
+    multiplier = 24
+  elsif upgrade.amount < 625 then
+    multiplier = 25
+  elsif upgrade.amount < 650 then
+    multiplier = 26
+  elsif upgrade.amount < 675 then
+    multiplier = 27
+  elsif upgrade.amount < 700 then
+    multiplier = 28
+  elsif upgrade.amount < 725 then
+    multiplier = 29
+  elsif upgrade.amount < 750 then
+    multiplier = 30
+  elsif upgrade.amount < 775 then
+    multiplier = 31
+  elsif upgrade.amount < 800 then
+    multiplier = 32
+  end
+  return multiplier
+end
+
+getmultipliertypetwo=function(upgrade)
+  if upgrade.amount < 10 then
+    multiplier = 0
+  elsif upgrade.amount < 25 then
+    multiplier = 2
+  elsif upgrade.amount < 50 then
+    multiplier = 4
+  elsif upgrade.amount < 75 then
+    multiplier = 6
+  elsif upgrade.amount < 100 then
+    multiplier = 8
+  elsif upgrade.amount < 125 then
+    multiplier = 10
+  elsif upgrade.amount < 150 then
+    multiplier = 12
+  elsif upgrade.amount < 175 then
+    multiplier = 14
+  elsif upgrade.amount < 200 then
+    multiplier = 16
+  elsif upgrade.amount < 225 then
+    multiplier = 18
+  elsif upgrade.amount < 250 then
+    multiplier = 20
+  elsif upgrade.amount < 275 then
+    multiplier = 22
+  elsif upgrade.amount < 300 then
+    multiplier = 24
+  elsif upgrade.amount < 325 then
+    multiplier = 26
+  elsif upgrade.amount < 350 then
+    multiplier = 28
+  elsif upgrade.amount < 375 then
+    multiplier = 30
+  elsif upgrade.amount < 400 then
+    multiplier = 32
+  elsif upgrade.amount < 425 then
+    multiplier = 34
+  elsif upgrade.amount < 450 then
+    multiplier = 36
+  elsif upgrade.amount < 475 then
+    multiplier = 38
+  elsif upgrade.amount < 500 then
+    multiplier = 40
+  elsif upgrade.amount < 525 then
+    multiplier = 42
+  elsif upgrade.amount < 550 then
+    multiplier = 44
+  elsif upgrade.amount < 575 then
+    multiplier = 46
+  elsif upgrade.amount < 600 then
+    multiplier = 48
+  elsif upgrade.amount < 625 then
+    multiplier = 50
+  elsif upgrade.amount < 650 then
+    multiplier = 52
+  elsif upgrade.amount < 675 then
+    multiplier = 54
+  elsif upgrade.amount < 700 then
+    multiplier = 56
+  elsif upgrade.amount < 725 then
+    multiplier = 58
+  elsif upgrade.amount < 750 then
+    multiplier = 60
+  elsif upgrade.amount < 775 then
+    multiplier = 62
+  elsif upgrade.amount < 800 then
+    multiplier = 64
+  end
+  return multiplier
+end
+
+getmultipliertypethree=function(upgrade)
+  if upgrade.amount < 10 then
+    multiplier = 0
+  elsif upgrade.amount < 25 then
+    multiplier = 1
+  elsif upgrade.amount < 50 then
+    multiplier = 2
+  elsif upgrade.amount < 75 then
+    multiplier = 4
+  elsif upgrade.amount < 100 then
+    multiplier = 6
+  elsif upgrade.amount < 125 then
+    multiplier = 7
+  elsif upgrade.amount < 150 then
+    multiplier = 8
+  elsif upgrade.amount < 175 then
+    multiplier = 10
+  elsif upgrade.amount < 200 then
+    multiplier = 12
+  elsif upgrade.amount < 225 then
+    multiplier = 13
+  elsif upgrade.amount < 250 then
+    multiplier = 14
+  elsif upgrade.amount < 275 then
+    multiplier = 16
+  elsif upgrade.amount < 300 then
+    multiplier = 18
+  elsif upgrade.amount < 325 then
+    multiplier = 19
+  elsif upgrade.amount < 350 then
+    multiplier = 20
+  elsif upgrade.amount < 375 then
+    multiplier = 22
+  elsif upgrade.amount < 400 then
+    multiplier = 24
+  elsif upgrade.amount < 425 then
+    multiplier = 25
+  elsif upgrade.amount < 450 then
+    multiplier = 26
+  elsif upgrade.amount < 475 then
+    multiplier = 28
+  elsif upgrade.amount < 500 then
+    multiplier = 30
+  elsif upgrade.amount < 525 then
+    multiplier = 31
+  elsif upgrade.amount < 550 then
+    multiplier = 32
+  elsif upgrade.amount < 575 then
+    multiplier = 34
+  elsif upgrade.amount < 600 then
+    multiplier = 36
+  elsif upgrade.amount < 625 then
+    multiplier = 37
+  elsif upgrade.amount < 650 then
+    multiplier = 38
+  elsif upgrade.amount < 675 then
+    multiplier = 40
+  elsif upgrade.amount < 700 then
+    multiplier = 42
+  elsif upgrade.amount < 725 then
+    multiplier = 43
+  elsif upgrade.amount < 750 then
+    multiplier = 44
+  elsif upgrade.amount < 775 then
+    multiplier = 46
+  elsif upgrade.amount < 800 then
+    multiplier = 48
+  end
+  return multiplier
+end
+
+
+
+
+initMenu = function()
+  menu = object
+    x = 160
+    y = -80
+    width = 20
+    height = 20
+    hover = false
+    active = false
+    scale = 1
+  end
+  
+  info = object
+    x = 160
+    y = -50
+    width = 20
+    height = 20
+    hover = false
+    active = false
+    scale = 1
+  end
+  
+  musicbutton = object
+    x = 160
+    y = -20
+    width = 20
+    height = 20
+    hover = false
+    active = false
+    scale = 1
+  end
+  
+  soundbutton = object
+    x = 160
+    y = 10
+    width = 20
+    height = 20
+    hover = false
+    active = false
+    scale = 1
+  end
+
+  menubutton1 = object
+    x = -105
+    y = 62.5
+    width = 70
+    height = 35
+    hover = false
+    active = true
+  end
+  
+  menubutton2 = object
+    x = -35
+    y = 62.5
+    width = 70
+    height = 35
+    hover = false
+    active = false
+  end
+  
+  menubutton3 = object
+    x = 35
+    y = 62.5
+    width = 70
+    height = 35
+    hover = false
+    active = false
+  end
+
+  menubutton4 = object
+    x = 105
+    y = 62.5
+    width = 70
+    height = 35
+    hover = false
+    active = false
+  end
+  
+  upgradeTotalData = object
+    x = 0
+    y = 30
+  end
+  upgradeTwoData = object
+    x = -70
+    y = 8
+  end
+  upgradeThreeData = object
+    x = -70
+    y = -9
+  end
+  upgradeFourData = object
+    x = -70
+    y = -26
+  end
+  upgradeFiveData = object
+    x = -70
+    y = -43
+  end
+  upgradeSixData = object
+    x = -70
+    y = -60
+  end
+  upgradeSevenData = object
+    x = 70
+    y = 8
+  end
+  upgradeEightData = object
+    x = 70
+    y = -9
+  end
+  upgradeNineData = object
+    x = 70
+    y = -26
+  end
+  upgradeTenData = object
+    x = 70
+    y = -43
+  end
+  upgradeElevenData = object
+    x = 70
+    y = -60
+  end
+end
+
+
+checkButton = function(menubutton)
+  if help.checkRectMouseHover(menubutton.x, menubutton.y, menubutton.width, menubutton.height) then
+    menubutton.hover = true
+    if mouse.press then
+      if menubutton.active == false then
+        if sounds.active then
+        audio.playSound("menuclick", sounds.volume)
+        end
+        menubutton.active = true
+      end
+    else
+      menubutton.hover = false
+    end
+  end
+  return menubutton
+end
+
+
+updateMenu = function()
+  if pmenu.active == false then
+    if help.distance(menu.x, menu.y, mouse.x, mouse.y) < 14 then
+      menu.hover = true
+    else
+      menu.hover = false
+      menu.scale = 1
+    end
+    
+    if help.distance(info.x, info.y, mouse.x, mouse.y) < 14 then
+      info.hover = true
+    else
+      info.hover = false
+      info.scale = 1
+    end
+  
+    if help.distance(musicbutton.x, musicbutton.y, mouse.x, mouse.y) < 14 then
+      musicbutton.hover = true
+    else
+      musicbutton.hover = false
+      musicbutton.scale = 1
+    end
+    
+    if help.distance(soundbutton.x, soundbutton.y, mouse.x, mouse.y) < 14 then
+      soundbutton.hover = true
+    else
+      soundbutton.hover = false
+      soundbutton.scale = 1
+    end
+    
+    //process mouse click on main menu
+    if menu.hover then
+      if mouse.pressed then
+        menu.scale = 1.2
+      else
+        menu.scale = 1.1
+      end
+      if mouse.press then
+        if sounds.active then
+        audio.playSound("menuclick", sounds.volume)
+        end
+        if menu.active == false then
+          menu.active = true
+          menubutton4.active = false
+          menubutton3.active = false
+          menubutton2.active = false
+          menubutton1.active = true
+        elsif menu.active == true then
+          menu.active = false
+        end
+      end
+    else
+      menu.scale = 1
+    end
+    
+    //process mouse click on info menu
+    if info.hover then
+      if mouse.pressed then
+        info.scale = 1.2
+      else
+        info.scale = 1.1
+      end
+      if mouse.press then
+        if sounds.active then
+        audio.playSound("menuclick", sounds.volume)
+        end
+        if menu.active == false then
+          menu.active = true
+          menubutton4.active = true
+          menubutton3.active = false
+          menubutton2.active = false
+          menubutton1.active = false
+        else
+          if menubutton4.active == false then
+            menubutton4.active = true
+            menubutton3.active = false
+            menubutton2.active = false
+            menubutton1.active = false
+          else
+            menu.active = false
+          end
+        end
+      end
+    else
+      info.scale = 1
+    end
+    
+    //process mouse click on musicbutton
+    if musicbutton.hover then
+      if mouse.pressed then
+        musicbutton.scale = 1.2
+      else
+        musicbutton.scale = 1.1
+      end
+      if mouse.press then
+        if sounds.active then
+        audio.playSound("menuclick", sounds.volume)
+        end
+        if music.active then
+          music.active = false
+        else
+          music.active = true
+        end
+      end
+    else
+      musicbutton.scale = 1
+    end
+    
+    //process mouse click on soundbutton
+    if soundbutton.hover then
+      if mouse.pressed then
+        soundbutton.scale = 1.2
+      else
+        soundbutton.scale = 1.1
+      end
+      if mouse.press then
+        if sounds.active then
+        audio.playSound("menuclick", sounds.volume)
+        end
+        if sounds.active then
+          sounds.active = false
+        else
+          sounds.active = true
+        end
+      end
+    else
+      soundbutton.scale = 1
+    end
+  end
+    
+  if keyboard.press.ESCAPE then
+    if sounds.active then
+    audio.playSound("menuclick", sounds.volume)
+    end
+    if menu.active == false and pmenu.active == false then
+      menu.active = true 
+    elsif menu.active == true and pmenu.active == true then
+      pmenu.active = false
+    elsif menu.active == true and pmenu.active == false then
+      menu.active = false
+    end
+  end
+  
+  if menu.active == true and pmenu.active == false then
+    //process menubutton click
+    menubutton1 = checkButton(menubutton1)
+      if menubutton1.active == true then
+        menubutton2.active = false
+        menubutton3.active = false
+        menubutton4.active = false
+      end
+    menubutton2 = checkButton(menubutton2)
+      if menubutton2.active == true then
+        menubutton1.active = false
+        menubutton3.active = false
+        menubutton4.active = false
+      end
+    menubutton3 = checkButton(menubutton3)
+      if menubutton3.active == true then
+        menubutton2.active = false
+        menubutton1.active = false
+        menubutton4.active = false
+      end
+    menubutton4 = checkButton(menubutton4)
+      if menubutton4.active == true then
+        menubutton2.active = false
+        menubutton1.active = false
+        menubutton3.active = false
+      end
+  end
+end
+
+dodrawupgradedata = function(upgradelevel, upgrade, scps, form, upgradedata)
+  screen.drawText("Lvl." + upgradelevel + upgrade + scps + form, upgradedata.x, upgradedata.y, 4.5, "#FFF")
+  return upgradedata
+  return upgrade
+end
+
+
+drawMenu = function()
+  if pmenu.active == false then
+    //main menu icon
+    screen.setAlpha(1)
+    screen.drawSprite("menu", menu.x, menu.y, menu.width*menu.scale, menu.height*menu.scale)
+    if menu.hover then
+      screen.setFont("Verdana")
+      screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)")
+      screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+      if menu.active == false then
+        screen.drawText("Click to open menu", mouse.x-55, mouse.y+5, 6,"rgb(255,255,255)")
+      end
+    end
+    
+    //info icon
+    screen.setAlpha(1)
+    screen.drawSprite("info", info.x, info.y, info.width*info.scale, info.height*info.scale)
+    if info.hover then
+      screen.setFont("Verdana")
+      screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)")
+      screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+      if info.active == false then
+        screen.drawText("Click to open info", mouse.x-55, mouse.y+5, 6,"rgb(255,255,255)")
+      end
+    end
+  
+    //music button
+    screen.setAlpha(1)
+    if music.active then
+      screen.drawSprite("musicon", musicbutton.x, musicbutton.y, musicbutton.width*musicbutton.scale, musicbutton.height*musicbutton.scale)
+    else
+      screen.drawSprite("musicoff", musicbutton.x, musicbutton.y, musicbutton.width*musicbutton.scale, musicbutton.height*musicbutton.scale)
+    end
+    if musicbutton.hover then
+      screen.setFont("Verdana")
+      screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)")
+      screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+      if music.active then
+        screen.drawText("Click to mute music", mouse.x-55, mouse.y+5, 6,"rgb(255,255,255)")
+      else
+        screen.drawText("Click to unmute music", mouse.x-55, mouse.y+5, 5.5,"rgb(255,255,255)")
+      end
+    end
+    
+    //sound button
+    screen.setAlpha(1)
+    if sounds.active then
+      screen.drawSprite("soundon", soundbutton.x, soundbutton.y, soundbutton.width*soundbutton.scale, soundbutton.height*soundbutton.scale)
+    else
+      screen.drawSprite("soundoff", soundbutton.x, soundbutton.y, soundbutton.width*soundbutton.scale, soundbutton.height*soundbutton.scale)
+    end
+    if soundbutton.hover then
+      screen.setFont("Verdana")
+      screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)")
+      screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+      if sounds.active then
+        screen.drawText("Click to mute sound effects", mouse.x-55, mouse.y+5, 4.5,"rgb(255,255,255)")
+      else
+        screen.drawText("Click to unmute sound effects", mouse.x-55, mouse.y+5, 4.2,"rgb(255,255,255)")
+      end
+    end
+    
+    if menu.hover then
+       screen.setAlpha(1)
+      screen.setFont("Verdana")
+      screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)")
+      screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+      screen.drawText("Click to open menu", mouse.x-55, mouse.y+5, 6,"rgb(255,255,255)")
+    end
+    
+    if info.hover then
+      if menubutton4.active == true and menu.active == true then
+        screen.setAlpha(1)
+        screen.setFont("Verdana")
+        screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)")
+        screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+        screen.drawText("Click to close menu", mouse.x-55, mouse.y+5, 6,"rgb(255,255,255)")
+      else
+        screen.setAlpha(1)
+        screen.setFont("Verdana")
+        screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)")
+        screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+        screen.drawText("Click to open info", mouse.x-55, mouse.y+5, 6,"rgb(255,255,255)")
+      end
+    end
+  end
+  
+  //menu
+  if menu.active == true and pmenu.active == false then
+    
+    screen.setAlpha(0.9)
+    screen.fillRect(0, 0, 280, 160,"rgb(75,75,75)")
+    screen.drawRect(0, 0, 280, 160, "#000")
+    screen.setAlpha(1)
+    
+    if menubutton1.active == true then
+      screen.setFont("Verdana")
+      upgradeTwoData = dodrawupgradedata(multiplierslevel.two, " Followers: ", upgradeTwo.word, " SC/Second", upgradeTwoData)
+      upgradeThreeData = dodrawupgradedata(multiplierslevel.three, " Bing Chilling: ", upgradeThree.word, " SC/Second", upgradeThreeData)
+      if upgradeThree.amount > 0 then
+        upgradeFourData = dodrawupgradedata(multiplierslevel.four, " Subscribers: ", upgradeFour.word, " SC/Second", upgradeFourData)
+      end
+      if upgradeFour.amount > 0 then
+        upgradeFiveData = dodrawupgradedata(multiplierslevel.five, " Sweatshop Workers: ", upgradeFive.word, " SC/Second", upgradeFiveData)
+      end
+      if upgradeFive.amount > 0 then
+        upgradeSixData = dodrawupgradedata(multiplierslevel.six, " CCTV Cameras: ", upgradeSix.word, " SC/Second", upgradeSixData)
+      end
+      if upgradeSix.amount > 0 then
+        upgradeSevenData = dodrawupgradedata(multiplierslevel.seven, " Concerts: ", upgradeSeven.word, " SC/Second", upgradeSevenData)
+      end
+      if upgradeSeven.amount > 0 then
+        upgradeEightData = dodrawupgradedata(multiplierslevel.eight, " Endorsements: ", upgradeEight.word, " SC/Second", upgradeEightData)
+      end
+      if upgradeEight.amount > 0 then
+        upgradeNineData = dodrawupgradedata(multiplierslevel.nine, " SC Miners: ", upgradeNine.word, " SC/Second", upgradeNineData)
+      end
+      if upgradeNine.amount > 0 then
+        upgradeTenData = dodrawupgradedata(multiplierslevel.ten, " Idol Robots: ", upgradeTen.word, " SC/Second", upgradeTenData)
+      end
+      if upgradeTen.amount > 0 then
+        upgradeElevenData = dodrawupgradedata(multiplierslevel.eleven, " Golden Idols: ", upgradeEleven.word, " SC/Second", upgradeElevenData)
+      end
+      screen.drawText("Total Social Credits: " + total.word, upgradeTotalData.x, upgradeTotalData.y, 10, "#FFF")
+      screen.fillRect(0, 20, 180, 2,"rgb(15,15,15)")
+      
+    end
+    
+    if menubutton2.active == true then
+      screen.setAlpha(1)
+      screen.fillRect(-75, 20, 115, 40,"rgb(105,105,105)")
+      screen.drawRect(-75, 20, 115, 40,"rgb(15,15,15)")
+      screen.drawText("Music Volume", -75, 25, 9, "#FFF")
+      screen.drawText("0", -125, 10, 5, "#FFF")
+      screen.drawText("100", -30, 10, 5, "#FFF")
+      screen.drawSprite("slider2_background", slider2_background.x, slider2_background.y, slider2_background.width, slider2_background.height)
+      screen.drawSprite("slider2", slider2.x, slider2.y, slider2.width, slider2.height)
+      screen.fillRect(75, 20, 115, 40,"rgb(105,105,105)")
+      screen.drawRect(75, 20, 115, 40,"rgb(15,15,15)")
+      screen.drawText("SFX Volume", 75, 25, 9, "#FFF")
+      screen.drawText("0", 25, 10, 5, "#FFF")
+      screen.drawText("100", 120, 10, 5, "#FFF")
+      screen.drawSprite("slider2_background", slider3_background.x, slider3_background.y, slider3_background.width, slider3_background.height)
+      screen.drawSprite("slider2", slider3.x, slider3.y, slider3.width, slider3.height)
+    end
+    
+    if menubutton3.active == true then
+      screen.setFont("Verdana")
+      screen.drawText("This is where you can Prestige", 0, 30, 7, "#FFF")
+      screen.drawText("Prestiging is a good way to unlock more potential in your Social Credit production!", 0, 18, 4.5, "#FFF")
+      screen.drawText("Reset your Social Credits, upgrades, and milestones for True Social Credits (TSC)", 0, 8, 4.5, "#FFF")
+      screen.drawText("These are permanent, and they can boost your SC production even more!", 0, -2, 4.5, "#FFF")
+      screen.drawText("You can also upgrade the power of these, but be careful, don't spend too many!", 0, -12, 4.5, "#FFF")
+      screen.setAlpha(0.5)
+      screen.fillRect(0, -50, 277, 57,"rgb(60,60,60)")
+      screen.setAlpha(1)
+      screen.drawRect(0, -50, 277, 57,"rgb(0,0,0)")
+      if prestige.active then
+        screen.fillRect(pbutton.x, pbutton.y, pbutton.width*pbutton.scale, pbutton.height*pbutton.scale,"rgb(198,140,22)")
+        screen.fillRect(pbutton.x, pbutton.y, (pbutton.width-10)*pbutton.scale, (pbutton.height-10)*pbutton.scale,"rgb(255,189,57)")
+        screen.drawRect(pbutton.x, pbutton.y, pbutton.width*pbutton.scale, pbutton.height*pbutton.scale,"rgb(15,15,15)")
+        screen.drawText("Prestige", 0, -55, 8,"rgb(0,0,0)")
+        screen.drawText("Click to Prestige", 0, -30, 7,"rgb(255,255,255)")
+      else
+        screen.fillRect(0, -55, 80, 30,"rgb(113,80,13)")
+        screen.fillRect(0, -55, 70, 20,"rgb(170,126,38)")
+        screen.drawRect(0, -55, 80, 30,"rgb(15,15,15)")
+        screen.drawText("Prestige", 0, -55, 8,"rgb(0,0,0)")
+        screen.drawText(prestige.requirements, 0, -32, 3.5,"rgb(255,255,255)")
+      end
+      screen.drawText("True Social Credits: ", -90, -35, 6,"#FFF")
+      screen.drawText(prestige.token, -90, -45, 6,"#FFF")
+      screen.drawText("+TSC Next Prestige: ", -90, -58, 6,"#FFF")
+      screen.drawText(prestige.word, -90, -68, 6,"#FFF")
+      screen.drawText("Token Effectiveness: ", 90, -35, 6,"#FFF")
+      screen.drawText( prestige.boost*100 +"%", 90, -45, 6,"#FFF")
+      screen.fillRect(pmenu.x, pmenu.y, pmenu.width*pmenu.scale, pmenu.height*pmenu.scale,"rgb(45,45,45)")
+      screen.drawRect(pmenu.x, pmenu.y, pmenu.width*pmenu.scale, pmenu.height*pmenu.scale,"rgb(30,30,30)")
+      screen.drawText("Prestige Menu", 90, -64, 5, "#FFF")
+      screen.setDrawRotation(-20)
+      screen.drawSprite("tsc", 100, 32, 15, 15)
+      screen.setDrawRotation(20)
+      screen.drawSprite("tsc", -100, 32, 15, 15)
+      screen.setDrawRotation(0)
+    end
+    
+    if menubutton4.active == true then
+      screen.setFont("Verdana")
+      screen.drawText("Welcome To Super Idle!", 0, 30, 7, "#FFF")
+      screen.drawText("The game is simple, you click super idol to gain Social Credits, and you use those", 0, 15, 5, "#FFF")
+      screen.drawText("Social Credits to buy upgrades that allows you to increase your Social Credit", 0, 5, 5, "#FFF")
+      screen.drawText("production rate! You can also unlock milestone upgrades by reaching milestone", 0, -5, 5, "#FFF")
+      screen.drawText("levels, which are 10, 25, 50, 75, 100, and so on. Reaching these levels can", 0, -15, 5, "#FFF")
+      screen.drawText("massively boost your SCPS (Social Credits Per Second)!", 0, -25, 5, "#FFF")
+      screen.drawText("Credits:", 0, -40, 7, "#FFF")
+      screen.drawText("this_name_is_taken - Help with code           Masapotatus - Help with code", 0, -55, 5, "#FFF")
+      screen.drawText("Suoyancy - Help with game art and sprites", 0, -68, 5, "#FFF")
+    end
+    
+    if menubutton1.active == true then
+      screen.fillRect(menubutton1.x, menubutton1.y, menubutton1.width, menubutton1.height,"rgb(75,75,75)")
+      screen.drawRect(menubutton1.x, menubutton1.y, menubutton1.width, menubutton1.height, "#000")
+      screen.drawText("Data", menubutton1.x, menubutton1.y-2, 10, "#FFF")
+    else
+      screen.fillRect(menubutton1.x, menubutton1.y, menubutton1.width, menubutton1.height,"rgb(30,30,30)")
+      screen.drawRect(menubutton1.x, menubutton1.y, menubutton1.width, menubutton1.height, "#000")
+      screen.drawText("Data", menubutton1.x, menubutton1.y-2, 10,"rgb(180,180,180)")
+    end
+    
+    if menubutton2.active == true then
+      screen.fillRect(menubutton2.x, menubutton2.y, menubutton2.width, menubutton2.height,"rgb(75,75,75)")
+      screen.drawRect(menubutton2.x, menubutton2.y, menubutton2.width, menubutton2.height, "#000")
+      screen.drawText("Settings", menubutton2.x, menubutton2.y-2, 10, "#FFF")
+    else
+      screen.fillRect(menubutton2.x, menubutton2.y, menubutton2.width, menubutton2.height,"rgb(30,30,30)")
+      screen.drawRect(menubutton2.x, menubutton2.y, menubutton2.width, menubutton2.height, "#000")
+      screen.drawText("Settings", menubutton2.x, menubutton2.y-2, 10,"rgb(180,180,180)")
+    end
+    
+    if menubutton3.active == true then
+      screen.fillRect(menubutton3.x, menubutton3.y, menubutton3.width, menubutton3.height,"rgb(75,75,75)")
+      screen.drawRect(menubutton3.x, menubutton3.y, menubutton3.width, menubutton3.height, "#000")
+      screen.drawText("Prestige", menubutton3.x, menubutton3.y-2, 10,"rgb(255,255,28)")
+    else
+      screen.fillRect(menubutton3.x, menubutton3.y, menubutton3.width, menubutton3.height,"rgb(30,30,30)")
+      screen.drawRect(menubutton3.x, menubutton3.y, menubutton3.width, menubutton3.height, "#000")
+      screen.drawText("Prestige", menubutton3.x, menubutton3.y-2, 10,"rgb(142,142,0)")
+    end
+    
+    if menubutton4.active == true then
+      screen.fillRect(menubutton4.x, menubutton4.y, menubutton4.width, menubutton4.height,"rgb(75,75,75)")
+      screen.drawRect(menubutton4.x, menubutton4.y, menubutton4.width, menubutton4.height, "#000")
+      screen.drawText("Info", menubutton4.x, menubutton4.y-2, 10, "#FFF")
+    else
+      screen.fillRect(menubutton4.x, menubutton4.y, menubutton4.width, menubutton4.height,"rgb(30,30,30)")
+      screen.drawRect(menubutton4.x, menubutton4.y, menubutton4.width, menubutton4.height, "#000")
+      screen.drawText("Info", menubutton4.x, menubutton4.y-2, 10,"rgb(180,180,180)")
+    end
+    
+    if menu.hover then
+      screen.setAlpha(1)
+      screen.setFont("Verdana")
+      screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)")
+      screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+      screen.drawText("Click to close menu", mouse.x-55, mouse.y+5, 6,"rgb(255,255,255)")
+    end
+  
+    if info.hover then
+      if menubutton4.active == true then
+        screen.setAlpha(1)
+        screen.setFont("Verdana")
+        screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)")
+        screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+        screen.drawText("Click to close menu", mouse.x-55, mouse.y+5, 6,"rgb(255,255,255)")
+      else
+        screen.setAlpha(1)
+        screen.setFont("Verdana")
+        screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)") 
+        screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+        screen.drawText("Click to open info", mouse.x-55, mouse.y+5, 6,"rgb(255,255,255)")
+      end
+    end
+    
+    if music.active then
+      screen.drawSprite("musicon", musicbutton.x, musicbutton.y, musicbutton.width*musicbutton.scale, musicbutton.height*musicbutton.scale)
+    else
+      screen.drawSprite("musicoff", musicbutton.x, musicbutton.y, musicbutton.width*musicbutton.scale, musicbutton.height*musicbutton.scale)
+    end
+    if musicbutton.hover then
+      screen.setFont("Verdana")
+      screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)")
+      screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+      if music.active then
+        screen.drawText("Click to mute music", mouse.x-55, mouse.y+5, 6,"rgb(255,255,255)")
+      else
+        screen.drawText("Click to unmute music", mouse.x-55, mouse.y+5, 5.5,"rgb(255,255,255)")
+      end
+    end
+    
+    if sounds.active then
+      screen.drawSprite("soundon", soundbutton.x, soundbutton.y, soundbutton.width*soundbutton.scale, soundbutton.height*soundbutton.scale)
+    else
+      screen.drawSprite("soundoff", soundbutton.x, soundbutton.y, soundbutton.width*soundbutton.scale, soundbutton.height*soundbutton.scale)
+    end
+    if soundbutton.hover then
+      screen.setFont("Verdana")
+      screen.fillRect(mouse.x-55, mouse.y+5, 90, 20,"rgb(75,75,75)")
+      screen.drawRect(mouse.x-55, mouse.y+5, 90, 20, "#000")
+      if sounds.active then
+        screen.drawText("Click to mute sound effects", mouse.x-55, mouse.y+5, 4.5,"rgb(255,255,255)")
+      else
+        screen.drawText("Click to unmute sound effects", mouse.x-55, mouse.y+5, 4.2,"rgb(255,255,255)")
+      end
+    end
+  end
+end
+
+
+
+
+
+
+
+
+
+
+initMusic = function()
+  music = object
+    volume = 0
+    active = 1
+  end
+  
+  sounds = object
+    volume = 0
+    active = 1
+  end
+  
+  musicbutton1 = object
+    x = 30
+    y = 20
+    width = 30
+    height = 20
+  end
+  
+  musicbutton2 = object
+    x = 30
+    y = 20
+    width = 30
+    height = 20
+  end
+  
+  my_music = audio.playMusic("background_music",0,1)
+  my_sound = audio.playSound("menuclick",0,1)
+end
+
+updateMusic = function()
+  if help.distance(slider2.x, slider2.y, mouse.x, mouse.y) < 16 then
+    slider2.hover = true
+  else
+    slider2.hover = false
+  end
+  
+  if slider2.hover == true then
+    if menu.active == true then
+      if menubutton2.active == true then
+        if slider2.x > -115 and slider2.x < -45 then
+          if mouse.pressed then
+            slider2.x = mouse.x
+          end
+        end
+      end
+    end
+  end
+  slider2.x = help.clamp(slider2.x,-114.000000001,-45.0000001)
+  
+  if help.distance(slider3.x, slider3.y, mouse.x, mouse.y) < 16 then
+    slider3.hover = true
+  else
+    slider3.hover = false
+  end
+  
+  if slider3.hover == true then
+    if menu.active == true then
+      if menubutton2.active == true then
+        if slider3.x > 34 and slider3.x < 107 then
+          if mouse.pressed then
+            slider3.x = mouse.x
+          end
+        end
+      end
+    end
+  end
+  slider3.x = help.clamp(slider3.x, 34.000000001,106.0000001)
+  
+  if music.active then
+    my_music.play()
+    music.volume = (slider2.x+115)/200-0.0049999999949999814
+    my_music.setVolume(music.volume)
+  else
+    my_music.setVolume(0)
+    my_music.stop()
+  end
+  
+  sounds.volume = (slider3.x-34)/100+0.000001
+  my_sound.setVolume(sound.volume)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script></html>
