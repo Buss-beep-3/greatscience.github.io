@@ -1,0 +1,333 @@
+<!DOCTYPE html><html><head><title>That was close</title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui=1"><meta charset="UTF-8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="description" content=""><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon64.png"><link rel="apple-touch-icon" sizes="180x180" href="icon180.png"><link rel="icon" type="image/png" sizes="32x32" href="icon32.png"><link rel="icon" type="image/png" sizes="16x16" href="icon16.png"><style>html,body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow:hidden;
+  font-family: Verdana;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#canvaswrapper {
+  text-align: center ;
+}
+</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"_raw_player.png","version":3,"size":4929,"properties":{"frames":36,"fps":5}},{"file":"background.png","version":1,"size":1594,"properties":{}},{"file":"birdsflap2.png","version":1,"size":9487,"properties":{}},{"file":"building.png","version":18,"size":1631,"properties":{"frames":1,"fps":5}},{"file":"buildingold.png","version":15,"size":965,"properties":{"frames":1,"fps":5}},{"file":"canabalto_24x24icon.png","version":1,"size":3092,"properties":{}},{"file":"icon.png","version":8,"size":447,"properties":{"frames":1,"fps":5}},{"file":"layer1.png","version":1,"size":1233,"properties":{}},{"file":"layer2.png","version":1,"size":1203,"properties":{}},{"file":"player_fall.png","version":20,"size":1230,"properties":{"frames":7,"fps":12}},{"file":"player_idle.png","version":29,"size":220,"properties":{"frames":1,"fps":5}},{"file":"player_jump.png","version":9,"size":556,"properties":{"frames":3,"fps":12}},{"file":"player_roll.png","version":6,"size":1321,"properties":{"frames":9,"fps":10}},{"file":"player_run.png","version":13,"size":1955,"properties":{"frames":15,"fps":24}},{"file":"player_slide.png","version":58,"size":343,"properties":{"frames":2,"fps":4}},{"file":"player_stop.png","version":12,"size":217,"properties":{"frames":1,"fps":5}},{"file":"poster.png","version":1,"size":17618,"properties":{"frames":1,"fps":5}}],"assets":[],"maps":{},"sounds":[{"file":"slide.wav","version":1,"size":351044,"properties":{}},{"file":"step.wav","version":1,"size":26408,"properties":{}}],"music":[]};
+var graphics = "M1";
+
+</script><script type="text/javascript">var orientation = 'any' ;
+var aspect = '>4x3' ;
+var ms_libs = [] ;
+window.skip_service_worker = true;
+window.exported_project = true;
+window.ms_use_server = false ;
+</script><script src="compiler.js"></script><script src="parser.js"></script><script src="processor.js"></script><script src="program.js"></script><script src="routine.js"></script><script src="runner.js"></script><script src="token.js"></script><script src="tokenizer.js"></script><script src="transpiler.js"></script><script src="microengine.js"></script></body><script type="text/javascript">//
+//
+// The game is started with the code below.
+// Once you have received the "started" signal (see below),
+// you can do the following:
+// 1) Inject functions or objects into the global context of the microStudio engine, example:
+//
+//   window.player.setGlobal("special_callback",function(x) { console.info(x) }) ;
+//   // Your microScript code can now call the "special_callback" function
+//
+// 2) Call microScript global functions from your JavaScript code, example:
+//
+//   window.player.call("call_me_from_javascript",[10,1000]) ;
+//   // arguments to the function call are provided as an array
+//
+// 3) Run a microScript code snippet from your JavaScript code, example:
+//
+//   window.player.exec("player.position_x = 50",function(result) { console.log(result) ; }) ;
+//
+
+window.addEventListener("load",function() {
+  window.player = new Player(function(event) {
+    if (event.name == "started") {
+      // signal that the game is started
+    }
+    else if (event.name == "log") {
+      // console.info(event.data) ;
+    }
+  }) ;
+  document.body.focus() ;
+}) ;
+
+</script><script id="code" type="text/x-microscript">
+
+
+function()
+Build = class 
+  
+  constructor = function(x,y,w)
+    this.x = x
+    this.y = y
+    this.w = w
+  end
+  
+  update = function()
+    
+  end
+  
+  draw = function()
+    screen.setDrawAnchor(-1,1) //anchor left,top
+    
+    local tw = sprites["building"].width
+    //Repeat tiles for the width
+    for xx = 0 to w-tw
+      screen.drawSprite("building",x+xx,y)
+      xx+=tw-1.5
+    end
+    
+    screen.setDrawAnchor(0,0)
+  end
+  
+end
+end()
+
+
+
+function()
+Camera = class
+  
+  constructor = function()
+    x = 0
+    y = 0
+  end
+  
+  update = function(xt,yt)
+    x += (xt-x)/10
+    y += (yt-y)/10
+  end
+  
+end
+end()
+
+
+
+function()
+RED = "rgb(147,16,16)"
+
+init = function()
+  build = new Build(-180,0,72*5)
+  p1 = new Player("player",-80,0,1)
+  best = storage.get("best")
+  if best ==0 then best = 999 end
+  c = new Camera()
+  score = 0
+  timerStop = 0
+end
+
+update = function()
+  p1.update()
+  
+  score = (build.x+build.w-p1.x)
+  score = floor(score * 100)/1000
+  
+  if p1.x > build.x+build.w then
+    if p1.state == "slide" then
+      p1.x+=8
+    end
+    p1.state = "fall"
+    p1.vy-=0.1 //gravity
+    score = 0
+  end
+  
+  if p1.y<-200 then
+    p1.state = "stop"
+  end
+  
+  if p1.state == "stop" then
+    if score>0 and score < best then
+      storage.set("best",score)
+      best = score
+    end
+  end
+
+  c.update(p1.x+40, 40+max(p1.y,-50))
+  
+  //if keyboard.press.P then system.pause() end
+end
+
+draw = function()
+  screen.clear()
+  
+  screen.fillRect(0,60,800,200,"rgb(159,160,178)")
+  screen.fillRect(0,-140,800,200,"rgb(113,114,132)")
+  
+  //background
+  local dx = build.x/20 
+  local dy =-20
+  screen.drawSprite("layer1",-220+dx+1,dy)
+  screen.drawSprite("layer1",dx,dy)
+  screen.drawSprite("layer1",220+dx-1,dy)
+  
+  local dx = build.x/10 
+  local dy =-25
+  screen.drawSprite("layer2",-220+dx+1,dy)
+  screen.drawSprite("layer2",dx,dy)
+  screen.drawSprite("layer2",220+dx-1,dy)
+  
+  screen.setTranslation(-c.x,-c.y)
+  build.draw()
+  
+  if(p1.state == "slide" or p1.state == "stop") then
+    if score>0 and timerStop<1 then
+      local x1 = p1.x
+      local y = p1.y
+      local x2 = build.x+build.w-1
+      
+      screen.drawLine(x1,y,x2,y,RED)
+      screen.drawLine(x1,y+30,x1,y+40,RED)
+      screen.drawLine(x2,y+30,x2,y+40,RED)
+      screen.drawLine(x1,y+35,x2,y+35,RED)
+      
+      screen.drawText(score+ " mt",(x1+x2)/2,y+55,12)
+    end
+  end
+  
+  p1.draw()
+  
+  screen.setTranslation(0,0)
+  
+  if(p1.state == "idle") then
+    screen.drawText("Touch screen or",0,60,16)
+    screen.drawText("press SPACE to run",0,45,16)
+  end
+  
+  if(p1.state == "stop") then
+    timerStop += 1/60
+    if(timerStop>0.5) then
+      screen.setColor("#FFF")
+      if(best==score)then
+        screen.setColor(RED)
+      end
+      screen.drawText("Your BEST is "+ best + " mt",0,80,16)
+      if score>0 then
+        screen.drawText("This one was " + score + " mt close",0,50,16)
+      end
+    end
+    //Falling out of screen
+    local h2 = screen.height/2
+    if(p1.y<-h2) then
+      local yy = -h2 + -p1.y/10
+      yy = min(yy,h2-30)
+      screen.drawText("It will hurt..",0,yy,16,RED)
+    end
+    
+  end
+end
+end()
+
+
+
+function()
+Player = class
+  
+  constructor = function(sprite,x,y,side)
+    this.sprite = sprite
+    this.startX = x
+    this.startY = y
+    this.x = x
+    this.y = y
+    this.vx = 0
+    this.vy = 0
+    this.w = 0
+    this.h = 0
+    this.side = side
+    this.state ="idle"
+    this.speed = 0
+    this.stepSound = false
+    this.slideSound = 0
+  end
+  
+  update = function()
+
+    //Air friction
+    speed *= 0.99
+    
+    
+    input = object
+      start = keyboard.press.SPACE or touch.press
+      run = keyboard.SPACE or touch.touching
+    end
+    
+    if state=="idle" then
+      if input.start then
+        state = "run"
+      end
+    end
+    
+    if state=="run" then
+      speed += 0.0333
+      
+      //set run fps
+      if (vx>0) then
+        sprites[sprite+"_run"].setFPS(24*speed*0.75)
+      end
+      
+      //Play sound on specific frame
+      local frame = sprites[sprite+"_run"].getFrame()
+      if frame == 3 or frame == 11 then
+        if not stepSound then
+          audio.playSound("step",1,1,0,0)
+          stepSound = true
+        end
+      else
+        stepSound = false
+      end
+      
+      if vx>1 and not input.run then
+         state = "slide"
+         slideSound = audio.playSound("slide",1,1,0,0)
+      end
+    end
+    
+    if state=="slide" then
+      if speed < 0.2 then
+        speed = 0
+        state = "stop"
+      end
+    end
+    
+    if state == "slide" then
+      speed * 0.98 //slide coeficent
+    end
+    
+    if state =="stop" or state=="fall" then
+      if slideSound then slideSound.stop() end
+    end
+    
+    if state=="stop" then
+      if input.start then
+        init()
+      end
+    end
+    
+    vx = speed //apply speed
+    x += vx
+    y += vy
+    
+    //update sprites size
+    w = sprites[sprite+"_"+state].width
+    h = sprites[sprite+"_"+state].height
+    
+  end
+  
+  draw = function()
+    screen.setDrawAnchor(0,-1) //anchor bottom
+    screen.drawSprite(sprite+"_"+state,x,y)
+    screen.setDrawAnchor(0,0) 
+    
+    //screen.drawText(floor(speed*100)/100,x,y+40,8)
+    //screen.drawText(state,x,y+50,8)
+  end
+end
+end()
+
+
+</script></html>
