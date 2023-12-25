@@ -1,0 +1,747 @@
+<!DOCTYPE html><html><head><title>TheK3ys</title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui=1"><meta charset="UTF-8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="description" content=""><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon64.png"><link rel="apple-touch-icon" sizes="180x180" href="icon180.png"><link rel="icon" type="image/png" sizes="32x32" href="icon32.png"><link rel="icon" type="image/png" sizes="16x16" href="icon16.png"><style>html,body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow:hidden;
+  font-family: Verdana;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#canvaswrapper {
+  text-align: center ;
+}
+</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"custom_cursor.png","version":7,"size":129,"properties":{"frames":2,"fps":1}},{"file":"icon.png","version":46,"size":534,"properties":{"frames":1,"fps":5}},{"file":"objects-key.png","version":15,"size":194,"properties":{"frames":1,"fps":5}},{"file":"player_sprites-player_idle.png","version":103,"size":980,"properties":{"frames":9,"fps":1}},{"file":"player_sprites-player_walk.png","version":82,"size":1362,"properties":{"frames":8,"fps":7}},{"file":"poster.png","version":1,"size":28477,"properties":{}},{"file":"rooms-room_01.png","version":188,"size":1730,"properties":{"frames":1,"fps":5}},{"file":"rooms-room_01_light_off.png","version":4,"size":395,"properties":{"frames":1,"fps":5}},{"file":"rooms-room_01_light_on.png","version":46,"size":9717,"properties":{"frames":16,"fps":11}},{"file":"rooms-start_room.png","version":327,"size":2182,"properties":{"frames":1,"fps":5}},{"file":"rooms-start_room_lights.png","version":6,"size":789,"properties":{"frames":1,"fps":5}}],"assets":[],"maps":{},"sounds":[],"music":[]};
+var graphics = "M1";
+
+</script><script type="text/javascript">var orientation = 'any' ;
+var aspect = 'free' ;
+var ms_libs = [] ;
+window.skip_service_worker = true;
+window.exported_project = true;
+window.ms_use_server = false ;
+</script><script src="compiler.js"></script><script src="parser.js"></script><script src="processor.js"></script><script src="program.js"></script><script src="routine.js"></script><script src="runner.js"></script><script src="token.js"></script><script src="tokenizer.js"></script><script src="transpiler.js"></script><script src="microengine.js"></script></body><script type="text/javascript">//
+//
+// The game is started with the code below.
+// Once you have received the "started" signal (see below),
+// you can do the following:
+// 1) Inject functions or objects into the global context of the microStudio engine, example:
+//
+//   window.player.setGlobal("special_callback",function(x) { console.info(x) }) ;
+//   // Your microScript code can now call the "special_callback" function
+//
+// 2) Call microScript global functions from your JavaScript code, example:
+//
+//   window.player.call("call_me_from_javascript",[10,1000]) ;
+//   // arguments to the function call are provided as an array
+//
+// 3) Run a microScript code snippet from your JavaScript code, example:
+//
+//   window.player.exec("player.position_x = 50",function(result) { console.log(result) ; }) ;
+//
+
+window.addEventListener("load",function() {
+  window.player = new Player(function(event) {
+    if (event.name == "started") {
+      // signal that the game is started
+    }
+    else if (event.name == "log") {
+      // console.info(event.data) ;
+    }
+  }) ;
+  document.body.focus() ;
+}) ;
+
+</script><script id="code" type="text/x-microscript">
+
+
+function()
+keys = 0
+totalKeys = 3
+addKey = function()
+  keys += 1
+end
+
+gameStartTime = system.time()
+TIMEOUT = floor(random.next() * 120)
+timeToPanic = TIMEOUT
+
+gameStart = false
+gameEnd = false
+setGameStart = function(b_val)
+  gameStartTime = system.time()
+  gameStart = b_val
+end
+// TODO: make it better, not work properly 
+gameRestart = function()
+  gameEnd = false
+  if mscene then mscene.setCurrent(0) end
+  setGameStart()
+end
+
+setGameEnd = function()
+  gameStart = false
+  gameEnd = true
+end
+
+init = function()
+  
+  initConfig()
+  
+  local sceneList = [
+    new SceneMenu(),
+    new SceneStart(),
+    new Scene01()
+  ]
+  
+  mscene = new SceneManager(sceneList)
+  mscene.init()
+  audio.beep("sine duration 1200 tempo 60 span 100 volume 20 loop " + TIMEOUT + " C1 C#2 end")
+end
+
+update = function()
+  mscene.update()
+  udpateCustomCursorPosition()
+  if gameStart then 
+    timeToPanic = TIMEOUT - floor((system.time() - gameStartTime) / 1000)
+    if timeToPanic <= 0 then
+      timeToPanic = 0
+      setGameEnd()
+    end
+  end
+
+  if gameEnd and touch.press then
+   // gameRestart()
+  end
+  
+  if configs.debug then
+    if touch.press then
+      
+      lastTouch = object
+        x = floor(touch.x / configs.render.scale)
+        y = floor(touch.y / configs.render.scale)
+      end
+    end
+  end
+end
+
+draw = function()
+  screen.clear(configs.render.background)
+  if gameEnd then
+    if timeToPanic == 0 and keys < 3 then
+      screen.drawText("GAMEOVER", 0,10,25, "white")
+      screen.drawText("PANIC PANIC PANIC", 0,-10,15, "white")
+    end
+    if keys == 3 then
+      screen.drawText("YEAH!", 0,10,25, "white")
+      screen.drawText("You escaped!! fresh air...", 0,-10,15, "white")
+    end
+    
+    audio.cancelBeeps()
+  else
+    mscene.draw()
+    
+    local alphaProgress = (((TIMEOUT - timeToPanic) % TIMEOUT) / TIMEOUT) / 2
+    screen.fillRect(0,0,screen.width, screen.height, "rgba(255,0,0," + (alphaProgress) + ")")
+    
+    if gameStart then screen.drawText("Seconds to panic: " + timeToPanic, 40,30,5, "white") end
+    
+    if keys > 0 then
+      for i=1 to keys
+        screen.drawSprite("objects/key", -70 + (i * 10), -40,9)
+      end
+    end
+    
+    if lastTouch then
+      screen.drawText(lastTouch.x + ":" + lastTouch.y, 50, -30, 5, "white")
+      screen.drawText((lastTouch.x * configs.render.scale) + ":" + (lastTouch.y * configs.render.scale), 50, -40, 5, "white")
+    end
+  end
+  
+  drawCustomCursor()
+  
+end
+end()
+
+
+
+function()
+configs = object
+  info = object
+    name = "three cards"
+    
+  end
+  
+  debug = false
+  
+  render = object
+    scale = 2
+    background = "#000000"
+  end
+  
+  showCursor = false
+end
+
+
+initConfig = function()
+  screen.setCursorVisible(config.showCursor)
+  screen.setScale(configs.render.scale, configs.render.scale)
+end
+
+
+customCursorPosition = object
+  x = 0
+  y = 0
+end
+
+udpateCustomCursorPosition = function()
+  customCursorPosition.x = mouse.x / configs.render.scale
+  customCursorPosition.y = mouse.y / configs.render.scale
+end
+
+drawCustomCursor = function()
+  if not system.inputs.touch then screen.drawSprite("custom_cursor", customCursorPosition.x, customCursorPosition.y, sprites["custom_cursor"].width, sprites["custom_cursor"].height) end
+  if configs.debug then
+    local mx = mouse.x / configs.render.scale
+    local my = mouse.y / configs.render.scale
+    local ox = 5
+    local oy = 5
+    screen.drawText(floor(mx) + ":" + floor(my), mx  + ox, my + oy,4, "white")
+  end
+end
+end()
+
+
+
+function()
+DialogSystem = class
+  
+  dialogs = object end
+  text = ""
+  color = "white"
+  size = 5
+  
+  interval = 100 //interval each char
+  textTime = 0
+  
+  startTime = 0
+  currTime = 0
+  
+  position = object
+    x = 0
+    y = 0
+  end
+  
+  constructor = function(data)
+    if data.dialogs then this.dialogs = data.dialogs end
+    if data.color then this.color = data.color end
+    if data.size then this.size = data.size end
+    if data.interval then this.interval = data.interval end
+  end
+  
+  setCurrentDialog = function(name, index)
+    if name and index >= 0 then
+      if this.dialogs[name] then
+        this.text = this.dialogs[name][index]
+        this.startTime = system.time()
+        this.textTime = this.text.length * this.interval
+      end
+    end
+  end
+  
+  update = function(pos)
+    if pos then
+      this.position = pos
+    end
+    
+    local diffTime = system.time() - this.startTime()
+    if diffTime >= this.textTime then
+      this.text = ""
+    end
+  end
+  
+  // TODO: da completare
+  draw = function()
+    if this.text then
+      screen.drawText(this.text, this.position.x, this.position.y, this.size, this.color)
+    end
+  end
+end
+end()
+
+
+
+function()
+BaseScene = class
+  actions = object end
+
+  constructor = function() end
+  
+  init = function() end
+  update = function() end
+  draw = function() end
+  
+  exAction = function(action_name)
+    if actions[action_name] then
+      actions[action_name].callback()
+    end
+  end
+  
+end
+end()
+
+
+
+function()
+Entity = class
+  
+  local_sprite = ""
+  
+  vflip = 1
+  hflip = 1
+  
+  position = object
+    x = 0
+    y = 0
+  end
+  
+  size = object
+    w = 32
+    h = 32
+  end
+  
+  sceneBounds = object
+    left = -10000
+    right = 10000
+  end
+  
+  constructor = function(data)
+    if data.sprite_name then this.local_sprite = sprites[data.sprite_name] end
+    if data.position then this.position = data.position end
+    if data.size then this.size = data.size end
+    if data.sceneBounds then this.sceneBounds = data.sceneBounds end
+  end
+  
+  setAnimation = function(anim)
+    local_sprite = anim
+  end
+  
+  update = function()
+  end
+  
+  draw = function()
+    screen.setDrawScale(hflip,vflip)
+    screen.drawSprite( local_sprite, position.x,position.y, size.w, size.h )
+    screen.setDrawScale(1,1)
+  end
+end
+end()
+
+
+
+function()
+Player = class extends Entity
+  
+  speed = 0.75
+  
+  target = object
+    x = 0
+    y = 0
+  end
+  
+  status = "idle" // idle, walk, action
+  // st = 0
+  
+  constructor = function(data)
+    super(data)
+    if data.target then
+      this.target = data.target
+    else
+      this.target = this.position
+    end
+    
+    // this.st = system.time()
+  end
+  
+  movementSystem = function()
+    if touch.press and not touch.released then
+      this.target = object
+        x = touch.x / configs.render.scale
+        y = touch.y / configs.render.scale
+      end
+    end
+    
+    local diff_x = abs(this.position.x - this.target.x)
+    local diff_y = abs(this.position.y - this.target.y)
+    
+    if 0 < diff_x and diff_x < 1 then
+      this.position.x = this.target.x
+      this.local_sprite = sprites["player_sprites/player_idle"]
+      this.status = "idle"
+    elsif this.position.x > this.target.x then
+      this.position.x = this.position.x - 1 * this.speed
+      this.hflip = -1
+      this.local_sprite = sprites["player_sprites/player_walk"]
+      this.status = "walk"
+    elsif this.position.x < this.target.x then
+      this.position.x = this.position.x + 1 * this.speed
+      this.hflip = 1
+      this.local_sprite = sprites["player_sprites/player_walk"]
+      this.status = "walk"
+    end
+  end
+  
+  checkBounds = function()
+    if this.target.x <= this.sceneBounds.left then
+      this.target.x = this.sceneBounds.left
+    elsif this.target.x >= this.sceneBounds.right then
+      this.target.x = this.sceneBounds.right
+    end
+  end
+  
+  debugging = function()
+    if configs.debug then
+      screen.drawText(floor(this.position.x) + ":" + floor(this.position.y), this.position.x, this.position.y - 20, 4, "white")
+    end
+  end
+  
+  update = function()
+    super()
+    this.movementSystem()
+    this.checkBounds()
+    
+    
+    // local freq = floor((system.time() - this.st) / 1000)
+    // if this.status == "idle" and this.local_sprite.fps < 15 then this.local_sprite.fps = freq end
+    
+  end
+  
+  draw = function()
+    super()
+    this.debugging()
+  end
+end
+end()
+
+
+
+function()
+LoadFader = class
+  loaded = false
+    
+  alphaLoader = 1.0
+  
+  startTime = system.time()
+  
+  update = function()
+    if alphaLoader >= 0 and not loaded then
+      local diffTime = system.time() - startTime
+      alphaLoader = (1000 - diffTime) / 1000
+      if alphaLoader <= 0 then
+        loaded = true
+        alphaLoader = 0
+      end 
+    end
+  end
+  
+  draw = function()
+    if not loaded then 
+      screen.fillRect(0,0,320,200,"rgba(0,0,0," + alphaLoader + ")")
+    end
+  end
+end
+end()
+
+
+
+function()
+SceneManager = class
+  current = 0
+  scenes = []
+  loadFader = object end
+  
+  constructor = function(listScenes, current = 0)
+    scenes = listScenes
+    setCurrent(current)
+    
+    loadFader = new LoadFader()
+  end
+  
+  init = function()
+    if scenes[current] then scenes[current].init() end
+  end
+  update = function()
+    if scenes[current] then scenes[current].update() end
+    loadFader.update()
+  end
+  draw = function()
+    if scenes[current] then scenes[current].draw() end
+    
+    loadFader.draw()
+  end
+  
+  setCurrent = function(currentValue)
+    loadFader.loaded = false
+    loadFader.startTime = system.time()
+    if currentValue >= 0 and currentValue < scenes.length then
+      current = currentValue
+    end
+  end
+  
+  nextScene = function()
+    local next = current + 1
+    if next <= this.scenes.length - 1 then setCurrent(next) end
+  end
+  
+  prevScene = function()
+    local prev = current - 1
+    if prev >= 0 then setCurrent(prev) end
+  end
+end
+end()
+
+
+
+function()
+Scene01 = class extends BaseScene
+  
+  currentPlayer = object end
+  bounds = object
+    left = -55
+    right = 55
+  end
+  
+  lightsOn = false
+  
+  constructor = function()
+    super()
+    
+    currentPlayer = new Player(object
+      sprite_name = "player_sprites/player_idle"
+      position = object
+        x =-50
+        y = -6
+      end
+      
+      size = object
+        w = 32
+        h = 32
+      end
+      
+      target = object
+        x = -20
+        y = -6
+      end
+      
+      sceneBounds = bounds
+    end)
+  end
+  
+  init = function()
+    super()
+  end
+  
+  update = function()
+    super()
+    currentPlayer.update()
+    if 
+      touch.press
+      and touch.x > -120
+      and touch.x < -100
+      and touch.y > -12
+      and touch.y < -3
+      and currentPlayer.position.x > -60
+      and currentPlayer.position.x < -50
+    then
+      this.lightsOn = not this.lightsOn
+    end
+    
+    if 
+      touch.press
+      and touch.x > -75
+      and touch.x < -65
+      and touch.y > -8
+      and touch.y < 0
+      and currentPlayer.position.x > -75 / configs.render.scale
+      and currentPlayer.position.x < -65 / configs.render.scale
+    then
+      if not firstKey then addKey() end
+      firstKey = true
+    end
+    
+    if 
+      touch.press
+      and touch.x > 30
+      and touch.x < 50
+      and touch.y > -20
+      and touch.y < 6
+      and currentPlayer.position.x > 30 / configs.render.scale
+      and currentPlayer.position.x < 50 / configs.render.scale
+    then
+      if not secondKey then addKey() end
+      secondKey = true
+    end
+    
+    if 
+      touch.press
+      and touch.x > -25
+      and touch.x < -5
+      and touch.y > 20
+      and touch.y < 23
+      and currentPlayer.position.x > -25 / configs.render.scale
+      and currentPlayer.position.x < -5 / configs.render.scale
+    then
+      if not thirdKey then addKey() end
+      thirdKey = true
+    end
+    
+    if 
+      touch.press
+      and touch.x > 100
+      and touch.y > -30
+      and touch.y < 30
+      and currentPlayer.position.x > 100 / configs.render.scale
+    then
+      if keys == 3 and gameEnd == false then setGameEnd() end
+    end
+    
+  end
+  
+  draw = function()
+    screen.drawSprite( "rooms/room_01", x, y, 128, 48 )
+    currentPlayer.draw()
+    if this.lightsOn then
+      screen.drawSprite( "rooms/room_01_light_on", x, y, 128, 48 )
+    else
+      screen.drawSprite( "rooms/room_01_light_off", x, y, 128, 48 )
+    end
+    // screen.drawText("This is  something for the 3-gamejam", 10,15,5,"white")
+    
+    
+  end
+end
+
+end()
+
+
+
+function()
+SceneMenu = class extends BaseScene
+  
+  constructor = function()
+    super()
+    
+  end
+  
+  init = function()
+    super()
+  end
+  
+  update = function()
+    super()
+    if touch.press then
+      mscene.nextScene()
+      setGameStart(true)
+    end
+  end
+  
+  draw = function()
+    screen.drawText("ThE K3Ys", 0, 20,25,"white")
+    screen.drawText("Find three keys to get out!", 0, 0,8,"white")
+    screen.drawText("TIPS", 0, -8,6,"white")
+    screen.drawText("You have random time from 1 to 120 to escape before you panic!", 0, -12,6,"white")
+    screen.drawText("Actions has no feedback!", 0, -20,6,"white")
+    screen.drawText("You have to reach the point with the player and than touch again", 0, -25,6,"white")
+    screen.drawText("Tap or click anywhere to start...", 0, -40,5,"white")
+  end
+end
+
+end()
+
+
+
+function()
+SceneStart = class extends BaseScene
+  
+  currentPlayer = object end
+  bounds = object
+    left = -55
+    right = 55
+  end
+  
+  constructor = function()
+    super()
+    
+    currentPlayer = new Player(object
+      sprite_name = "player_sprites/player_idle"
+      position = object
+        x = 1
+        y = -6
+      end
+      
+      size = object
+        w = 32
+        h = 32
+      end
+      
+      // target = object
+      //   x = -20
+      //   y = -6
+      // end
+      
+      sceneBounds = bounds
+    end)
+  end
+  
+  init = function()
+    super()
+  end
+  
+  update = function()
+    super()
+    currentPlayer.update()
+    
+    if currentPlayer.position.x >= 55 then mscene.nextScene() end
+  end
+  
+  draw = function()
+    super()
+      screen.drawSprite( "rooms/start_room.0", x, y, 128, 48 )
+      currentPlayer.draw()
+      screen.drawSprite( "rooms/start_room_lights", x, y, 128, 48 )
+  end
+end
+end()
+
+
+
+function()
+Timer = class
+  
+  timout = 0
+  start_time = 0
+  current_time = 0
+  
+  constructor = function(timeout)
+    if timeout then this.timeout = timeout end
+    this.start_time = system.time()
+  end
+  
+  getCurrentTime = function()
+    return system.time() - this.start_time
+  end
+  
+  timePassed = function()
+    if not timeout then return 0 end
+    return this.getCurrentTime() > this.timeout
+  end
+end
+end()
+
+
+</script></html>
