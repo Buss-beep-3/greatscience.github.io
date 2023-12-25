@@ -1,0 +1,660 @@
+<!DOCTYPE html><html><head><title>Kiwi Lime</title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui=1"><meta charset="UTF-8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="description" content=""><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon64.png"><link rel="apple-touch-icon" sizes="180x180" href="icon180.png"><link rel="icon" type="image/png" sizes="32x32" href="icon32.png"><link rel="icon" type="image/png" sizes="16x16" href="icon16.png"><style>html,body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow:hidden;
+  font-family: Verdana;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#canvaswrapper {
+  text-align: center ;
+}
+</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"chain.png","version":6,"size":95,"properties":{"frames":1,"fps":5}},{"file":"egg.png","version":18,"size":177,"properties":{"frames":1,"fps":5}},{"file":"icon.png","version":7,"size":198,"properties":{"frames":1,"fps":5}},{"file":"kiwi.png","version":33,"size":232,"properties":{"frames":2,"fps":5}},{"file":"kiwi_chunk.png","version":18,"size":338,"properties":{"frames":4,"fps":5}},{"file":"kiwi_food.png","version":9,"size":200,"properties":{"frames":1,"fps":5}},{"file":"leg.png","version":5,"size":78,"properties":{"frames":1,"fps":5}},{"file":"lemon.png","version":24,"size":242,"properties":{"frames":2,"fps":5}},{"file":"lemon_splat.png","version":32,"size":182,"properties":{"frames":1,"fps":5}},{"file":"lime.png","version":22,"size":221,"properties":{"frames":2,"fps":1}},{"file":"lime_splat.png","version":5,"size":185,"properties":{"frames":1,"fps":5}},{"file":"orgin.png","version":41,"size":339,"properties":{"frames":3,"fps":5}},{"file":"poster.png","version":1,"size":8786,"properties":{"frames":1,"fps":5}},{"file":"shadow.png","version":3,"size":111,"properties":{"frames":1,"fps":5}},{"file":"swoosh.png","version":21,"size":104,"properties":{"frames":1,"fps":5}}],"assets":[],"maps":{},"sounds":[],"music":[]};
+var graphics = "M1";
+
+</script><script type="text/javascript">var orientation = 'any' ;
+var aspect = 'free' ;
+var ms_libs = [] ;
+window.skip_service_worker = true;
+window.exported_project = true;
+window.ms_use_server = false ;
+</script><script src="compiler.js"></script><script src="parser.js"></script><script src="processor.js"></script><script src="program.js"></script><script src="routine.js"></script><script src="runner.js"></script><script src="token.js"></script><script src="tokenizer.js"></script><script src="transpiler.js"></script><script src="microengine.js"></script></body><script type="text/javascript">//
+//
+// The game is started with the code below.
+// Once you have received the "started" signal (see below),
+// you can do the following:
+// 1) Inject functions or objects into the global context of the microStudio engine, example:
+//
+//   window.player.setGlobal("special_callback",function(x) { console.info(x) }) ;
+//   // Your microScript code can now call the "special_callback" function
+//
+// 2) Call microScript global functions from your JavaScript code, example:
+//
+//   window.player.call("call_me_from_javascript",[10,1000]) ;
+//   // arguments to the function call are provided as an array
+//
+// 3) Run a microScript code snippet from your JavaScript code, example:
+//
+//   window.player.exec("player.position_x = 50",function(result) { console.log(result) ; }) ;
+//
+
+window.addEventListener("load",function() {
+  window.player = new Player(function(event) {
+    if (event.name == "started") {
+      // signal that the game is started
+    }
+    else if (event.name == "log") {
+      // console.info(event.data) ;
+    }
+  }) ;
+  document.body.focus() ;
+}) ;
+
+</script><script id="code" type="text/x-microscript">
+
+
+function()
+
+//
+// This file contains functions that are useful
+// for a wide range of tasks. These are called
+// "helper functions" or "utility functions"
+//
+
+help = object end
+
+ 
+// takes an angle in degrees and returns a vector in the form of a list [x, y]
+// the elements [x, y] of this direction vector can then be multiplied by a
+// certain speed (in pixels per frame) to move an entity on the screen
+help.angleToVector = function(angle)
+  return [cosd(angle), sind(angle)]
+end
+
+// discover the name of the sprite portion at an (x, y) position in the world
+// NOTE: the draw width/height is not the width of the map, but how width/high
+// you draw it in the game
+help.checkCollision = function(x, y, map_name, map_draw_width, map_draw_height)
+  local grid_x = floor((x + map_draw_width / 2) / (map_draw_width / maps[map_name].width))
+  local grid_y = floor((y + map_draw_height / 2) / (map_draw_height / maps[map_name].height))
+  return maps[map_name].get(grid_x, grid_y)
+end
+
+// checks to see if the mouse is touching/hovering over a rectangle
+// useful for detecting hover/click on buttons
+help.checkRectMouseHover = function(x, y, width, height)
+  local hover = true
+  if mouse.x < (x - width/2) then hover = false end
+  if mouse.x > (x + width/2) then hover = false end
+  if mouse.y < (y - height/2) then hover = false end
+  if mouse.y > (y + height/2) then hover = false end
+  return hover
+end
+
+// returns a random item from a list
+help.choose = function(lst)
+  local index = random.nextInt(lst.length)
+  return lst[index]
+end
+
+// keep a value within a set range
+// useful for keeping a player on the screen etc.
+// NOTE: returns the new value, does not automatically change it
+help.clamp = function(value, lower_limit, upper_limit)
+  if lower_limit > upper_limit then
+    local old_lower_limit = lower_limit
+    lower_limit = upper_limit
+    upper_limit = old_lower_limit
+  end
+  local val = max(value, lower_limit)
+  val = min(val, upper_limit)
+  return val
+end
+
+// takes screen co-ordinates (not map coord) and replaces the map square with a blank
+// useful for removing items from the map when collecting gems etc.
+help.deleteMapItem = function(x, y, map_name, map_draw_width, map_draw_height)
+  local grid_x = floor((x + map_draw_width / 2) / (map_draw_width / maps[map_name].width))
+  local grid_y = floor((y + map_draw_height / 2) / (map_draw_height / maps[map_name].height))
+  maps[map_name].set(grid_x, grid_y, " ")
+end
+
+// takes screen co-ordinates (not map coord) and replaces the map square with a blank
+// useful for removing items from the map when collecting gems etc.
+help.deleteMapItem = function(x, y, map, map_draw_width, map_draw_height)
+  local grid_x = floor((x + map_draw_width / 2) / (map_draw_width / maps[map].width))
+  local grid_y = floor((y + map_draw_height / 2) / (map_draw_height / maps[map].height))
+  maps[map].set(grid_x, grid_y, " ")
+end
+
+// find the distance between object 1 and object 2
+// useful for a simple circular collision detection
+help.distance = function(x1, y1, x2, y2)
+  local a = x2 - x1
+  local b = y2 - y1
+  local c = sqrt(pow(a, 2) + pow(b, 2))
+  return c
+end
+
+// returns a number that moves smoothly between .4 and 1
+// useful for flashing text if used to set the alpha each frame
+help.getFlashValue = function(seconds_per_flash = 1.5)
+  return pow(cos(system.time()/1000*PI/seconds_per_flash), 2) * 0.6 + .4
+end
+
+// finds the angle in degrees from point 1 to point 2
+help.getAngle = function(x1, y1, x2, y2)
+  return atan2d(y2 - y1, x2 - x1)
+end
+
+// returns a number that moves smoothly between .4 and 1
+// very useful for flashing text if used to set the alpha each frame
+help.getFlashValue = function(seconds_per_flash = 1.5)
+  return pow(cos(system.time()/1000*PI/seconds_per_flash), 2) * 0.6 + .4
+end
+
+// slowly transition a variable to value for smooth tween effects
+help.moveToward = function(current_value, target, amount)
+  local new_value = 0
+  if current_value == target then
+    new_value = current_value
+  elsif current_value < target then
+    new_value = current_value + amount
+    if new_value > target then new_value = target end
+  elsif current_value > target then
+    new_value = current_value - amount
+    if new_value < target then new_value = target end  
+  end
+  return new_value
+end
+
+// sets the length of a movement vector to 1, making it a direction vector
+// useful for directions as it can then be multiplied by an object's speed
+help.normalize = function(vector)
+  local x = vector[0]
+  local y = vector[1]
+  local v = sqrt(pow(x, 2) + pow(y, 2))
+  local new_x = x / v
+  local new_y = y / v
+  return [new_x, new_y]
+end
+
+// print co-ordinates on left click (presumes camera system in place)
+help.printMouseClicks = function()
+  if mouse.press and mouse.left then
+    print("----------------------------------")
+    print("Mouse click:")
+    print("x: " + round(mouse.x + camera.x))
+    print("y: " + round(mouse.y + camera.y))
+    print("----------------------------------")
+  end
+end
+
+// returns a random number (float/with decimals) within the range [low, high)
+help.randRange = function(low, high)
+  return (high - low) * random.next() + low
+end
+
+// removes objects from a given list that have a property "delete = true"
+// useful for deleting enemies, bullets etc. run at the end of each frame
+// then simply set object.delete = true to ensure it's deletion
+help.removeDeleted = function(object_list)
+  for i = object_list.length - 1 to 0 by -1
+    if object_list[i].delete then 
+      object_list.removeAt(i) 
+    end
+  end
+end
+
+// returns the sign of a number: -1 for negative numbers, 0 for 0
+// and 1 for positive
+help.sign = function(num)
+  if num < 0 then return -1 end
+  if num > 0 then return 1 end
+  return 0
+end
+
+// find the diagonal length of a vector
+help.vectorLength = function(x, y)
+  return sqrt(pow(x, 2) + pow(y, 2))
+end
+
+// takes a (direction or movement) vector in the form of a list [x, y]
+// returns an angle in degrees
+help.vectorToAngle = function(vec)
+  return atan2d(vec[1], vec[0])
+end
+
+// makes the object wrap around the screen when moving off the edge
+// note: object must have x and y fields (variables)
+help.wrap = function(obj, leeway = 0)
+  if obj.x + leeway < -screen.width/2 then
+    obj.x = screen.width/2 + leeway
+  elsif obj.x - leeway > screen.width/2 then
+    obj.x = -screen.width/2 - leeway
+  end 
+  if obj.y + leeway < -screen.height/2 then
+    obj.y = screen.height/2 + leeway
+  elsif obj.y - leeway > screen.height/2 then
+    obj.y = -screen.height/2 - leeway
+  end 
+end
+
+// calculate the map grid position of a specific x value in the world
+help.xpos_to_grid = function(x, map_columns, map_draw_width)
+  local column_draw_width = map_draw_width / map_columns
+  return floor((x + map_draw_width / 2) / column_draw_width)
+end
+
+// calculate the map grid position of a specific y value in the world
+help.ypos_to_grid = function(y, map_rows, map_draw_height)
+  local row_draw_height = map_draw_height / map_rows
+  return floor((y + map_draw_height / 2) / row_draw_height)
+end
+
+
+end()
+
+
+
+function()
+boss = class
+  constructor = function(hp,size,speed,x,y)
+    this.hp = hp
+    this.size = size
+    this.speed = speed
+    this.x = x
+    this.y = y
+  end
+  
+  update = function()
+    offset = 0
+    for b in bosses
+      b.x -= cosd(help.getAngle(0,0,b.x,b.y))*b.speed
+      b.y -= sind(help.getAngle(0,0,b.x,b.y))*b.speed
+      if help.distance(kiwi.x,kiwi.y,b.x,b.y) < 32 == 1 and kiwi.hits > 0 == 1 and kiwi.out == 1 then
+        b.hp -= 1
+        kiwi.hits -= 1
+        particles.push(new particle(kiwi.x,kiwi.y,help.getAngle(kiwi.x,kiwi.y,b.x,b.y),0,"lemon_splat",32,30,1))
+      end
+      if b.hp < 1 == 1 then
+        bosses.removeAt(offset)
+        cam.shake += 0.1
+        player.score += 10
+        player.comboTimer = 30
+        player.combo += 1
+        sound.hit()
+      end
+      
+      if help.distance(0,0,b.x,b.y) < 16 == 1 then
+        bosses.removeAt(offset)
+        player.lives -= 1
+      else
+        offset += 1
+      end
+    end
+  end
+  
+  draw = function()
+    for b in bosses
+      screen.drawSprite("shadow",b.x,b.y,32)
+      if player.x-b.x < 0 == 1 then 
+        screen.setDrawRotation(sind(system.time()/1.5)*15)
+      else
+        screen.setDrawRotation(-sind(system.time()/1.5)*15)
+      end
+      if  help.distance(kiwi.x,kiwi.y,b.x,b.y) < 32 and kiwi.hits > 0 == 1 then
+        screen.drawSprite("lemon.1",b.x,b.y+abs(sind(system.time()/3)*15),32,32+abs(cosd(system.time()/3)*10),32)
+      else
+        screen.drawSprite("lemon.0",b.x,b.y+abs(sind(system.time()/3)*15),32,32+abs(cosd(system.time()/3)*10),32)
+      end
+      screen.setDrawRotation(0)
+    end
+  end
+end
+end()
+
+
+
+function()
+kiwi = object end
+  kiwi.init = function()
+    kiwi.x = 0
+    kiwi.y = 0
+    kiwi.angle = 0
+    kiwi.hits = 50
+    kiwi.length = 0
+    kiwi.maxLength = 50
+    kiwi.out = 1
+  end
+  
+  kiwi.update = function()
+    kiwi.x = cosd(system.time()/2)*kiwi.length+player.x
+    kiwi.y = sind(system.time()/2)*kiwi.length+player.y
+    kiwi.angle = help.getAngle(kiwi.x,kiwi.y,player.x,player.y)
+    if kiwi.out == 1 then
+      kiwi.length += 1
+      if kiwi.hits == 0 then
+        kiwi.out = 0
+        cam.shake += 0.3
+        sound.break()
+        for i=10 to 0 by -1
+          particles.push(new particle(kiwi.x,kiwi.y,random.nextInt(360),random.nextInt(4)/16,"kiwi_chunk."+random.nextInt(4),32,120,1))
+        end
+      end
+      kiwi.length = min(max(0,kiwi.length)kiwi.maxLength)
+      if keyboard.press.R == 1 and kiwi.length == kiwi.maxLength  then
+        kiwi.out = 0
+      end
+    else
+      if keyboard.press.R == 1 and kiwi.length == 0 then
+        kiwi.out = 1
+        if player.kiwi == 1 then
+          kiwi.hits = 50
+        end
+      end
+      kiwi.length -= 1
+      kiwi.length = min(max(0,kiwi.length)kiwi.maxLength)
+    end
+  end
+  
+  kiwi.draw = function()
+    screen.setDrawRotation(kiwi.angle-90)
+    for i= round(help.distance(kiwi.x,kiwi.y,player.x,player.y)/16)-1 to 1 by -1
+      screen.drawSprite("chain",cosd(kiwi.angle-180)*i*16+player.x,sind(kiwi.angle-180)*i*16+player.y,16)
+    end
+    if kiwi.hits != 0 and help.distance(kiwi.x,kiwi.y,player.x,player.y) != 0 then
+      particles.push(new particle(kiwi.x,kiwi.y,kiwi.angle,0,"swoosh",32,18,1))
+      screen.drawSprite("kiwi_food",kiwi.x,kiwi.y,32)
+    end
+    screen.setDrawRotation(0)
+    screen.fillRect(0,-70,100,20,"rgb(0,0,0)")
+    screen.fillRect(-50+kiwi.hits,-70,kiwi.hits*2,20,"rgb(0,255,0)")
+  end
+end()
+
+
+
+function()
+lime = class
+  constructor = function(x,y)
+    this.x = x
+    this.y = y
+  end
+  
+  update = function()
+    offset = 0
+    for l in limes
+      l.x -= cosd(help.getAngle(0,0,l.x,l.y))/3
+      l.y -= sind(help.getAngle(0,0,l.x,l.y))/3
+      if help.distance(kiwi.x,kiwi.y,l.x,l.y) < 32 == 1 and kiwi.hits > 0 == 1 and kiwi.out == 1 then
+        limes.removeAt(offset)
+        kiwi.hits -= 1
+        cam.shake += 0.05
+        player.score += 5
+        player.comboTimer = 30
+        player.combo += 1
+        sound.hit()
+        particles.push(new particle(l.x,l.y,help.getAngle(kiwi.x,kiwi.y,l.x,l.y),0,"lime_splat",32,30,1))
+      end
+      if help.distance(0,0,l.x,l.y) < 16 == 1 then
+        limes.removeAt(offset)
+        player.lives -= 1
+      else
+        offset += 1
+      end
+    end
+  end
+  
+  draw = function()
+    for l in limes
+      screen.drawSprite("shadow",l.x,l.y,32)
+      if player.x-l.x < 0 == 1 then 
+        screen.setDrawRotation(sind(system.time()/1.5)*15)
+      else
+        screen.setDrawRotation(-sind(system.time()/1.5)*15)
+      end
+      if  help.distance(kiwi.x,kiwi.y,l.x,l.y) < 32 and kiwi.hits > 0 == 1 then
+        screen.drawSprite("lime.1",l.x,l.y+abs(sind(system.time()/3)*15),32,32+abs(cosd(system.time()/3)*10),32)
+      else
+        screen.drawSprite("lime.0",l.x,l.y+abs(sind(system.time()/3)*15),32,32+abs(cosd(system.time()/3)*10),32)
+      end
+      screen.setDrawRotation(0)
+    end
+  end
+end
+end()
+
+
+
+function()
+init = function()
+  start = 0
+  offset = 300
+  player.init()
+  kiwi.init()
+  limes = []
+  particles = []
+  bosses = []
+  cam = object
+    shake = 0
+    zoom = 0.1
+  end
+  sound.hit()
+end
+
+update = function()
+  if start == 1 then
+    player.update()
+    lime.update()
+    kiwi.update()
+    particle.update()
+    boss.update()
+    offset = 0
+    elsif start == 0 then
+    offset -= 0.7
+    if offset < -640 == 1 or mouse.press == 1 then
+      start = 1
+      for i=100 to 0 by -1
+      after i seconds do
+        limes.push(new lime(cosd(random.nextInt(360))*400,sind(random.nextInt(360))*400))
+        bosses.push(new boss(5,32,0.10,cosd(random.nextInt(360))*400,sind(random.nextInt(360))*400))
+      end
+    end
+    end
+    elsif start == 2 then
+      audio.cancelBeeps()
+      if cam.zoom == 0.1 then
+        sound.win()
+      end
+     cam.zoom += cam.zoom/30
+     if cam.zoom > 10000 == 1 then
+       init()
+      end
+  end
+  cam.shake += (0-cam.shake)/10
+  if player.lives == 0 or player.score > 1485 == 1 and bosses.length+limes.length == 0  then
+    start = 2
+  end
+end
+
+draw = function()
+  screen.setScale(sind(system.time())*cam.shake+1+cam.zoom,cosd(system.time())*cam.shake+1+cam.zoom)
+  screen.clear("rgb(197,95,44)")
+  if start == 1 or start == 2 then
+    screen.drawText("Score: "+player.score,0,75,40,"rgb(255,255,255)")
+    particle.draw()
+    player.draw()
+    lime.draw()
+    boss.draw()
+    kiwi.draw()
+  elsif start == 0 then
+    screen.clear("rgb(0,0,0)")
+    for i=2 to 0 by -1
+      screen.drawSprite("orgin."+i,i*180+offset,0,175)
+    end
+  end
+  screen.setLineWidth(0.01)
+  screen.fillRect(0,0,0.1,0.1,"rgb(0,0,0)")
+  screen.drawText("Score:"+player.score,0,0.3,0.094,"rgb(255,255,255)")
+  screen.drawTextOutline("Score:"+player.score,0,0.3,0.094,"rgb(0,0,0)")
+  if player.score < 1485 == 1 then 
+    screen.drawText("Game Over",0,0.1,0.094,"rgb(255,255,255)")
+    screen.drawTextOutline("Game Over",0,0.1,0.094,"rgb(0,0,0)")
+  else
+    screen.drawText("You Won",0,0.1,0.094,"rgb(255,255,255)")
+    screen.drawTextOutline("You Won",0,0.1,0.094,"rgb(0,0,0)")
+  end
+end
+end()
+
+
+
+function()
+particle = class
+  constructor = function(x,y,dir,speed,sprite,size,times,ocupacity)
+   this.x = x
+   this.y = y
+   this.speed = speed
+   this.sprite = sprite
+   this.size = size
+   this.dir = dir
+   this.times = times-1
+   if ocupacity == 1 then
+   this.ocupacity_time = 1 / (times-1)
+   else
+   this.ocupacity_time = 0
+   end
+   this.ocupacity = 1
+  end
+  
+  update = function()
+    off = 0
+    for p in particles
+      p.ocupacity -= p.ocupacity_time
+      p.x += cosd(p.dir)*p.speed
+      p.y += sind(p.dir)*p.speed
+      if p.times < 0 == 1 then
+        particles.removeAt(off)
+      end
+      p.times -= 1
+      off += 1
+    end
+  end
+  
+  draw = function()
+    for p in particles
+      screen.setDrawRotation(p.dir)
+      screen.setAlpha(max(p.ocupacity,0))
+      screen.drawSprite(p.sprite,p.x-cam.x,p.y-cam.y,p.size)
+    end
+    screen.setDrawRotation(0)
+    screen.setAlpha(1)
+  end
+end
+end()
+
+
+
+function()
+player = object
+  init = function()
+    player.x = 0
+    player.y = 0
+    player.vx = 0
+    player.vy = 0
+    player.moving = 0
+    player.dir = 0
+    player.lives = 3
+    player.kiwi = 1
+    player.score = 0
+    player.combo = 0
+    player.comboTimer = 0
+  end
+
+  update = function()
+    if player.comboTimer != 0 then
+      player.comboTimer -= 1
+      player.combo = min(6,player.combo)
+      else
+      player.comboTimer = 0
+      player.combo = 0
+    end
+    player.move(keyboard.RIGHT-keyboard.LEFT,keyboard.UP-keyboard.DOWN)
+  end
+
+  draw = function()
+    for i=player.lives-1 to 0 by -1
+      screen.drawSprite("shadow",sind(i*120)*5,-cosd(i*120)*5+5,32)
+      screen.drawSprite("egg",sind(i*120)*5,-cosd(i*120)*5,32)
+    end
+    screen.drawSprite("shadow",player.x,player.y,32)
+    if player.moving == 1 then
+      screen.setDrawRotation(sind(system.time())*20)
+      screen.drawSprite("leg",player.x-3,player.y-5,1.6)
+      screen.setDrawRotation(sind(system.time()-180)*20)
+      screen.drawSprite("leg",player.x+3,player.y-5,1.6)
+    else
+      screen.setDrawRotation(0)
+      screen.drawSprite("leg",player.x-3,player.y-5,1.6)
+      screen.drawSprite("leg",player.x+3,player.y-5,1.6)
+    end
+    if player.moving == 1 then
+      screen.setDrawRotation(sind(system.time()-90)*10)
+    end
+    screen.drawSprite("kiwi."+player.dir,player.x,player.y,32,32+sind(system.time())*2)
+    screen.setDrawRotation(0)
+  end
+
+  move = function(joyX,joyY)
+    player.moving = 0
+    player.vx += joyX/2
+    player.vy += joyY/2
+    player.x += player.vx
+    player.y += player.vy
+    player.vx /= 1.35
+    player.vy /= 1.35
+    if abs(joyX)+abs(joyY) > 0 == 1 then
+      player.moving = 1
+    end
+    if abs(joyX) != 0 then
+      player.dir = joyX
+    end
+  end
+end
+end()
+
+
+
+function()
+sound = object end
+sound.hit = function()
+  audio.beep("square tempo 320 volume 30 span 100 C"+(player.combo+2)+"")
+end
+
+sound.break = function()
+  audio.beep("square tempo 800 volume 80 span 100 D3")
+  audio.beep("square tempo 800 volume 80 span 100 C3")
+  audio.beep("square tempo 800 volume 80 span 100 B3")
+end
+
+sound.die = function()
+  audio.beep("noise tempo 1000 volume 80 span 100 C3")
+end
+
+sound.win = function()
+  audio.beep("square tempo 800 volume 80 span 100 E4")
+  audio.beep("square tempo 800 volume 80 span 100 C4")
+  audio.beep("square tempo 800 volume 80 span 100 A4")
+end
+end()
+
+
+</script></html>
