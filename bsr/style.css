@@ -1,0 +1,245 @@
+@import url('https://fonts.cdnfonts.com/css/fake-receipt');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+body {
+    display: grid;
+    place-items: center;
+    cursor: url(images/cursor_xp_point.png), auto;
+    background-image: url(images/background.png);
+    height: 100dvh;
+    overflow: hidden;
+    color: white;
+    font-family: 'Fake Receipt', sans-serif;
+    text-align: center;
+}
+
+#filter {
+    -webkit-backdrop-filter: sepia(.8) hue-rotate(330deg) saturate(.6) contrast(3);
+    -moz-backdrop-filter: sepia(.8) hue-rotate(330deg) saturate(.6) contrast(3);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999999;
+    backdrop-filter: sepia(.8) hue-rotate(330deg) saturate(.6) contrast(3);
+    background-color: rgba(0, 0, 0, .2);
+    pointer-events: none;
+}
+
+#game {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+#display {
+    position: fixed;
+    top: 8rem;
+    right: .5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    z-index: 9999;
+    border-radius: 6px;
+    background-color: white;
+    padding: 1rem;
+    width: calc(100% - 1rem);
+    max-width: 400px;
+    color: black;
+    line-height: 1.5;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 auto;
+    border-radius: 6px;
+    padding: .5rem 1rem;
+    width: fit-content;
+    color: #03FF22;
+}
+
+.charge {
+    width: 1rem;
+
+}
+
+.player.active {
+    background-color: #444;
+}
+
+#table {
+    position: relative;
+    position: relative;
+    z-index: 99;
+    margin-block: 2rem;
+    background: url(images/tabletop-border.png);
+    background-size: contain;
+    padding: 1rem;
+}
+
+#table::before {
+    position: absolute;
+    z-index: -99;
+    inset: 1rem;
+    box-shadow: inset 0 0 20px #00000099;
+    background: url(images/tabletop-felt.png);
+    background-size: cover;
+    content: '';
+}
+
+.field,
+#middle-divider {
+    opacity: 0 !important;
+}
+
+.field {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-inline: 1rem;
+    width: 100%;
+}
+
+.item-field-wrapper {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    margin-block: 1rem;
+    border: 1px solid white;
+    width: fit-content;
+}
+
+.item-field {
+    border: 1px solid white;
+    width: 60px;
+    height: 90px;
+}
+
+.item-box {
+    border: 2px solid white;
+    width: 90px;
+    height: 50px;
+}
+
+#middle-divider {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: #444;
+    height: 2px;
+    pointer-events: none;
+}
+
+#ammo-field-wrapper {
+    display: flex;
+    display: grid;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 2px;
+    transform: translateY(-50%);
+    border: 2px solid white;
+    background-color: black;
+    padding: 2px;
+    width: 122px;
+    height: 30px;
+}
+
+.ammo-field {
+    border: 2px solid white;
+    height: 1rem;
+    height: 100%;
+}
+
+#shotgun-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: -10rem 2rem;
+    border: 2px solid #ffffff50;
+    border-radius: 50%;
+    aspect-ratio: 1;
+}
+
+#shotgun {
+    rotate: -75deg;
+    z-index: 999;
+    filter: drop-shadow(0 0 10px black);
+    transition: scale .2s, transform .4s, rotate .3s, filter .2s;
+    cursor: url(images/cursor_xp_hover.png), auto;
+    overflow: visible;
+}
+
+#shotgun img {
+    width: 256px;
+}
+
+#shotgun.animate-shoot-blank {
+    animation: shoot-blank .4s ease-in-out;
+}
+
+#shotgun.animate-shoot-live::after {
+    opacity: 1;
+}
+
+#shotgun.animate-shoot-live {
+    animation: shoot-live .4s ease-in-out;
+}
+
+@keyframes shoot-blank {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes shoot-live {
+    from {
+        scale: 1.2;
+        filter: drop-shadow(0 0 10px red);
+    }
+}
+
+#shotgun[data-aim="1"] {
+    rotate: 90deg;
+}
+
+#shotgun[data-aim="2"] {
+    rotate: -90deg;
+}
+
+#shotgun:hover {
+    scale: 1.1;
+    filter: drop-shadow(0 0 15px black);
+
+}
+
+.action-button {
+    display: block;
+    z-index: 99;
+    transition: scale .2s;
+    cursor: url(images/cursor_xp_hover.png), auto;
+    border: none;
+    background-color: transparent;
+    padding: 1rem;
+    width: 100%;
+    color: black;
+    font: inherit;
+    font-size: 1.5rem;
+}
+
+.action-button:hover {
+    scale: 1.1;
+}
