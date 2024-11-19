@@ -135,3 +135,61 @@
 
     </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Underbar Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        /* Underbar style */
+        .underbar {
+            background-color: #333; /* Dark grey background */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Text on the left */
+        .underbar .text {
+            color: white;
+            font-size: 18px;
+        }
+
+        /* Red bubble-like button */
+        .underbar .button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50%; /* Makes it circular */
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none; /* Remove underline */
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .underbar .button:hover {
+            background-color: darkred; /* Change to dark red on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Underbar -->
+    <div class="underbar">
+        <div class="text">Your Text Here</div>
+        <a href="hey.html" class="button">Go</a>
+    </div>
+
+</body>
+</html>
