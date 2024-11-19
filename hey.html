@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertical Menu</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        #menu-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menu-option {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            font-size: 2rem;
+            margin: 10px 0;
+            background-color: #222;
+            border-radius: 10px;
+            opacity: 0.6;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .menu-option.focused {
+            opacity: 1;
+            transform: scale(1.1);
+            background-color: #444;
+        }
+
+        #mobile-controls {
+            display: none;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .control-button {
+            padding: 15px;
+            font-size: 1.5rem;
+            color: white;
+            background-color: red;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            outline: none;
+        }
+
+        .control-button:active {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu-container">
+        <div class="menu-option focused" data-link="gamepage.html">Games</div>
+        <div class="menu-option" data-link="page2.html">Not Finished</div>
+        <div class="menu-option" data-link="page3.html">Not finished</div>
+    </div>
+
+    <div id="mobile-controls">
+        <button class="control-button" id="up-button">↑</button>
+        <button class="control-button" id="enter-button">✓</button>
+        <button class="control-button" id="down-button">↓</button>
+    </div>
+
+    <script>
+        const options = document.querySelectorAll(".menu-option");
+        const mobileControls = document.getElementById("mobile-controls");
+        const upButton = document.getElementById("up-button");
+        const downButton = document.getElementById("down-button");
+        const enterButton = document.getElementById("enter-button");
+
+        let currentIndex = 0;
+
+        // Detect if the user is on a mobile device
+        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+        if (isMobile) {
+            mobileControls.style.display = "flex";
+
+            upButton.addEventListener("click", () => switchOption(-1));
+            downButton.addEventListener("click", () => switchOption(1));
+            enterButton.addEventListener("click", () => selectOption());
+        } else {
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "ArrowUp") {
+                    switchOption(-1);
+                } else if (e.key === "ArrowDown") {
+                    switchOption(1);
+                } else if (e.key === "Enter") {
+                    selectOption();
+                }
+            });
+        }
+
+        function switchOption(direction) {
+            // Remove focus from the current option
+            options[currentIndex].classList.remove("focused");
+
+            // Calculate the new index
+            currentIndex = (currentIndex + direction + options.length) % options.length;
+
+            // Add focus to the new option
+            options[currentIndex].classList.add("focused");
+        }
+
+        function selectOption() {
+            const selectedLink = options[currentIndex].getAttribute("data-link");
+            window.location.href = selectedLink; // Redirect to the selected page
+        }
+    </script>
+</body>
+</html>
