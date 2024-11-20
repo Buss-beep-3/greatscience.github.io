@@ -40,23 +40,27 @@
         /* Menu container */
         .menu {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             margin-top: 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 0 10px;
         }
 
         .icon-container {
-            display: flex;
+            display: inline-flex;
             gap: 20px;
         }
 
         .icon {
             background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
+            padding: 18px;
             border-radius: 15px;
             text-align: center;
             color: white;
             cursor: pointer;
             transition: transform 0.2s, outline 0.2s;
+            font-size: 1.2em; /* Increased font size */
         }
 
         .icon:hover, .icon.selected {
@@ -152,6 +156,15 @@
             actionButton.onclick = () => {
                 window.location.href = selectedIcon.getAttribute("data-link");
             };
+            
+            // Scroll to make selected icon visible
+            const container = document.getElementById("icons");
+            const iconWidth = selectedIcon.offsetWidth + 20; // Including the gap between icons
+            const scrollPosition = selectedIndex * iconWidth;
+            container.scrollTo({
+                left: scrollPosition,
+                behavior: "smooth"
+            });
         }
 
         // Handle desktop navigation
