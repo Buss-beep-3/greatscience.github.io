@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Icon Menu</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Background gradient */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #2e2e2e, #d3d3d3);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Glitter effect */
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        #glitter {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Menu container */
+        .menu {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .icon-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s, outline 0.2s;
+        }
+
+        .icon:hover, .icon.selected {
+            transform: scale(1.2);
+            outline: 2px solid white;
+        }
+
+        /* Details section */
+        .details {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            max-width: 800px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .text h1 {
+            margin-bottom: 5px;
+        }
+
+        .text p {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .action-button {
+            background: #2e2e2e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.2s, outline 0.2s;
+        }
+
+        .action-button:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+
+        .action-button:hover:not(:disabled),
+        .action-button:focus:not(:disabled) {
+            outline: 2px solid white;
+        }
+
+        .action-button:focus {
+            outline: 2px solid white;
+        }
+    </style>
+</head>
+<body>
+    <div id="background">
+        <canvas id="glitter"></canvas>
+    </div>
+    <div class="menu">
+        <div class="icon-container" id="icons">
+            <div class="icon" data-name="Icon 1" data-description="This is the description of Icon 1" data-link="page1.html">Icon 1</div>
+            <div class="icon" data-name="Icon 2" data-description="This is the description of Icon 2" data-link="page2.html">Icon 2</div>
+            <div class="icon" data-name="Icon 3" data-description="This is the description of Icon 3" data-link="page3.html">Icon 3</div>
+        </div>
+    </div>
+    <div class="details">
+        <div class="text">
+            <h1 id="icon-name">Icon Name</h1>
+            <p id="icon-description">Icon Description</p>
+        </div>
+        <button id="action-button" class="action-button" disabled>Play Game</button>
+    </div>
+    <script>
+        const icons = document.querySelectorAll(".icon");
+        const nameElement = document.getElementById("icon-name");
+        const descriptionElement = document.getElementById("icon-description");
+        const actionButton = document.getElementById("action-button");
+
+        let selectedIndex = 0;
+
+        // Update selected icon
+        function updateSelection(index) {
+            icons.forEach((icon, i) => {
+                icon.classList.toggle("selected", i === index);
+            });
+            const selectedIcon = icons[index];
+            nameElement.textContent = selectedIcon.getAttribute("data-name");
+            descriptionElement.textContent = selectedIcon.getAttribute("data-description");
+            actionButton.disabled = false;
+            actionButton.onclick = () => {
+                window.location.href = selectedIcon.getAttribute("data-link");
+            };
+        }
+
+        // Handle desktop navigation
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft") {
+                selectedIndex = (selectedIndex > 0) ? selectedIndex - 1 : icons.length - 1;
+            } else if (e.key === "ArrowRight") {
+                selectedIndex = (selectedIndex + 1) % icons.length;
+            } else if (e.key === "Enter") {
+                if (!actionButton.disabled) actionButton.click();
+            }
+            updateSelection(selectedIndex);
+        });
+
+        // Handle mobile navigation
+        let touchStartX = 0;
+        document.addEventListener("touchstart", (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.addEventListener("touchend", (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            if (touchEndX < touchStartX - 50) {
+                selectedIndex = (selectedIndex + 1) % icons.length;
+            } else if (touchEndX > touchStartX + 50) {
+                selectedIndex = (selectedIndex > 0) ? selectedIndex - 1 : icons.length - 1;
+            }
+            updateSelection(selectedIndex);
+        });
+
+        // Allow button focus selection
+        actionButton.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                actionButton.click();
+            }
+        });
+
+        updateSelection(selectedIndex);
+
+        // Glitter animation
+        const canvas = document.getElementById("glitter");
+        const ctx = canvas.getContext("2d");
+
+        let particles = [];
+        const particleCount = 50;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function createParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2,
+                    speed: Math.random() * 0.5,
+                    opacity: Math.random()
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                ctx.fill();
+                p.y += p.speed;
+                if (p.y > canvas.height) p.y = 0;
+            });
+            requestAnimationFrame(drawParticles);
+        }
+
+        createParticles();
+        drawParticles();
+    </script>
+</body>
+</html>

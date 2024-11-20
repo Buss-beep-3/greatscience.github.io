@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #2c2c2c, #d3d3d3);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .title {
+      font-size: 3em;
+      color: white;
+      margin-bottom: 50px;
+    }
+
+    .circle-container {
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+    }
+
+    .circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, outline 0.3s;
+      cursor: pointer;
+    }
+
+    .circle.add-user {
+      border: 2px solid white;
+      background: transparent;
+    }
+
+    .circle.blinkk {
+      background: black;
+    }
+
+    .circle-text {
+      color: white;
+      margin-top: 10px;
+      font-size: 1.2em;
+    }
+
+    .circle.focused {
+      transform: scale(1.2);
+      outline: 3px solid white;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 10%;
+      left: 10%;
+      width: 80%;
+      height: 80%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      z-index: 1000;
+      border-radius: 15px;
+    }
+
+    .overlay input {
+      padding: 10px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .overlay button {
+      background: #888;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .overlay button:hover {
+      background: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <div class="title">Login</div>
+    <div class="circle-container" id="circleContainer">
+      <div class="circle add-user" data-name="addUser">
+        <div class="circle-text">Add User</div>
+      </div>
+      <div class="circle blinkk" data-name="blinkk">
+        <div class="circle-text">Blinkk</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="passwordOverlay">
+    <input type="password" placeholder="Enter Password" id="passwordField">
+    <button onclick="submitPassword()">Submit</button>
+  </div>
+
+  <script>
+    let currentFocus = 0; // Index of the currently focused circle
+    const circles = document.querySelectorAll('.circle');
+    const passwordOverlay = document.getElementById('passwordOverlay');
+    const passwordField = document.getElementById('passwordField');
+
+    function updateFocus() {
+      circles.forEach((circle, index) => {
+        circle.classList.toggle('focused', index === currentFocus);
+      });
+    }
+
+    function handleEnter() {
+      const focusedCircle = circles[currentFocus];
+      const name = focusedCircle.dataset.name;
+
+      if (name === 'blinkk') {
+        passwordOverlay.style.display = 'flex';
+        passwordField.focus();
+      } else if (name === 'addUser') {
+        alert('Add User functionality not implemented.');
+      }
+    }
+
+    function submitPassword() {
+      if (passwordField.value === 'OneOfOne') {
+        passwordOverlay.style.display = 'none';
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+          window.location.href = 'home.html'; // Redirect to the new page
+        }, 1000);
+      } else {
+        alert('Incorrect password!');
+      }
+    }
+
+    // Key navigation for PC/Chromebook
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        currentFocus = (currentFocus - 1 + circles.length) % circles.length;
+        updateFocus();
+      } else if (e.key === 'ArrowRight') {
+        currentFocus = (currentFocus + 1) % circles.length;
+        updateFocus();
+      } else if (e.key === 'Enter') {
+        handleEnter();
+      }
+    });
+
+    // Swipe navigation for mobile
+    let startX = 0;
+    document.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      const endX = e.changedTouches[0].clientX;
+      if (endX < startX - 50) { // Swipe left
+        currentFocus = (currentFocus + 1) % circles.length;
+        updateFocus();
+      } else if (endX > startX + 50) { // Swipe right
+        currentFocus = (currentFocus - 1 + circles.length) % circles.length;
+        updateFocus();
+      }
+    });
+
+    // Initial focus state
+    updateFocus();
+
+    // Clicking a circle activates it
+    circles.forEach((circle, index) => {
+      circle.addEventListener('click', () => {
+        currentFocus = index;
+        updateFocus();
+        handleEnter();
+      });
+    });
+  </script>
+</body>
+</html>

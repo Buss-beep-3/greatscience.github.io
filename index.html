@@ -1,122 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-    <script src="/assets/js/cloaker.js"></script>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 3s forwards;
-        }
-
-        .fade-in-delay {
-            opacity: 0;
-            animation: fadeIn 2s forwards;
-            animation-delay: 4s; /* Delay to start after the title animation */
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        h1 {
-            text-align: center;
-            margin: 0;
-        }
-
-        #welcome-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 50%;
-            text-align: center;
-        }
-
-        #blink-center {
-            color: red;
-            font-size: 5rem; /* Bigger text for button */
-            animation-delay: 1s; /* Delayed to follow the first text */
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            outline: none;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        #blink-center:hover {
-            transform: scale(1.1);
-            color: #ff6666; /* Slightly lighter red on hover */
-        }
-
-        #button-container {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: blue;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlayStation Intro</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: black;
+    }
+    #black-screen, #transition-screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 2s ease-in-out;
+    }
+    #black-screen {
+      background-color: black;
+      opacity: 1;
+    }
+    #transition-screen {
+      background: linear-gradient(to bottom, darkgrey, lightgrey);
+      opacity: 0;
+    }
+    #logo {
+      max-width: 200px;
+      opacity: 1;
+    }
+    #click-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 24px;
+      text-align: center;
+      opacity: 0;
+      animation: fadein 2s forwards;
+      animation-delay: 2s;
+    }
+    @keyframes fadein {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-    <div id="welcome-container">
-        <h1 class="fade-in">Welcome to the</h1>
-        <button id="blink-center" class="fade-in">Blink Center</button>
-    </div>
+  <!-- Black Screen -->
+  <div id="black-screen">
+    <img id="logo" src="playstation.png" alt="PlayStation Logo">
+  </div>
 
-    <script>
-        const blinkCenterButton = document.getElementById("blink-center");
+  <!-- Transition Screen -->
+  <div id="transition-screen" onclick="fadeToBlack()">
+    <div id="click-text">Click anywhere</div>
+  </div>
 
-        // Handle button click
-        blinkCenterButton.addEventListener("click", () => {
-            document.body.style.animation = "fadeOut 2s forwards";
-            setTimeout(() => {
-                window.location.href = "passwordpage.html"; // Replace with your desired HTML file
-            }, 2000);
-        });
-    </script>
+  <script>
+    // Fade out black screen and fade in transition screen
+    setTimeout(() => {
+      document.getElementById("black-screen").style.opacity = 0;
+      document.getElementById("transition-screen").style.opacity = 1;
+    }, 5000);
+
+    // Fade to black and navigate to another page
+    function fadeToBlack() {
+      document.body.style.transition = "background-color 2s ease-in-out";
+      document.body.style.backgroundColor = "black";
+      document.getElementById("transition-screen").style.opacity = 0;
+
+      setTimeout(() => {
+        window.location.href = "login.html"; // Replace with your desired HTML file
+      }, 2000);
+    }
+  </script>
 </body>
 </html>
