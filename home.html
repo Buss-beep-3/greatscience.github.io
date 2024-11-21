@@ -126,72 +126,7 @@
     </style>
 </head>
 <body>
-const icons = document.querySelectorAll(".icon");
-const nameElement = document.getElementById("icon-name");
-const descriptionElement = document.getElementById("icon-description");
-const actionButton = document.getElementById("action-button");
 
-let selectedIndex = 0;
-let focusedOnButton = false;
-
-function updateSelection(index) {
-    icons.forEach((icon, i) => {
-        icon.classList.toggle("selected", i === index);
-    });
-
-    const selectedIcon = icons[index];
-    nameElement.textContent = selectedIcon.getAttribute("data-name");
-    descriptionElement.textContent = selectedIcon.getAttribute("data-description");
-    actionButton.disabled = false;
-    actionButton.onclick = () => {
-        window.location.href = selectedIcon.getAttribute("data-link");
-    };
-}
-
-function ensureIconVisible(index) {
-    const container = document.getElementById("icons");
-    const selectedIcon = icons[index];
-
-    if (selectedIcon) {
-        const containerRect = container.getBoundingClientRect();
-        const iconRect = selectedIcon.getBoundingClientRect();
-
-        // Check if the icon is outside the visible area of the container
-        if (iconRect.left < containerRect.left || iconRect.right > containerRect.right) {
-            const offset = iconRect.left - containerRect.left;
-            container.scrollBy({
-                left: offset,
-                behavior: "smooth",
-            });
-        }
-    }
-}
-
-document.addEventListener("keydown", (e) => {
-    if (!focusedOnButton) {
-        if (e.key === "ArrowRight") {
-            selectedIndex = (selectedIndex + 1) % icons.length;
-            updateSelection(selectedIndex);
-            ensureIconVisible(selectedIndex);
-        } else if (e.key === "ArrowLeft") {
-            selectedIndex = (selectedIndex - 1 + icons.length) % icons.length;
-            updateSelection(selectedIndex);
-            ensureIconVisible(selectedIndex);
-        } else if (e.key === "ArrowDown") {
-            // Move focus to the Play Game button
-            actionButton.focus();
-            focusedOnButton = true;
-        }
-    } else if (e.key === "ArrowUp") {
-        // Move focus back to the icons
-        icons[selectedIndex].focus();
-        focusedOnButton = false;
-    }
-
-    if (e.key === "Enter" && focusedOnButton) {
-        actionButton.click();
-    }
-});
     <div id="background">
         <canvas id="glitter"></canvas>
     </div>
