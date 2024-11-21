@@ -70,8 +70,8 @@
         }
 
         .icon {
-            width: 240px; /* 2x bigger */
-            height: 240px; /* 2x bigger */
+            width: 60px; /* 2x smaller */
+            height: 60px; /* 2x smaller */
             flex-shrink: 0;
             cursor: pointer;
             border-radius: 15px;
@@ -133,39 +133,16 @@
         .action-button:focus, .action-button:hover:not(:disabled) {
             outline: 2px solid white;
         }
-
-        .search-bar-container {
-            position: fixed;
-            top: 50px;
-            width: 100%;
-            padding: 10px;
-            display: none;
-            justify-content: center;
-        }
-
-        .search-bar {
-            width: 80%;
-            padding: 10px;
-            font-size: 1.2em;
-            border-radius: 5px;
-            border: 2px solid #ccc;
-        }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="header-left">
             <span id="games">Games</span>
-            <span id="media">Media</span>
         </div>
         <div class="header-right">
             <span id="time"></span>
-            <span id="search-button" class="search-button">Search</span>
         </div>
-    </div>
-
-    <div class="search-bar-container" id="search-bar-container">
-        <input type="text" id="search-bar" class="search-bar" placeholder="Search for icons...">
     </div>
 
     <div class="menu">
@@ -291,13 +268,9 @@
         const nameElement = document.getElementById("icon-name");
         const descriptionElement = document.getElementById("icon-description");
         const actionButton = document.getElementById("action-button");
-        const searchButton = document.getElementById("search-button");
-        const searchBarContainer = document.getElementById("search-bar-container");
-        const searchBar = document.getElementById("search-bar");
         const timeElement = document.getElementById("time");
 
         let selectedIndex = 0;
-        let focusedOnButton = false;
 
         function updateSelection(index) {
             icons.forEach((icon, i) => {
@@ -333,36 +306,20 @@
             timeElement.textContent = now.toLocaleTimeString();
         }
 
-        searchButton.addEventListener("click", () => {
-            searchBarContainer.style.display = searchBarContainer.style.display === "flex" ? "none" : "flex";
-        });
-
-        searchBar.addEventListener("input", (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            icons.forEach(icon => {
-                const name = icon.getAttribute("data-name").toLowerCase();
-                icon.style.display = name.includes(searchTerm) ? "block" : "none";
-            });
-        });
-
         document.addEventListener("keydown", (e) => {
-            if (!focusedOnButton) {
-                if (e.key === "ArrowRight") {
-                    selectedIndex = (selectedIndex + 1) % icons.length;
-                    updateSelection(selectedIndex);
-                } else if (e.key === "ArrowLeft") {
-                    selectedIndex = (selectedIndex - 1 + icons.length) % icons.length;
-                    updateSelection(selectedIndex);
-                } else if (e.key === "ArrowDown") {
-                    actionButton.focus();
-                    focusedOnButton = true;
-                }
+            if (e.key === "ArrowRight") {
+                selectedIndex = (selectedIndex + 1) % icons.length;
+                updateSelection(selectedIndex);
+            } else if (e.key === "ArrowLeft") {
+                selectedIndex = (selectedIndex - 1 + icons.length) % icons.length;
+                updateSelection(selectedIndex);
+            } else if (e.key === "ArrowDown") {
+                actionButton.focus();
             } else if (e.key === "ArrowUp") {
                 icons[selectedIndex].focus();
-                focusedOnButton = false;
             }
 
-            if (e.key === "Enter" && focusedOnButton) {
+            if (e.key === "Enter" && document.activeElement === actionButton) {
                 actionButton.click();
             }
         });
