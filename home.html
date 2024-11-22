@@ -88,7 +88,7 @@
             justify-content: space-between;
             padding: 20px;
             position: fixed;
-            bottom: 120px;
+            bottom: 160px;
             width: 100%;
             max-width: 800px;
             left: 50%;
@@ -139,7 +139,7 @@
 
     <div class="menu">
         <div class="icon-container" id="icons">
-            <div class="icon" data-name="Old website" data-description="For the OGd" data-link="thehackersarebacktohauntmeyshgfvdbdfcbdgfb.html">
+            <div class="icon" data-name="Old website" data-description="For the OGs" data-link="thehackersarebacktohauntmeyshgfvdbdfcbdgfb.html">
                 <img src="playstation.png" alt="Icon 1">
             </div>
     <div class="menu">
@@ -263,6 +263,8 @@
         const timeElement = document.getElementById("time");
 
         let selectedIndex = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
 
         function updateSelection(index) {
             icons.forEach((icon, i) => {
@@ -298,6 +300,20 @@
             timeElement.textContent = now.toLocaleTimeString();
         }
 
+        function handleSwipe() {
+            const swipeDistance = touchEndX - touchStartX;
+
+            if (swipeDistance > 50) {
+                // Swipe Right
+                selectedIndex = (selectedIndex - 1 + icons.length) % icons.length;
+                updateSelection(selectedIndex);
+            } else if (swipeDistance < -50) {
+                // Swipe Left
+                selectedIndex = (selectedIndex + 1) % icons.length;
+                updateSelection(selectedIndex);
+            }
+        }
+
         document.addEventListener("keydown", (e) => {
             if (e.key === "ArrowRight") {
                 selectedIndex = (selectedIndex + 1) % icons.length;
@@ -314,6 +330,15 @@
             if (e.key === "Enter" && document.activeElement === actionButton) {
                 actionButton.click();
             }
+        });
+
+        document.addEventListener("touchstart", (e) => {
+            touchStartX = e.changedTouches[0].clientX;
+        });
+
+        document.addEventListener("touchend", (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
         });
 
         setInterval(updateTime, 1000);
